@@ -1,18 +1,15 @@
-package provided;
+package src;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * This class is responsible for tokenizing Jott code.
  * 
  * @author Group 6
  **/
-
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.File; 
-import java.io.FileNotFoundException;
 
 public class JottTokenizer {
 
@@ -24,15 +21,17 @@ public class JottTokenizer {
      */
     public static ArrayList<Token> tokenize(String filename) {
         ArrayList<Token> tokens = new ArrayList<>();
+        int lineNum = 0;
 		try {
             File jottFile = new File(filename);
             Scanner scanner = new Scanner(jottFile);
             while (scanner.hasNextLine()) {
+                lineNum++;
                 String data = scanner.nextLine();
-                char[] characters = data.split();
+                char[] characters = data.toCharArray();
                 int index = 0;
-                while(index < character.length) {
-                    // giant if else ladder of doom
+                while(index < characters.length) {
+                    // Giant if else
                 }             
             }
             scanner.close();
@@ -40,6 +39,7 @@ public class JottTokenizer {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+        return tokens;
 	}
 
 }
