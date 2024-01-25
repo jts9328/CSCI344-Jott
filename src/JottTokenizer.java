@@ -30,16 +30,10 @@ public class JottTokenizer {
             while (scanner.hasNextLine()) {
                 String data = scanner.nextLine();
                 char[] characters = data.split();
-
-                tokens = commentsBracketsSemicolon(tokens);
-
-                tokens = number(tokens);
-
-                tokens = operators(tokens);
-
-                tokens = idKeywordHeader(tokens);
-
-                tokens = string(tokens);                
+                int index = 0;
+                while(index < character.length) {
+                    // giant if else ladder of doom
+                }             
             }
             scanner.close();
         } catch (FileNotFoundException e) {
@@ -48,23 +42,4 @@ public class JottTokenizer {
         }
 	}
 
-    public static ArrayList<Token> commentsBracketsSemicolon(ArrayList<Token> tokens) {
-        return tokens;
-    }
-
-    public static ArrayList<Token> number(ArrayList<Token> tokens) {
-        return tokens;
-    }
-
-    public static ArrayList<Token> operators(ArrayList<Token> tokens) {
-        return tokens;
-    }
-
-    public static ArrayList<Token> idKeywordHeader(ArrayList<Token> tokens) {
-        return tokens;
-    }
-
-    public static ArrayList<Token> string(ArrayList<Token> tokens) {
-        return tokens;
-    }
 }
