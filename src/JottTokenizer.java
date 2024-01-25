@@ -23,6 +23,7 @@ public class JottTokenizer {
      * @return an ArrayList of Jott Tokens
      */
     public static ArrayList<Token> tokenize(String filename) {
+        ArrayList<Token> tokens = new ArrayList<>();
 		try {
             File jottFile = new File(filename);
             Scanner scanner = new Scanner(jottFile);
@@ -30,15 +31,15 @@ public class JottTokenizer {
                 String data = scanner.nextLine();
                 char[] characters = data.split();
 
-                commentsBracketsSemicolon();
+                tokens = commentsBracketsSemicolon(tokens);
 
-                number();
+                tokens = number(tokens);
 
-                operators();
+                tokens = operators(tokens);
 
-                idKeywordHeader();
+                tokens = idKeywordHeader(tokens);
 
-                string();                
+                tokens = string(tokens);                
             }
             scanner.close();
         } catch (FileNotFoundException e) {
@@ -47,23 +48,23 @@ public class JottTokenizer {
         }
 	}
 
-    public static void commentsBracketsSemicolon() {
-
+    public static ArrayList<Token> commentsBracketsSemicolon(ArrayList<Token> tokens) {
+        return tokens;
     }
 
-    public static void number() {
-
+    public static ArrayList<Token> number(ArrayList<Token> tokens) {
+        return tokens;
     }
 
-    public static void operators() {
-
+    public static ArrayList<Token> operators(ArrayList<Token> tokens) {
+        return tokens;
     }
 
-    public static void idKeywordHeader() {
-
+    public static ArrayList<Token> idKeywordHeader(ArrayList<Token> tokens) {
+        return tokens;
     }
 
-    public static void string() {
-
+    public static ArrayList<Token> string(ArrayList<Token> tokens) {
+        return tokens;
     }
 }
