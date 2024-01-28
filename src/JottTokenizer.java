@@ -32,6 +32,26 @@ public class JottTokenizer {
                 int index = 0;
                 while(index < characters.length) {
                     // Giant if else
+                    // String Tokenization
+                    if(characters[index] == '\"'){
+                        int startIndex = index;
+                        index++;
+                        // Find closing quote
+                        while(index < characters.length && characters[index] != '\"'){
+                            index++;
+                        }
+                        // Closing quote found, create token
+                        if (index < characters.length){
+                            String stringToken = data.substring(startIndex, index + 1);
+                            tokens.add(new Token(stringToken, filename, lineNum, TokenType.STRING));
+                            index++;
+                        }
+                        // Handle error, no closing quote
+                        else{
+                            System.out.println("Error: String literal not closed on line " + lineNum);
+                            break;
+                        }
+                    }
                 }             
             }
             scanner.close();
