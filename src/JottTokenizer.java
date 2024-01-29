@@ -32,7 +32,89 @@ public class JottTokenizer {
                 int index = 0;
                 while(index < characters.length) {
                     // Giant if else
-                }             
+                    //Math operations
+                    if (characters[index] == '+') {
+                        tokens.add(new Token("+", filename, lineNum, TokenType.MATH_OP));
+                        index++;
+                    }
+                    if (characters[index] == '-') {
+                        tokens.add(new Token("-", filename, lineNum, TokenType.MATH_OP));
+                        index++;
+                    }
+                    if (characters[index] == '*') {
+                        tokens.add(new Token("*", filename, lineNum, TokenType.MATH_OP));
+                        index++;
+                    }
+                    if (characters[index] == '/') {
+                        tokens.add(new Token("/", filename, lineNum, TokenType.MATH_OP));
+                        index++;
+                    }
+                    //assign and == operation
+                    if (characters[index] == '=') {
+                        index++;
+                        if (index < characters.length) {
+                            if (characters[index] == '=') {
+                                tokens.add(new Token("==", filename, lineNum, TokenType.REL_OP));
+                                index++;
+                            }
+                            else {
+                                tokens.add(new Token("=", filename, lineNum, TokenType.ASSIGN));
+                            }
+                        }
+                        else {
+                            tokens.add(new Token("=", filename, lineNum, TokenType.ASSIGN));
+                        }
+                    }
+                    //Relational Operations <>
+                    if (characters[index] == '<') {
+                        index++;
+                        if (index < characters.length) {
+                            if (characters[index] == '=') {
+                                tokens.add(new Token("<=", filename, lineNum, TokenType.REL_OP));
+                                index++;
+                            }
+                            else {
+                                tokens.add(new Token("<", filename, lineNum, TokenType.REL_OP));
+                            }
+                        }
+                        else {
+                            tokens.add(new Token("<", filename, lineNum, TokenType.REL_OP));
+                        }
+                    }
+                    if (characters[index] == '>') {
+                        index++;
+                        if (index < characters.length) {
+                            if (characters[index] == '=') {
+                                tokens.add(new Token(">=", filename, lineNum, TokenType.REL_OP));
+                                index++;
+                            }
+                            else {
+                                tokens.add(new Token(">", filename, lineNum, TokenType.REL_OP));
+                            }
+                        }
+                        else {
+                            tokens.add(new Token(">", filename, lineNum, TokenType.REL_OP));
+                        }
+                    }
+                    //Relational Operation != 
+                    if (characters[index] == '!') {
+                        index++;
+                        if (index < characters.length) {
+                            if (characters[index] == '=') {
+                                tokens.add(new Token("!=", filename, lineNum, TokenType.REL_OP));
+                                index++;
+                            }
+                            else {
+                                System.out.println("Error: Expecting = after ! " + lineNum);
+                                break;
+                            }
+                        }
+                        else {
+                            Sytem.out.println("Error: Expecting = after ! " + lineNum);
+                            break;
+                        }
+                    }
+                }
             }
             scanner.close();
         } catch (FileNotFoundException e) {
