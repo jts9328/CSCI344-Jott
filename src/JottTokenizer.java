@@ -110,7 +110,7 @@ public class JottTokenizer {
                             }
                         }
                         else {
-                            Sytem.out.println("Error: Expecting = after ! " + lineNum);
+                            System.out.println("Error: Expecting = after ! " + lineNum);
                             break;
                         }
                     }
