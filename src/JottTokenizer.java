@@ -34,6 +34,7 @@ public class JottTokenizer {
                     // Giant if else
 
                     // Colon & Function Header
+                    
                     if(characters[index] == ':'){
                         index++;
                         if(index < characters.length && characters[index] == ':'){
@@ -42,6 +43,21 @@ public class JottTokenizer {
                             tokens.add(new Token(":", filename, lineNum, TokenType.COLON));
                             index++;
                         }
+                    }
+                    // keyword/ID tokenizer
+                    else if(Character.isLetter(characters[index])){                     // Double check if .isLetter accepts the same as rubric
+                        System.out.print(characters[index]);
+                        int startIndex= index;
+                        index++;
+                        while(index<characters.length && (Character.isLetter(characters[index]) || Character.isDigit(characters[index]))){
+                            System.out.print(characters[index]);
+                            index++;
+                        }
+                        String ID_KeywordToken = data.substring(startIndex, index);
+                        tokens.add(new Token(ID_KeywordToken, filename, lineNum, TokenType.ID_KEYWORD));
+                    }
+                    else{
+                        index++;
                     }
                 }             
             }
