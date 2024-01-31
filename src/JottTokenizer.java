@@ -32,6 +32,17 @@ public class JottTokenizer {
                 int index = 0;
                 while(index < characters.length) {
                     // Giant if else
+
+                    // Colon & Function Header
+                    if(characters[index] == ':'){
+                        index++;
+                        if(index < characters.length && characters[index] == ':'){
+                            tokens.add(new Token("::", filename, lineNum, TokenType.FC_HEADER));
+                        } else {
+                            tokens.add(new Token(":", filename, lineNum, TokenType.COLON));
+                            index++;
+                        }
+                    }
                 }             
             }
             scanner.close();
