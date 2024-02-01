@@ -80,9 +80,9 @@ public class JottTokenizer {
                         index++;
                         if (index < characters.length && characters[index] == ':') {
                             tokens.add(new Token("::", filename, lineNum, TokenType.FC_HEADER));
+                            index++;
                         } else {
                             tokens.add(new Token(":", filename, lineNum, TokenType.COLON));
-                            index++;
                         }
                     }
                     // keyword/ID tokenizer
@@ -220,6 +220,7 @@ public class JottTokenizer {
                         }
                     } else {
                         System.out.println("Error: Unexcepted token " + characters[index] + " on line " + lineNum);
+                        index++;
                     }
                 }
             }
