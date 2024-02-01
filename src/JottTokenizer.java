@@ -141,8 +141,8 @@ public class JottTokenizer {
                         }
                         // Handle error, no closing quote
                         else {
-                            System.err.println("Syntax Error\nString literal expects following '\"'\n" + filename + ".jott:" + lineNum);
-                            break;
+                            System.err.println("Syntax Error\nString literal expects following '\"'\n" + filename + ":" + lineNum);
+                            return null;
                         }
                     }
                     // Math operations
