@@ -34,6 +34,50 @@ public class JottTokenizer {
                 int index = 0;
                 while (index < characters.length) {
                     // Giant if else
+                    // Whitespace
+                    if(characters[index] == ' ') {
+                        index++;
+                    }
+                    // Comments
+                    else if(characters[index] == '#') {
+                        while(index < characters.length && characters[index] != '\n') {
+                            index++;
+                        }
+                        index++;
+                    }
+                    // Comma
+                    else if(characters[index] == ',') {
+                        tokens.add(new Token(",", filename, lineNum, TokenType.COMMA));
+                        index++;
+                    }
+                    // Right Bracket
+                    else if(characters[index] == ']') {
+                        tokens.add(new Token("]", filename, lineNum, TokenType.R_BRACKET));
+                        index++;
+                    }
+                    // Left Bracket
+                    else if(characters[index] == '[') {
+                        tokens.add(new Token("[", filename, lineNum, TokenType.L_BRACKET));
+                        index++;
+                    }
+                    // Right Brace
+                    else if(characters[index] == '}') {
+                        tokens.add(new Token("}", filename, lineNum, TokenType.R_BRACE));
+                        index++;
+                    }
+                    // Left Brace
+                    else if(characters[index] == '{') {
+                        tokens.add(new Token("{", filename, lineNum, TokenType.L_BRACE));
+                        index++;
+                    }
+                    // Semicolon
+                    else if(characters[index] == ';') {
+                        tokens.add(new Token(";", filename, lineNum, TokenType.SEMICOLON));
+                        index++;
+                    }
+                    else {
+                        index++;
+                    }
                     // String Tokenization
                     if (characters[index] == '\"') {
                         int startIndex = index;
