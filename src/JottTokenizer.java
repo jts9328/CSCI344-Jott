@@ -100,11 +100,11 @@ public class JottTokenizer {
                         tokens.add(new Token(ID_KeywordToken, filename, lineNum, TokenType.ID_KEYWORD));
                     } 
                     // Digit
-                    else if (Character.isDigit(characters[index])) {
+                    else if (Character.isDigit(characters[index]) || characters[index] == '.') {
                         int startIndex = index;
                         int flag = 0;
                         index++;
-                        while (Character.isDigit(characters[index]) || characters[index] == '.') {
+                        while (index < characters.length && (Character.isDigit(characters[index]) || characters[index] == '.')) {
                             index++;
                             if (characters[index] == '.') {
                                 flag = 1;
@@ -219,7 +219,7 @@ public class JottTokenizer {
                             break;
                         }
                     } else {
-                        System.out.println("Error: Unexcepted token " + lineNum);
+                        System.out.println("Error: Unexcepted token " + characters[index] + " on line " + lineNum);
                     }
                 }
             }
