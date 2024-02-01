@@ -117,7 +117,7 @@ public class JottTokenizer {
                                 break;
                             }
                             if (flag == 1) {
-                                while (Character.isDigit(characters[index])) {
+                                while (index < characters.length && Character.isDigit(characters[index])) {
                                     index++;
                                 }
                             }
