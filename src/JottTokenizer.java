@@ -220,6 +220,7 @@ public class JottTokenizer {
                         }
                     } else {
                         System.out.println("Error: Unexcepted token " + characters[index] + " on line " + lineNum);
+                        index++;
                     }
                 }
             }
