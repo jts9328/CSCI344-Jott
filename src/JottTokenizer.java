@@ -218,11 +218,11 @@ public class JottTokenizer {
                                 index++;
                             } else {
                                 System.err.println("Syntax Error\nExpecting = after !\n" + filename + ":" + lineNum);
-                                break;
+                                return null;
                             }
                         } else {
                             System.err.println("Syntax Error\nExpecting = after !\n" + filename + ":" + lineNum);
-                            break;
+                            return null;
                         }
                     } else {
                         System.out.println("Error: Unexcepted token " + characters[index] + " on line " + lineNum);
