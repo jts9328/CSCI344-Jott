@@ -102,27 +102,33 @@ public class JottTokenizer {
                     // Digit
                     else if (Character.isDigit(characters[index]) || characters[index] == '.') {
                         int startIndex = index;
-                        int flag = 0;
+                        int decimalTrue = 0;
+                        if (characters[index] == '.') {
+                            decimalTrue = 1;
+                        }
                         index++;
-                        while (index < characters.length && (Character.isDigit(characters[index]) || characters[index] == '.')) {
+                        while (index < characters.length && (Character.isDigit(characters[index]) || (characters[index] == '.' && decimalTrue == 0)) ) {
                             index++;
+                            if ( index < characters.length && characters[index] == '.') {
+                                decimalTrue = 1;
+                                break;
+                            }
+                        }
+                        if (decimalTrue == 1 && index < characters.length) {
                             if (characters[index] == '.') {
-                                flag = 1;
-                                break;
+                                return null;
                             }
-                            if (flag == 1) {
-                                while (index < characters.length && Character.isDigit(characters[index])) {
-                                    index++;
-                                }
-                            }
-                            if (index < characters.length) {
-                                String token = data.substring(startIndex, index + 1);
-                                tokens.add(new Token(token, filename, lineNum, TokenType.NUMBER));
+                            while (index < characters.length && Character.isDigit(characters[index])) {
                                 index++;
-                            } else {
-                                System.out.println("Error: Number token error" + lineNum);
-                                break;
                             }
+                        }
+                        if (index < characters.length) {
+                            String token = data.substring(startIndex, index + 1);
+                            tokens.add(new Token(token, filename, lineNum, TokenType.NUMBER));
+                            index++;
+                        } else {
+                            System.out.println("Error: Number token error" + lineNum);
+                            break;
                         }
                     }
                     // String Tokenization
