@@ -32,6 +32,32 @@ public class JottTokenizer {
                 int index = 0;
                 while(index < characters.length) {
                     // Giant if else
+                    if (Character.isDigit(characters[index])){
+                        int startIndex = index;
+                        int flag = 0;
+                        index++;
+                        while(Character.isDigit(characters[index]) || characters[index] == '.'){
+                            index++;
+                            if(characters[index] == '.'){
+                                flag = 1;
+                                break;
+                            }
+                        if(flag == 1){
+                            while(Character.isDigit(characters[index])){
+                                index++;
+                            }
+                        }
+                        if (index < characters.length){
+                            String token = data.substring(startIndex, index + 1);
+                            tokens.add(new Token(token, filename, lineNum, TokenType.NUMBER));
+                            index++;
+                        }
+                        else{
+                            System.out.println("Error: Number token error" + lineNum);
+                            break;
+                        }
+                        }
+                    }
                 }             
             }
             scanner.close();
