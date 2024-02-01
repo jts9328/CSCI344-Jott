@@ -35,74 +35,100 @@ public class JottTokenizer {
                 while (index < characters.length) {
                     // Giant if else
                     // Whitespace
-                    if(characters[index] == ' ') {
+                    if (characters[index] == ' ') {
                         index++;
                     }
                     // Comments
-                    else if(characters[index] == '#') {
-                        while(index < characters.length && characters[index] != '\n') {
+                    else if (characters[index] == '#') {
+                        while (index < characters.length && characters[index] != '\n') {
                             index++;
                         }
                         index++;
                     }
                     // Comma
-                    else if(characters[index] == ',') {
+                    else if (characters[index] == ',') {
                         tokens.add(new Token(",", filename, lineNum, TokenType.COMMA));
                         index++;
                     }
                     // Right Bracket
-                    else if(characters[index] == ']') {
+                    else if (characters[index] == ']') {
                         tokens.add(new Token("]", filename, lineNum, TokenType.R_BRACKET));
                         index++;
                     }
                     // Left Bracket
-                    else if(characters[index] == '[') {
+                    else if (characters[index] == '[') {
                         tokens.add(new Token("[", filename, lineNum, TokenType.L_BRACKET));
                         index++;
                     }
                     // Right Brace
-                    else if(characters[index] == '}') {
+                    else if (characters[index] == '}') {
                         tokens.add(new Token("}", filename, lineNum, TokenType.R_BRACE));
                         index++;
                     }
                     // Left Brace
-                    else if(characters[index] == '{') {
+                    else if (characters[index] == '{') {
                         tokens.add(new Token("{", filename, lineNum, TokenType.L_BRACE));
                         index++;
                     }
                     // Semicolon
-                    else if(characters[index] == ';') {
+                    else if (characters[index] == ';') {
                         tokens.add(new Token(";", filename, lineNum, TokenType.SEMICOLON));
                         index++;
+                    } else {
+                        index++;
                     }
-                    else {
+                    // Keyword
+                    // Colon & Function Header
+
+                    if (characters[index] == ':') {
+                        index++;
+                        if (index < characters.length && characters[index] == ':') {
+                            tokens.add(new Token("::", filename, lineNum, TokenType.FC_HEADER));
+                        } else {
+                            tokens.add(new Token(":", filename, lineNum, TokenType.COLON));
+                            index++;
+                        }
+                    }
+                    // keyword/ID tokenizer
+                    else if (Character.isLetter(characters[index])) { // Double check if .isLetter accepts the same as
+                                                                      // rubric
+                        System.out.print(characters[index]);
+                        int startIndex = index;
+                        index++;
+                        while (index < characters.length
+                                && (Character.isLetter(characters[index]) || Character.isDigit(characters[index]))) {
+                            System.out.print(characters[index]);
+                            index++;
+                        }
+                        String ID_KeywordToken = data.substring(startIndex, index);
+                        tokens.add(new Token(ID_KeywordToken, filename, lineNum, TokenType.ID_KEYWORD));
+                    } else {
                         index++;
                     }
                     // Digit
-                    if (Character.isDigit(characters[index])){
+                    if (Character.isDigit(characters[index])) {
                         int startIndex = index;
                         int flag = 0;
                         index++;
-                        while(Character.isDigit(characters[index]) || characters[index] == '.'){
+                        while (Character.isDigit(characters[index]) || characters[index] == '.') {
                             index++;
-                            if(characters[index] == '.'){
+                            if (characters[index] == '.') {
                                 flag = 1;
                                 break;
                             }
-                        if(flag == 1){
-                            while(Character.isDigit(characters[index])){
-                                index++;
+                            if (flag == 1) {
+                                while (Character.isDigit(characters[index])) {
+                                    index++;
+                                }
                             }
-                        }
-                        if (index < characters.length){
-                            String token = data.substring(startIndex, index + 1);
-                            tokens.add(new Token(token, filename, lineNum, TokenType.NUMBER));
-                            index++;
-                        }
-                        else{
-                            System.out.println("Error: Number token error" + lineNum);
-                            break;
-                        }
+                            if (index < characters.length) {
+                                String token = data.substring(startIndex, index + 1);
+                                tokens.add(new Token(token, filename, lineNum, TokenType.NUMBER));
+                                index++;
+                            } else {
+                                System.out.println("Error: Number token error" + lineNum);
+                                break;
+                            }
                         }
                     }
                     // String Tokenization
