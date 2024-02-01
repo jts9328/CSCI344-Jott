@@ -74,13 +74,9 @@ public class JottTokenizer {
                     else if (characters[index] == ';') {
                         tokens.add(new Token(";", filename, lineNum, TokenType.SEMICOLON));
                         index++;
-                    } else {
-                        index++;
                     }
-                    // Keyword
                     // Colon & Function Header
-
-                    if (characters[index] == ':') {
+                    else if (characters[index] == ':') {
                         index++;
                         if (index < characters.length && characters[index] == ':') {
                             tokens.add(new Token("::", filename, lineNum, TokenType.FC_HEADER));
@@ -102,11 +98,9 @@ public class JottTokenizer {
                         }
                         String ID_KeywordToken = data.substring(startIndex, index);
                         tokens.add(new Token(ID_KeywordToken, filename, lineNum, TokenType.ID_KEYWORD));
-                    } else {
-                        index++;
-                    }
+                    } 
                     // Digit
-                    if (Character.isDigit(characters[index])) {
+                    else if (Character.isDigit(characters[index])) {
                         int startIndex = index;
                         int flag = 0;
                         index++;
@@ -132,7 +126,7 @@ public class JottTokenizer {
                         }
                     }
                     // String Tokenization
-                    if (characters[index] == '\"') {
+                    else if (characters[index] == '\"') {
                         int startIndex = index;
                         index++;
                         // Find closing quote
@@ -152,24 +146,24 @@ public class JottTokenizer {
                         }
                     }
                     // Math operations
-                    if (characters[index] == '+') {
+                    else if (characters[index] == '+') {
                         tokens.add(new Token("+", filename, lineNum, TokenType.MATH_OP));
                         index++;
                     }
-                    if (characters[index] == '-') {
+                    else if (characters[index] == '-') {
                         tokens.add(new Token("-", filename, lineNum, TokenType.MATH_OP));
                         index++;
                     }
-                    if (characters[index] == '*') {
+                    else if (characters[index] == '*') {
                         tokens.add(new Token("*", filename, lineNum, TokenType.MATH_OP));
                         index++;
                     }
-                    if (characters[index] == '/') {
+                    else if (characters[index] == '/') {
                         tokens.add(new Token("/", filename, lineNum, TokenType.MATH_OP));
                         index++;
                     }
                     // assign and == operation
-                    if (characters[index] == '=') {
+                    else if (characters[index] == '=') {
                         index++;
                         if (index < characters.length) {
                             if (characters[index] == '=') {
@@ -183,7 +177,7 @@ public class JottTokenizer {
                         }
                     }
                     // Relational Operations <>
-                    if (characters[index] == '<') {
+                    else if (characters[index] == '<') {
                         index++;
                         if (index < characters.length) {
                             if (characters[index] == '=') {
@@ -196,7 +190,7 @@ public class JottTokenizer {
                             tokens.add(new Token("<", filename, lineNum, TokenType.REL_OP));
                         }
                     }
-                    if (characters[index] == '>') {
+                    else if (characters[index] == '>') {
                         index++;
                         if (index < characters.length) {
                             if (characters[index] == '=') {
@@ -210,7 +204,7 @@ public class JottTokenizer {
                         }
                     }
                     // Relational Operation !=
-                    if (characters[index] == '!') {
+                    else if (characters[index] == '!') {
                         index++;
                         if (index < characters.length) {
                             if (characters[index] == '=') {
@@ -224,6 +218,8 @@ public class JottTokenizer {
                             System.out.println("Error: Expecting = after ! " + lineNum);
                             break;
                         }
+                    } else {
+                        System.out.println("Error: Unexcepted token " + lineNum);
                     }
                 }
             }
