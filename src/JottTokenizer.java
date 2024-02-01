@@ -211,11 +211,11 @@ public class JottTokenizer {
                                 tokens.add(new Token("!=", filename, lineNum, TokenType.REL_OP));
                                 index++;
                             } else {
-                                System.out.println("Error: Expecting = after ! " + lineNum);
+                                System.err.println("Syntax Error\nExpecting = after !\n" + filename + ":" + lineNum);
                                 break;
                             }
                         } else {
-                            System.out.println("Error: Expecting = after ! " + lineNum);
+                            System.err.println("Syntax Error\nExpecting = after !\n" + filename + ":" + lineNum);
                             break;
                         }
                     } else {
