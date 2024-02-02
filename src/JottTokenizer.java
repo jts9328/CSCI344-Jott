@@ -107,6 +107,7 @@ public class JottTokenizer {
                             decimalTrue = 1;
                         }
                         index++;
+                        System.out.println(characters[index-1] + " " + startIndex + " " + index);
                         while (index < characters.length && (Character.isDigit(characters[index]) || (characters[index] == '.' && decimalTrue == 0)) ) {
                             index++;
                             if ( index < characters.length && characters[index] == '.') {
@@ -116,19 +117,22 @@ public class JottTokenizer {
                         }
                         if (decimalTrue == 1 && index < characters.length) {
                             if (characters[index] == '.') {
+                                System.err.println("Syntax Error\nInvalid Number: '..'" + filename + ":" + lineNum);
                                 return null;
                             }
                             while (index < characters.length && Character.isDigit(characters[index])) {
                                 index++;
                             }
+                        } else if(decimalTrue == 1){
+                            System.err.println("Syntax Error\nInvalid Number: '.'" + filename + ":" + lineNum);
+                            return null;
                         }
-                        if (index < characters.length) {
-                            String token = data.substring(startIndex, index + 1);
+                        if (index <= characters.length) {
+                            String token = data.substring(startIndex, index);
                             tokens.add(new Token(token, filename, lineNum, TokenType.NUMBER));
-                            index++;
                         } else {
-                            System.out.println("Error: Number token error" + lineNum);
-                            break;
+                            System.err.println("Syntax Error\nUnexpected Character in Number Token" + filename + ":" + lineNum);
+                            return null;
                         }
                     }
                     // String Tokenization
