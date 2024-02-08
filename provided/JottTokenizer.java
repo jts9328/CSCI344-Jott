@@ -1,4 +1,4 @@
-package src;
+package provided;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -87,7 +87,6 @@ public class JottTokenizer {
                     }
                     // keyword/ID tokenizer
                     else if (Character.isLetter(characters[index])) {
-                        System.out.print(characters[index]);
                         int startIndex = index;
                         index++;
                         while (index < characters.length

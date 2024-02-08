@@ -13,9 +13,9 @@ package testers;
 
 import java.util.ArrayList;
 
-import src.JottTokenizer;
-import src.Token;
-import src.TokenType;
+import provided.JottTokenizer;
+import provided.Token;
+import provided.TokenType;
 
 public class JottTokenizerTester {
 

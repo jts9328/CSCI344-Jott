@@ -13,10 +13,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import src.JottParser;
-import src.JottTokenizer;
-import src.JottTree;
-import src.Token;
+import provided.JottParser;
+import provided.JottTokenizer;
+import provided.JottTree;
+import provided.Token;
 
 public class JottParserTester {
     ArrayList<TestCase> testCases;
