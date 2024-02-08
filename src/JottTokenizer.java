@@ -86,8 +86,7 @@ public class JottTokenizer {
                         }
                     }
                     // keyword/ID tokenizer
-                    else if (Character.isLetter(characters[index])) { // Double check if .isLetter accepts the same as
-                                                                      // rubric
+                    else if (Character.isLetter(characters[index])) {
                         System.out.print(characters[index]);
                         int startIndex = index;
                         index++;
@@ -103,10 +102,12 @@ public class JottTokenizer {
                     else if (Character.isDigit(characters[index]) || characters[index] == '.') {
                         int startIndex = index;
                         int decimalTrue = 0;
+                        // if starts with .
                         if (characters[index] == '.') {
                             decimalTrue = 1;
                         }
                         index++;
+                        // while a whole number (and first decimal)
                         while (index < characters.length && (Character.isDigit(characters[index]) || (characters[index] == '.' && decimalTrue == 0)) ) {
                             index++;
                             if ( index < characters.length && characters[index] == '.') {
@@ -115,10 +116,12 @@ public class JottTokenizer {
                             }
                         }
                         if (decimalTrue == 1 && index < characters.length) {
+                            // two decimal check
                             if (characters[index] == '.') {
                                 System.err.println("Syntax Error\nInvalid Number: '..'" + filename + ":" + lineNum);
                                 return null;
                             }
+                            // accept decimal digits
                             while (index < characters.length && Character.isDigit(characters[index])) {
                                 index++;
                             }
