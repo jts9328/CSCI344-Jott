@@ -92,7 +92,6 @@ public class JottTokenizer {
                         index++;
                         while (index < characters.length
                                 && (Character.isLetter(characters[index]) || Character.isDigit(characters[index]))) {
-                            System.out.print(characters[index]);
                             index++;
                         }
                         String ID_KeywordToken = data.substring(startIndex, index);
