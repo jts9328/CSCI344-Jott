@@ -107,7 +107,6 @@ public class JottTokenizer {
                             decimalTrue = 1;
                         }
                         index++;
-                        System.out.println(characters[index-1] + " " + startIndex + " " + index);
                         while (index < characters.length && (Character.isDigit(characters[index]) || (characters[index] == '.' && decimalTrue == 0)) ) {
                             index++;
                             if ( index < characters.length && characters[index] == '.') {
