@@ -1,0 +1,31 @@
+#Gian
+< program > -> < function_def >? < EOF >
+< function_def > -> Def <id >[ func_def_params ]: < function_return >{ < f_body >}
+< func_def_params > -> <id >: < type > < function_def_params_t >? | ε
+< func_def_params_t > -> ,<id >: < type >
+
+#Jack
+< body_stmt > -> < if_stmt > | < while_loop > | < asmt > | < func_call >;
+< return_stmt > -> Return < expr >; | ε
+< body > -> < body_stmt >? < return_stmt >
+< f_body > -> < var_dec >? < body >
+
+#Dylan
+< if_stmt > -> If [ < expr >]{ < body >} < elseif_lst >? < else >
+< else > -> Else { < body >} | ε
+< elseif > -> Elseif [ < expr >]{ < body >}
+< while_loop > -> While [ < expr >]{ < body >}
+
+#Ryan
+< func_call > -> :: < id >[ < params >]
+< params > -> < expr > < params_t >? | ε
+< params_t > -> ,< expr >
+< type > -> Double | Integer | String | Boolean
+< function_return > -> < type > | Void
+
+#Ethan
+< var_dec > -> < type > < id >;
+< asmt > -> <id >= < expr >;
+< bool > -> True | False
+< operand > -> <id > | <num > | < func_call > | -< num >
+< expr > -> < operand > | < operand > < relop > < operand > | < operand > < mathop > < operand > | < string_literal > | < bool >
