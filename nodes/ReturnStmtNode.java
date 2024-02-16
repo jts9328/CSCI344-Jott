@@ -1,8 +1,8 @@
-package provided.Nodes;
+package nodes;
 
 import provided.JottTree;
 
-public class BodyNode implements JottTree{
+public class ReturnStmtNode implements JottTree{
 
     @Override
     public String convertToJott() {

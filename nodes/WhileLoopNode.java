@@ -1,8 +1,8 @@
-package provided.Nodes;
+package nodes;
 
 import provided.JottTree;
 
-public class ExprNode implements JottTree{
+public class WhileLoopNode implements JottTree{
 
     @Override
     public String convertToJott() {

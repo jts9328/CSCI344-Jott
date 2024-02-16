@@ -1,8 +1,8 @@
-package provided.Nodes;
+package nodes;
 
 import provided.JottTree;
 
-public class FBodyNode implements JottTree{
+public class ElseIfNode implements JottTree{
 
     @Override
     public String convertToJott() {

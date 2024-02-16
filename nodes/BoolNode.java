@@ -1,8 +1,8 @@
-package provided.Nodes;
+package nodes;
 
 import provided.JottTree;
 
-public class FunctionDefNode implements JottTree{
+public class BoolNode implements JottTree{
 
     @Override
     public String convertToJott() {
