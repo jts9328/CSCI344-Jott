@@ -16,6 +16,7 @@ public class IdNode implements JottTree {
 
     public static IdNode parseId(ArrayList<Token> tokens) {
         if (tokens == null || tokens.isEmpty()) {
+            // TODO Throw exception instead of NULL
             return null; // No tokens to parse
         }
 
@@ -25,10 +26,12 @@ public class IdNode implements JottTree {
         if (token.getTokenType() == TokenType.ID_KEYWORD) {
             // Create an IdNode with the token's value
             IdNode node = new IdNode(token);
+            tokens.remove(0);
             return node;
         } else {
             // Token is not an identifier; handle error or return null
             System.err.println("Expected ID, found: " + token.getTokenType());
+            // TODO Throw exception instead of NULL
             return null;
         }
     }
