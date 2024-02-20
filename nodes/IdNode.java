@@ -20,13 +20,12 @@ public class IdNode implements JottTree {
             return null; // No tokens to parse
         }
 
-        Token token = tokens.get(0);
+        Token token = tokens.remove(0);
 
         // Check if the first token is of type ID
         if (token.getTokenType() == TokenType.ID_KEYWORD) {
             // Create an IdNode with the token's value
             IdNode node = new IdNode(token);
-            tokens.remove(0);
             return node;
         } else {
             // Token is not an identifier; handle error or return null
