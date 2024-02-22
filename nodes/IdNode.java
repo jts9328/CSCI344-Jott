@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Gian
  **/
 
-public class IdNode implements JottTree {
+public class IdNode extends ExprNode {
     private Token token;
 
     // ID Constructor
@@ -22,7 +22,7 @@ public class IdNode implements JottTree {
         this.token = token;
     }
 
-    public static IdNode parseId(ArrayList<Token> tokens) {
+    public static IdNode parseId(ArrayList<Token> tokens) throws SyntaxErrorException {
         if (!tokens.isEmpty()) {
             Token token = tokens.remove(0);
 
