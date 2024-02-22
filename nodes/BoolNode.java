@@ -1,5 +1,6 @@
 package nodes;
 
+import provided.JottParser;
 import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
@@ -37,7 +38,7 @@ public class BoolNode implements JottTree{
             else throw new SyntaxErrorException("Expected Bool Value in" + boolToken.getFilename() + " at " + boolToken.getLineNum() + ", found: " + boolToken.getTokenType(), boolToken);
         }
         // Throw Exception since Token is not a valid Boolean Keyword
-        else throw new SyntaxErrorException("Unexpected End of File");
+        else throw new SyntaxErrorException("Unexpected End of File", JottParser.lastToken);
     }
 
     @Override
