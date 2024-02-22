@@ -6,6 +6,9 @@ import provided.TokenType;
 
 import java.util.ArrayList;
 
+import exceptions.SyntaxErrorException;
+
+
 public class ProgramNode implements JottTree {
     // An ArrayList to hold zero or more FunctionDefNodes
     private final ArrayList<FunctionDefNode> functionDefs;
@@ -19,7 +22,7 @@ public class ProgramNode implements JottTree {
         }
     }
 
-    public static ProgramNode parseProgram(ArrayList<Token> tokens) {
+    public static ProgramNode parseProgram(ArrayList<Token> tokens) throws SyntaxErrorException {
 
         return null;
     }

@@ -20,7 +20,7 @@ public class FunctionDefNode implements JottTree {
         this.fBody = fBody;
     }
 
-    public static FunctionDefNode ParseFuncDef(ArrayList<Token> tokens){
+    public static FunctionDefNode ParseFuncDef(ArrayList<Token> tokens) {
         
         return null;
     }

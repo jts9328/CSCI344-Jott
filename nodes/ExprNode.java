@@ -1,8 +1,16 @@
 package nodes;
 
-import provided.JottTree;
+import java.util.ArrayList;
 
-public class ExprNode implements JottTree{
+import exceptions.SyntaxErrorException;
+import provided.JottTree;
+import provided.Token;
+
+public class ExprNode implements JottTree {
+
+    public static ExprNode parseExprNode(ArrayList<Token> tokens) throws SyntaxErrorException{
+        return null;
+    }
 
     @Override
     public String convertToJott() {
