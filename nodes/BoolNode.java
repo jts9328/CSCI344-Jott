@@ -4,6 +4,8 @@ import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
+import exceptions.*;
+
 import java.util.ArrayList;
 
 public class BoolNode implements JottTree{
@@ -14,28 +16,28 @@ public class BoolNode implements JottTree{
        this.boolToken = value;
     }
 
-    public static BoolNode parseBoolNode(ArrayList<Token> tokens) {
-        Token boolToken = tokens.remove(0);
+    public static BoolNode parseBoolNode(ArrayList<Token> tokens) throws SyntaxErrorException{
+        if(!tokens.isEmpty()){
+            Token boolToken = tokens.remove(0);
 
-        // Checks if the token type is ID_KEYWORD
-        if(boolToken.getTokenType() != TokenType.ID_KEYWORD){
-            return null; // Temp, Replace with exception
+            // Checks if the token type is ID_KEYWORD
+            if(boolToken.getTokenType() != TokenType.ID_KEYWORD){
+                throw new SyntaxErrorException("Expected ID in" + boolToken.getFilename() + " at " + boolToken.getLineNum() + ", found: " + boolToken.getTokenType(), boolToken);
+            }
+            // IF keyword is "True" return valid BoolNode with token Value
+            else if(boolToken.getToken().equals("True")){
+                BoolNode node = new BoolNode(boolToken);
+                return node;
+            } 
+            // IF keyword is "False" return valid BoolNode with token Value
+            else if (boolToken.getToken().equals("False")){
+                BoolNode node = new BoolNode(boolToken);
+                return node;
+            }
+            else throw new SyntaxErrorException("Expected Bool Value in" + boolToken.getFilename() + " at " + boolToken.getLineNum() + ", found: " + boolToken.getTokenType(), boolToken);
         }
-        // IF keyword is "True" return valid BoolNode with token Value
-        else if(boolToken.getToken().equals("True")){
-            BoolNode node = new BoolNode(boolToken);
-            return node;
-        } 
-        // IF keyword is "False" return valid BoolNode with token Value
-        else if (boolToken.getToken().equals("False")){
-            BoolNode node = new BoolNode(boolToken);
-            return node;
-        } 
         // Throw Exception since Token is not a valid Boolean Keyword
-        else {
-            return null; // Temp, Replace with exception
-        }
-
+        else throw new SyntaxErrorException("Unexpected End of File");
     }
 
     @Override
