@@ -1,5 +1,6 @@
 package nodes;
 
+import provided.JottParser;
 import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
@@ -36,7 +37,7 @@ public class IdNode extends ExprNode {
                 throw new SyntaxErrorException("Expected ID in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
             }
         }
-        else throw new SyntaxErrorException("Unexpected End of File");
+        else throw new SyntaxErrorException("Unexpected End of File", JottParser.lastToken);
     }
 
     @Override
