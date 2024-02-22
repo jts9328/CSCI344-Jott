@@ -1,37 +1,46 @@
 package nodes;
 
+import java.util.ArrayList;
+
+import exceptions.SyntaxErrorException;
+import provided.JottParser;
 import provided.JottTree;
+import provided.Token;
+import provided.TokenType;
 
-public class BodyStmtNode implements JottTree{
+public interface BodyStmtNode extends JottTree{
 
-    @Override
-    public String convertToJott() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJott'");
+    public static BodyStmtNode parseBodyStmtNode(ArrayList<Token> tokens) throws SyntaxErrorException {
+        if (tokens == null || tokens.isEmpty()) {
+            throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
+        }
+        Token token = tokens.get(0);
+        if(token.getTokenType() == TokenType.ID_KEYWORD && token.getToken() == "If"){
+            return IfStmtNode.parseIfStmtNode(tokens);
+        } else if(token.getTokenType() == TokenType.ID_KEYWORD && token.getToken() == "While"){
+            return WhileLoopNode.parseWhileLoopNode(tokens);
+        } else if(token.getTokenType() == TokenType.ID_KEYWORD){
+            return AsmtNode.parseAsmtNode(tokens);
+        } else if(token.getTokenType() == TokenType.COLON){
+            return FunctionCallNode.parseFunctionCallNode(tokens);
+        } else{
+            throw new SyntaxErrorException("Expected Body Statement", token);
+        }
     }
 
     @Override
-    public String convertToJava(String className) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJava'");
-    }
+    public String convertToJott();
 
     @Override
-    public String convertToC() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
-    }
+    public String convertToJava(String className);
 
     @Override
-    public String convertToPython() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
-    }
+    public String convertToC();
 
     @Override
-    public boolean validateTree() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
-    }
+    public String convertToPython();
+
+    @Override
+    public boolean validateTree();
     
 }
