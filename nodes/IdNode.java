@@ -4,7 +4,15 @@ import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
+import exceptions.*;
+
 import java.util.ArrayList;
+
+/**
+ * This class is responsible for tokenizing Jott code.
+ * 
+ * @author Gian
+ **/
 
 public class IdNode implements JottTree {
     private Token token;
@@ -15,24 +23,20 @@ public class IdNode implements JottTree {
     }
 
     public static IdNode parseId(ArrayList<Token> tokens) {
-        if (tokens == null || tokens.isEmpty()) {
-            // TODO Throw exception instead of NULL
-            return null; // No tokens to parse
-        }
+        if (!tokens.isEmpty()) {
+            Token token = tokens.remove(0);
 
-        Token token = tokens.remove(0);
-
-        // Check if the first token is of type ID
-        if (token.getTokenType() == TokenType.ID_KEYWORD) {
-            // Create an IdNode with the token's value
-            IdNode node = new IdNode(token);
-            return node;
-        } else {
-            // Token is not an identifier; handle error or return null
-            System.err.println("Expected ID, found: " + token.getTokenType());
-            // TODO Throw exception instead of NULL
-            return null;
+            // Check if the first token is of type ID
+            if (token.getTokenType() == TokenType.ID_KEYWORD) {
+                // Create an IdNode with the token's value
+                IdNode node = new IdNode(token);
+                return node;
+            } else {
+                // Token is not an identifier; handle error or return null
+                throw new SyntaxErrorException("Expected ID in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
+            }
         }
+        else throw new SyntaxErrorException("Unexpected End of File");
     }
 
     @Override

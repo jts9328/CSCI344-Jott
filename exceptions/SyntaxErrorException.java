@@ -18,6 +18,10 @@ public class SyntaxErrorException extends Exception {
         this.token = token;
     }
 
+    public SyntaxErrorException(String errorMessage) {
+        super(errorMessage);
+    }
+
     public int getLineNumber() {
         return token.getLineNum();
     }
