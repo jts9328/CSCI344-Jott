@@ -3,6 +3,64 @@ package nodes;
 import provided.JottTree;
 
 public class ElseIfNode implements JottTree{
+    private ExprNode expr;
+    private BodyNode body;
+
+    // ElseIf Statement Constructor
+    public ElseIfNode(ExprNode expr, BodyNode body) {
+        this.expr = expr;
+        this.body = body;
+    }
+
+    public static ElseNode parseElseIf(ArrayList<Token> tokens) {
+        if (tokens == null || tokens.isEmpty()) {
+            // TODO Throw exception instead of NULL
+            return null; // No tokens to parse
+        }
+
+        Token token = tokens.remove(0);
+        if (token.getToken().equals("Elseif")) {
+            //check for left bracket
+            token = token.remove(0);
+            if (token.getTokenType() != TokenType.L_BRACKET) {
+                System.err.println("Expected L_BRACKET, found: " + token.getTokenType())
+                // TODO Throw exception instead of NULL
+                return null;
+            }
+            //parse expression
+            ExprNode expr = ExprNode.parseExpr(tokens);
+            //check for right bracket
+            token = token.remove(0);
+            if (token.getTokenType() != TokenType.R_BRACKET) {
+                System.err.println("Expected R_BRACKET, found: " + token.getTokenType())
+                // TODO Throw exception instead of NULL
+                return null;
+            }
+
+            //check for left brace
+            token = token.remove(0);
+            if (token.getTokenType() != TokenType.L_BRACE) {
+                System.err.println("Expected L_BRACE, found: " + token.getTokenType())
+                // TODO Throw exception instead of NULL
+                return null;
+            }
+            //parse body
+            BodyNode body = BodyNode.parseBody(tokens);
+            //check for right brace
+            token = token.remove(0);
+            if (token.getTokenType() != TokenType.R_BRACE) {
+                System.err.println("Expected R_BRACE, found: " + token.getTokenType())
+                // TODO Throw exception instead of NULL
+                return null;
+            }
+
+            return new ElseIfNode(expr, body);
+        } else {
+            System.err.println("Expected Elseif, found: " + token.getToken())
+            // TODO Throw exception instead of NULL
+            return null;
+        }
+    }
 
     @Override
     public String convertToJott() {
