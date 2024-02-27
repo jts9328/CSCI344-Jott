@@ -22,7 +22,7 @@ public class StringNode extends ExprNode {
         this.token = token;
     }
 
-    public static StringNode parseId(ArrayList<Token> tokens) throws SyntaxErrorException {
+    public static StringNode parseString(ArrayList<Token> tokens) throws SyntaxErrorException {
         if (!tokens.isEmpty()) {
             Token token = tokens.remove(0);
 
