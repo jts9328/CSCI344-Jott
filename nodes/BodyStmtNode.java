@@ -18,10 +18,10 @@ public interface BodyStmtNode extends JottTree{
         Token token = tokens.get(0);
         // If check
         if(token.getTokenType() == TokenType.ID_KEYWORD && token.getToken().equals("If")){
-            return IfStmtNode.parseIfStmtNode(tokens);
+            return IfStmtNode.parseIfStmt(tokens);
         // While check
         } else if(token.getTokenType() == TokenType.ID_KEYWORD && token.getToken().equals("While")){
-            return WhileLoopNode.parseWhileLoopNode(tokens);
+            return WhileLoopNode.parseWhileLoop(tokens);
         // Assignment check
         } else if(token.getTokenType() == TokenType.ID_KEYWORD){
             return AsmtNode.parseAsmtNode(tokens);

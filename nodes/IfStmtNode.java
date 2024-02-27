@@ -1,6 +1,13 @@
 package nodes;
 
 import provided.JottTree;
+import provided.JottParser;
+import provided.Token;
+import provided.TokenType;
+
+import exceptions.*;
+
+import java.util.ArrayList;
 
 public class IfStmtNode implements JottTree{
     private ExprNode expr;
