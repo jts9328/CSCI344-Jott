@@ -19,7 +19,7 @@ public class WhileLoopNode implements JottTree{
         this.body = body;
     }
 
-    public static WhileLoopNode parseWhileLoop(ArrayList<Token> tokens) {
+    public static WhileLoopNode parseWhileLoop(ArrayList<Token> tokens) throws SyntaxErrorException {
         if (tokens == null || tokens.isEmpty()) {
             // TODO Throw exception instead of NULL
             return null; // No tokens to parse
@@ -30,7 +30,7 @@ public class WhileLoopNode implements JottTree{
             //check for left bracket
             token = tokens.remove(0);
             if (token.getTokenType() != TokenType.L_BRACKET) {
-                System.err.println("Expected L_BRACKET, found: " + token.getTokenType())
+                System.err.println("Expected L_BRACKET, found: " + token.getTokenType());
                 // TODO Throw exception instead of NULL
                 return null;
             }
@@ -39,7 +39,7 @@ public class WhileLoopNode implements JottTree{
             //check for right bracket
             token = tokens.remove(0);
             if (token.getTokenType() != TokenType.R_BRACKET) {
-                System.err.println("Expected R_BRACKET, found: " + token.getTokenType())
+                System.err.println("Expected R_BRACKET, found: " + token.getTokenType());
                 // TODO Throw exception instead of NULL
                 return null;
             }
@@ -47,7 +47,7 @@ public class WhileLoopNode implements JottTree{
             //check for left brace
             token = tokens.remove(0);
             if (token.getTokenType() != TokenType.L_BRACE) {
-                System.err.println("Expected L_BRACE, found: " + token.getTokenType())
+                System.err.println("Expected L_BRACE, found: " + token.getTokenType());
                 // TODO Throw exception instead of NULL
                 return null;
             }
@@ -56,14 +56,14 @@ public class WhileLoopNode implements JottTree{
             //check for right brace
             token = tokens.remove(0);
             if (token.getTokenType() != TokenType.R_BRACE) {
-                System.err.println("Expected R_BRACE, found: " + token.getTokenType())
+                System.err.println("Expected R_BRACE, found: " + token.getTokenType());
                 // TODO Throw exception instead of NULL
                 return null;
             }
 
             return new WhileLoopNode(expr, body);
         } else {
-            System.err.println("Expected While, found: " + token.getToken())
+            System.err.println("Expected While, found: " + token.getToken());
             // TODO Throw exception instead of NULL
             return null;
         }

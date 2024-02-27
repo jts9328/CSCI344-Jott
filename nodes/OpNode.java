@@ -1,0 +1,72 @@
+package nodes;
+
+import provided.JottParser;
+import provided.Token;
+import provided.TokenType;
+
+import exceptions.*;
+
+import java.util.ArrayList;
+
+/**
+ * Operation node in the parse tree
+ * 
+ * @author Gian
+ **/
+
+public class OpNode extends ExprNode {
+    private Token token;
+
+    // ID Constructor
+    public OpNode(Token token) {
+        this.token = token;
+    }
+
+    public static OpNode parseOp(ArrayList<Token> tokens) throws SyntaxErrorException {
+        if (!tokens.isEmpty()) {
+            Token token = tokens.remove(0);
+
+            // Check if the first token is of type REL_OP
+            if (token.getTokenType() == TokenType.REL_OP) {
+                // Create an OpNode with the token's value
+                OpNode node = new OpNode(token);
+                return node;
+            } else {
+                // Token is not an identifier; handle error or return null
+                throw new SyntaxErrorException("Expected Relational Operator in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
+            }
+        }
+        else throw new SyntaxErrorException("Unexpected End of File", JottParser.lastToken);
+    }
+
+    @Override
+    public String convertToJott() {
+        // Simply return the identifier's value for the Jott code representation
+        return this.token.getToken();
+    }
+
+    @Override
+    public String convertToJava(String className) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'convertToJava'");
+    }
+
+    @Override
+    public String convertToC() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
+    }
+
+    @Override
+    public String convertToPython() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
+    }
+
+    @Override
+    public boolean validateTree() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
+    }
+    
+}
