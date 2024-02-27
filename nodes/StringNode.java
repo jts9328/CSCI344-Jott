@@ -9,31 +9,31 @@ import exceptions.*;
 import java.util.ArrayList;
 
 /**
- * This class is responsible for tokenizing Jott code.
+ * This class represents the string node in the parse tree
  * 
  * @author Gian
  **/
 
-public class IdNode extends ExprNode {
+public class StringNode extends ExprNode {
     private Token token;
 
-    // ID Constructor
-    public IdNode(Token token) {
+    // String Constructor
+    public StringNode(Token token) {
         this.token = token;
     }
 
-    public static IdNode parseId(ArrayList<Token> tokens) throws SyntaxErrorException {
+    public static StringNode parseId(ArrayList<Token> tokens) throws SyntaxErrorException {
         if (!tokens.isEmpty()) {
             Token token = tokens.remove(0);
 
-            // Check if the first token is of type ID
-            if (token.getTokenType() == TokenType.ID_KEYWORD) {
-                // Create an IdNode with the token's value
-                IdNode node = new IdNode(token);
+            // Check if the first token is of type NUMBER
+            if (token.getTokenType() == TokenType.STRING) {
+                // Create an StringNode with the token's value
+                StringNode node = new StringNode(token);
                 return node;
             } else {
                 // Token is not an identifier; handle error or return null
-                throw new SyntaxErrorException("Expected ID in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
+                throw new SyntaxErrorException("Expected Number in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
             }
         }
         else throw new SyntaxErrorException("Unexpected End of File", JottParser.lastToken);

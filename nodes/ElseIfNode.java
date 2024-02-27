@@ -1,6 +1,13 @@
 package nodes;
 
 import provided.JottTree;
+import provided.JottParser;
+import provided.Token;
+import provided.TokenType;
+
+import exceptions.*;
+
+import java.util.ArrayList;
 
 public class ElseIfNode implements JottTree{
     private ExprNode expr;
@@ -12,51 +19,51 @@ public class ElseIfNode implements JottTree{
         this.body = body;
     }
 
-    public static ElseNode parseElseIf(ArrayList<Token> tokens) {
+    public static ElseIfNode parseElseIf(ArrayList<Token> tokens) throws SyntaxErrorException {
         if (tokens == null || tokens.isEmpty()) {
             // TODO Throw exception instead of NULL
             return null; // No tokens to parse
         }
 
         Token token = tokens.remove(0);
-        if (token.getToken().equals("Elseif")) {
+        if (token.getToken().equals("elseif")) {
             //check for left bracket
-            token = token.remove(0);
+            token = tokens.remove(0);
             if (token.getTokenType() != TokenType.L_BRACKET) {
-                System.err.println("Expected L_BRACKET, found: " + token.getTokenType())
+                System.err.println("Expected L_BRACKET, found: " + token.getTokenType());
                 // TODO Throw exception instead of NULL
                 return null;
             }
             //parse expression
-            ExprNode expr = ExprNode.parseExpr(tokens);
+            ExprNode expr = ExprNode.parseExprNode(tokens);
             //check for right bracket
-            token = token.remove(0);
+            token = tokens.remove(0);
             if (token.getTokenType() != TokenType.R_BRACKET) {
-                System.err.println("Expected R_BRACKET, found: " + token.getTokenType())
+                System.err.println("Expected R_BRACKET, found: " + token.getTokenType());
                 // TODO Throw exception instead of NULL
                 return null;
             }
 
             //check for left brace
-            token = token.remove(0);
+            token = tokens.remove(0);
             if (token.getTokenType() != TokenType.L_BRACE) {
-                System.err.println("Expected L_BRACE, found: " + token.getTokenType())
+                System.err.println("Expected L_BRACE, found: " + token.getTokenType());
                 // TODO Throw exception instead of NULL
                 return null;
             }
             //parse body
-            BodyNode body = BodyNode.parseBody(tokens);
+            BodyNode body = BodyNode.parseBodyNode(tokens);
             //check for right brace
-            token = token.remove(0);
+            token = tokens.remove(0);
             if (token.getTokenType() != TokenType.R_BRACE) {
-                System.err.println("Expected R_BRACE, found: " + token.getTokenType())
+                System.err.println("Expected R_BRACE, found: " + token.getTokenType());
                 // TODO Throw exception instead of NULL
                 return null;
             }
 
             return new ElseIfNode(expr, body);
         } else {
-            System.err.println("Expected Elseif, found: " + token.getToken())
+            System.err.println("Expected Elseif, found: " + token.getToken());
             // TODO Throw exception instead of NULL
             return null;
         }
