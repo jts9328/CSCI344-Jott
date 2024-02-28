@@ -40,17 +40,18 @@ public interface ExprNode extends JottTree {
             return BoolNode.parseBoolNode(tokens);
         }
         // if EOF check if its only an Operand
-        else if(tokens.size()<2){
+        else if(tokens.size()<3){
            return OperandNode.parseOperandNode(tokens);
         } 
         else{
             Token token2 = tokens.get(1);
             // check if next token is a valid operation
             if((token2.getTokenType()==TokenType.REL_OP) || token2.getTokenType()==TokenType.MATH_OP){
-                OperandNode.parseOperandNode(tokens);
-                OpNode.parseOp(tokens);
-                OperandNode.parseOperandNode(tokens);
-                return null; // needs fixing
+                OperandNode firstOperand = OperandNode.parseOperandNode(tokens);
+                OpNode op = OpNode.parseOp(tokens);
+                OperandNode secondOperand = OperandNode.parseOperandNode(tokens);
+                // Helper object to allow one return
+                return new ExprNodeHelper(firstOperand,op,secondOperand);
             } else { 
                 // returns only Operand if next node isn't an operation
                 return OperandNode.parseOperandNode(tokens);
