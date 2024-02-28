@@ -9,7 +9,7 @@ import exceptions.*;
 
 import java.util.ArrayList;
 
-public class BoolNode implements JottTree{
+public class BoolNode implements ExprNode{
     private Token boolToken;
 
     // Boolean Constructor
