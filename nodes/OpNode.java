@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Gian
  **/
 
-public class OpNode extends ExprNode {
+public class OpNode implements ExprNode {
     private Token token;
 
     // ID Constructor
@@ -26,8 +26,8 @@ public class OpNode extends ExprNode {
         if (!tokens.isEmpty()) {
             Token token = tokens.remove(0);
 
-            // Check if the first token is of type REL_OP
-            if (token.getTokenType() == TokenType.REL_OP) {
+            // Check if the first token is of type REL_OP or MATH_OP
+            if ((token.getTokenType() == TokenType.REL_OP) || token.getTokenType() == TokenType.MATH_OP) {
                 // Create an OpNode with the token's value
                 OpNode node = new OpNode(token);
                 return node;

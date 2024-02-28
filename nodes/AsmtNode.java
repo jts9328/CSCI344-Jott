@@ -1,13 +1,51 @@
 package nodes;
 
+import exceptions.SyntaxErrorException;
+import provided.JottParser;
 import provided.JottTree;
+import provided.Token;
+
+import java.util.ArrayList;
+
 
 public class AsmtNode implements JottTree{
+    private IdNode id;
+    private ExprNode expr;
 
+    /**
+     *  Grammar: < asmt > -> <id >= < expr >
+     * 
+     * @param id child node that is a id
+     * @param expr child node that is an expression
+     * 
+     */
+
+    public AsmtNode(IdNode id, ExprNode expr){
+        this.id = id;
+        this.expr = expr; 
+    }
+
+    /**
+     *  parses a Asmt Node with the list of remaining tokens
+     * 
+     * @param tokens                    arraylist of tokens
+     * @return                          Define AsmtNode
+     * @throws SyntaxErrorException     One of child Nodes was incorrect
+     */
+    public static AsmtNode parseAsmtNode(ArrayList<Token> tokens) throws SyntaxErrorException{
+
+        if (tokens == null || tokens.isEmpty()) {
+            throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
+        }
+        ExprNode exprNode = ExprNode.parseExprNode(tokens);
+        IdNode idNode = IdNode.parseId(tokens);
+        return new AsmtNode(idNode, exprNode);
+    }
+
+    // returns both child nodes with an "=" inbetween them
     @Override
     public String convertToJott() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJott'");
+        return id.convertToJott() + "=" + expr.convertToJott();
     }
 
     @Override

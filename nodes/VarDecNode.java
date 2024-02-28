@@ -26,7 +26,7 @@ public class VarDecNode implements JottTree{
      * parses a Variable Declaration Node given the list of remaining tokens
      * 
      * @param tokens                    arraylist of tokens
-     * @return                          Variable Declaration childrens returns
+     * @return                          Defined Variable Declaratio Node
      * @throws SyntaxErrorException     one of Child Nodes was incorrect
      */
     public static VarDecNode parseVarDecNode(ArrayList<Token> tokens) throws SyntaxErrorException{
