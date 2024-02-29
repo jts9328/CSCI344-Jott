@@ -30,7 +30,7 @@ public interface BodyStmtNode extends JottTree{
             return FunctionCallNode.parseFunctionCallNode(tokens);
         // Invalid
         } else{
-            throw new SyntaxErrorException("Expected Body Statement", token);
+            throw new SyntaxErrorException("Expected Body Statement, but got " + token.getToken(), token);
         }
     }
 

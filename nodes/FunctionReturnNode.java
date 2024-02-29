@@ -58,6 +58,7 @@ public class FunctionReturnNode implements JottTree {
         Token token = tokens.get(0); 
 
         if (token.getTokenType() == TokenType.ID_KEYWORD && token.getToken().equals("Void")) {
+            tokens.remove(0);
             return new FunctionReturnNode(token);
         } 
         

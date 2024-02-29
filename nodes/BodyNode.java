@@ -27,20 +27,25 @@ public class BodyNode implements JottTree{
         if (tokens == null || tokens.isEmpty()) {
             throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
         }
-        Token token = tokens.get(0);
         ArrayList<BodyStmtNode> bodyStmts = new ArrayList<BodyStmtNode>();
-        // loop until its a bracket or a return statement
-        while(token.getTokenType() != TokenType.R_BRACKET || (token.getTokenType() == TokenType.ID_KEYWORD && token.getToken().equals("Return"))){
+
+        // While next token is not return or ] (end of function) and token is either an id (If, While, <id> from asmt) or fc header (::)
+        while(!(tokens.get(0).getToken().equals("Return") || tokens.get(0).getTokenType() == TokenType.R_BRACE) && 
+               (tokens.get(0).getTokenType() == TokenType.ID_KEYWORD || tokens.get(0).getTokenType() == TokenType.FC_HEADER)) {
             bodyStmts.add(BodyStmtNode.parseBodyStmtNode(tokens));
         }
-        if(token.getTokenType() == TokenType.ID_KEYWORD && token.getToken().equals("Return")){
+
+        // Should be Return or }
+        Token endingToken = tokens.get(0);
+
+        if(endingToken.getTokenType() == TokenType.ID_KEYWORD && endingToken.getToken().equals("Return")){
             ReturnStmtNode returnStmt = ReturnStmtNode.parseReturnStmtNode(tokens);
             return new BodyNode(bodyStmts, returnStmt);
-        } else if(token.getTokenType() == TokenType.R_BRACKET){
+        } else if(endingToken.getTokenType() == TokenType.R_BRACE){
             ReturnStmtNode returnStmt = null;
             return new BodyNode(bodyStmts, returnStmt);
         } else{
-            throw new SyntaxErrorException("Expected Return statement or '}'", token);
+            throw new SyntaxErrorException("Expected Return statement or '}' but got " + endingToken.getToken(), endingToken);
         }
     }
     @Override
