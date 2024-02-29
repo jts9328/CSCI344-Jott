@@ -79,8 +79,7 @@ public class FunctionDefNode implements JottTree {
 
     @Override
     public String convertToJott() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJott'");
+        return "Def " + idNode.convertToJott() + "[" + functionDefParamsNode.convertToJott() + "]:" + functionReturnNode.convertToJott() + "{" + fBodyNode.convertToJott() + "}";
     }
 
 
