@@ -14,14 +14,14 @@ public class FunctionDefNode implements JottTree {
     private String id;
     private ArrayList<FunctionDefParamsNode> params;
     private String returnType;
-    private BodyNode body;
+    private FBodyNode fBody;
 
     // Constructor
-    public FunctionDefNode(String id, ArrayList<FunctionDefParamsNode> params, String returnType, BodyNode body) {
+    public FunctionDefNode(String id, ArrayList<FunctionDefParamsNode> params, String returnType, FBodyNode fBody) {
         this.id = id;
         this.params = params;
         this.returnType = returnType;
-        this.body = body;
+        this.fBody = fBody;
     }
 
     public static FunctionDefNode parseFunctionDefNode(ArrayList<Token> tokens, ArrayList<FunctionDefNode> funcDefs) throws SyntaxErrorException {
@@ -78,9 +78,9 @@ public class FunctionDefNode implements JottTree {
         }
         tokens.remove(0); // Remove the "{"
     
-        BodyNode body = BodyNode.parseBodyNode(tokens);
+        FBodyNode fBody = FBodyNode.parseFBodyNode(tokens);
     
-        return new FunctionDefNode(id, params, returnType, body);
+        return new FunctionDefNode(id, params, returnType, fBody);
     }    
 
     @Override
