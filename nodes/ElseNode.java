@@ -24,21 +24,20 @@ public class ElseNode implements JottTree{
 
     public static ElseNode parseElse(ArrayList<Token> tokens) throws SyntaxErrorException {
         if (tokens == null || tokens.isEmpty()) {
-            // TODO Throw exception instead of NULL
-            return null; // No tokens to parse
+            throw new SyntaxErrorException("No tokens available for parsing.", null);
         }
 
         Token token = tokens.get(0);
 
         //check if there is an else statement
-        if (token.getToken().equals("else")) {
+        if (token.getToken().equals("Else")) {
             token = tokens.remove(0); //remove else token
             //parse body
             BodyNode body = BodyNode.parseBodyNode(tokens);
             return new ElseNode(body);
         } else {
             // Token is not an identifier; handle error or return null
-            throw new SyntaxErrorException("Expected ID in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
+            throw new SyntaxErrorException("Expected Else in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getToken(), token);
         }
     }
 

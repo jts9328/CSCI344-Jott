@@ -25,52 +25,40 @@ public class IfStmtNode implements BodyStmtNode{
 
     public static IfStmtNode parseIfStmt(ArrayList<Token> tokens) throws SyntaxErrorException {
         if (tokens == null || tokens.isEmpty()) {
-            // TODO Throw exception instead of NULL
-            return null; // No tokens to parse
+            throw new SyntaxErrorException("No tokens available for parsing.", null);
         }
 
         Token token = tokens.remove(0);
 
         // Check if the first token is If
         if (token.getToken().equals("If")) {
-            //Throw error if 'if' keyword is not found
-            System.err.println("Expected If, found: " + token.getToken());
-            // TODO Throw exception instead of NULL
-            return null;
+            throw new SyntaxErrorException("Expected If in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getToken(), token);
         }
 
         //check for left bracket
         token = tokens.remove(0);
         if (token.getTokenType() != TokenType.L_BRACKET) {
-            System.err.println("Expected L_BRACKET, found: " + token.getTokenType());
-            // TODO Throw exception instead of NULL
-            return null;
+            throw new SyntaxErrorException("Expected L_BRACKET in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
         }
         //parse expression
         ExprNode expr = ExprNode.parseExprNode(tokens);
         //check for right bracket
         token = tokens.remove(0);
         if (token.getTokenType() != TokenType.R_BRACKET) {
-            System.err.println("Expected R_BRACKET, found: " + token.getTokenType());
-            // TODO Throw exception instead of NULL
-            return null;
+            throw new SyntaxErrorException("Expected R_BRACKET in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
         }
 
         //check for left brace
         token = tokens.remove(0);
         if (token.getTokenType() != TokenType.L_BRACE) {
-            System.err.println("Expected L_BRACE, found: " + token.getTokenType());
-            // TODO Throw exception instead of NULL
-            return null;
+            throw new SyntaxErrorException("Expected L_BRACE in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
         }
         //parse body
         BodyNode body = BodyNode.parseBodyNode(tokens);
         //check for right brace
         token = tokens.remove(0);
         if (token.getTokenType() != TokenType.R_BRACE) {
-            System.err.println("Expected R_BRACE, found: " + token.getTokenType());
-            // TODO Throw exception instead of NULL
-            return null;
+            throw new SyntaxErrorException("Expected R_BRACE in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
         }
 
         ArrayList<ElseIfNode> elseIfList = new ArrayList<>();
