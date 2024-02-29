@@ -49,7 +49,7 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
         // Look for [
         Token lbToken = tokens.remove(0);
         if(lbToken.getTokenType() != TokenType.L_BRACKET){
-            throw new SyntaxErrorException("Missing left square bracket " + lbToken.getToken(), fcHeadToken);
+            throw new SyntaxErrorException("Missing left square bracket " + lbToken.getToken(), lbToken);
         }
 
         // Look for <params>
@@ -58,7 +58,7 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
         // Look for ]
         Token rbToken = tokens.remove(0);
         if(rbToken.getTokenType() != TokenType.R_BRACKET){
-            throw new SyntaxErrorException("Missing right square bracket " + lbToken.getToken(), fcHeadToken);
+            throw new SyntaxErrorException("Missing right square bracket " + lbToken.getToken(), rbToken);
         }
 
         return new FunctionCallNode(idNode, paramsNode);

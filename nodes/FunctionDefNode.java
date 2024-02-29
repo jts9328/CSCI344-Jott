@@ -11,17 +11,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class FunctionDefNode implements JottTree {
-    private String id;
-    private ArrayList<FunctionDefParamsNode> params;
-    private String returnType;
-    private FBodyNode fBody;
+    private IdNode idNode;
+    private FunctionDefParamsNode functionDefParamsNode;
+    private FunctionReturnNode functionReturnNode;
+    private FBodyNode fBodyNode;
 
     // Constructor
-    public FunctionDefNode(String id, ArrayList<FunctionDefParamsNode> params, String returnType, FBodyNode fBody) {
-        this.id = id;
-        this.params = params;
-        this.returnType = returnType;
-        this.fBody = fBody;
+    public FunctionDefNode(IdNode idNode, FunctionDefParamsNode functionDefParamsNode, FunctionReturnNode functionReturnNode, FBodyNode fBodyNode) {
+        this.idNode = idNode;
+        this.functionDefParamsNode = functionDefParamsNode;
+        this.functionReturnNode = functionReturnNode;
+        this.fBodyNode = fBodyNode;
     }
 
     public static FunctionDefNode parseFunctionDefNode(ArrayList<Token> tokens, ArrayList<FunctionDefNode> funcDefs) throws SyntaxErrorException {
@@ -29,58 +29,52 @@ public class FunctionDefNode implements JottTree {
             throw new SyntaxErrorException("No tokens available for parsing.", null);
         }
     
-        Token firstToken = tokens.remove(0);
-        if (firstToken.getTokenType() != TokenType.ID_KEYWORD) {
-            throw new SyntaxErrorException("Expected ID for FunctionDef in " + firstToken.getFilename() + " at " + firstToken.getLineNum() + ", found: " + firstToken.getTokenType(), firstToken);
+        // Look for Def
+        Token defToken = tokens.remove(0);
+        if (defToken.getTokenType() != TokenType.ID_KEYWORD && defToken.getToken().equals("Def")) {
+            throw new SyntaxErrorException("Expected Def but got: " + defToken.getToken(), defToken);
         }
-        String id = firstToken.getToken();
-        String fileName = firstToken.getFilename();
-        int lineNumber = firstToken.getLineNum();
     
-        if (tokens.isEmpty() || tokens.get(0).getTokenType() != TokenType.L_BRACKET) {
-            throw new SyntaxErrorException("Expected [ after ID for FunctionDef in " + fileName + " at " + lineNumber, tokens.isEmpty() ? null : tokens.get(0));
+        // Look for <id>
+        IdNode idNode = IdNode.parseId(tokens);
+
+        // Look for [
+        Token lbToken = tokens.remove(0);
+        if(lbToken.getTokenType() != TokenType.L_BRACKET){
+            throw new SyntaxErrorException("Missing left square bracket " + lbToken.getToken(), lbToken);
         }
-        tokens.remove(0); // Remove the "["
-    
-        ArrayList<FunctionDefParamsNode> params = new ArrayList<>();
-        boolean firstParam = true;
-    
-        while (tokens.isEmpty() || tokens.get(0).getTokenType() != TokenType.R_BRACKET) {
-            if (!firstParam) {
-                if (tokens.isEmpty() || tokens.get(0).getTokenType() != TokenType.COMMA) {
-                    throw new SyntaxErrorException("Expected , between params for FunctionDef in " + fileName + " at " + lineNumber, tokens.isEmpty() ? null : tokens.get(0));
-                }
-                tokens.remove(0); // Remove the comma
-            } else {
-                firstParam = false;
-            }
-    
-            if (tokens.isEmpty()) {
-                throw new SyntaxErrorException("Unexpected end of tokens while parsing parameters.", null);
-            }
-    
-            params.add(FunctionDefParamsNode.parseFunctionDefParamsNode(tokens));
+
+        FunctionDefParamsNode functionDefParamsNode = FunctionDefParamsNode.parseFunctionDefParamsNode(tokens);
+
+        // Look for ]
+        Token rbToken = tokens.remove(0);
+        if(rbToken.getTokenType() != TokenType.R_BRACKET){
+            throw new SyntaxErrorException("Missing right square bracket but got" + rbToken.getToken(), rbToken);
         }
-        tokens.remove(0); // Remove the "]"
-    
-        if (tokens.isEmpty() || tokens.get(0).getTokenType() != TokenType.COLON) {
-            throw new SyntaxErrorException("Expected : after parameters for FunctionDef in " + fileName + " at " + lineNumber, tokens.isEmpty() ? null : tokens.get(0));
+
+        // Look for :
+        Token colonToken = tokens.remove(0);
+        if(colonToken.getTokenType() != TokenType.COLON) {
+            throw new SyntaxErrorException("Missing colon but got " + colonToken.getToken(), colonToken);
         }
-        tokens.remove(0); // Remove the ":"
-    
-        if (tokens.isEmpty()) {
-            throw new SyntaxErrorException("Unexpected end of tokens when expecting return type.", null);
+
+        FunctionReturnNode functionReturnNode = FunctionReturnNode.parseFunctionReturnNode(tokens);
+
+        // Look for {
+        Token lbraceToken = tokens.remove(0);
+        if(lbraceToken.getTokenType() != TokenType.L_BRACE){
+            throw new SyntaxErrorException("Missing left brace " + lbraceToken.getToken(), lbraceToken);
         }
-        String returnType = tokens.remove(0).getToken();
-    
-        if (tokens.isEmpty() || tokens.get(0).getTokenType() != TokenType.L_BRACE) {
-            throw new SyntaxErrorException("Expected function body to start with { for FunctionDef in " + fileName + " at " + lineNumber, tokens.isEmpty() ? null : tokens.get(0));
+
+        FBodyNode fBodyNode = FBodyNode.parseFBodyNode(tokens);
+
+        // Look for }
+        Token rbraceToken = tokens.remove(0);
+        if(rbraceToken.getTokenType() != TokenType.R_BRACE){
+            throw new SyntaxErrorException("Missing right brace " + rbraceToken.getToken(), rbraceToken);
         }
-        tokens.remove(0); // Remove the "{"
-    
-        FBodyNode fBody = FBodyNode.parseFBodyNode(tokens);
-    
-        return new FunctionDefNode(id, params, returnType, fBody);
+
+        return new FunctionDefNode(idNode, functionDefParamsNode, functionReturnNode, fBodyNode);
     }    
 
     @Override
