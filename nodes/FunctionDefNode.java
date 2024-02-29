@@ -1,5 +1,6 @@
 package nodes;
 
+import provided.JottTree;
 import provided.JottParser;
 import provided.Token;
 import provided.TokenType;
@@ -9,20 +10,18 @@ import exceptions.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class FunctionDefNode extends JottTree {
+public class FunctionDefNode implements JottTree {
     private String id;
-    private FunctionDefParamsNode params;
-    private FunctionReturnNode returnType;
-    private FBodyNode fBody;
-    private HashMap<String, String> symTab;
+    private ArrayList<FunctionDefParamsNode> params;
+    private String returnType;
+    private BodyNode body;
 
     // Constructor
-    public FunctionDefNode(String id, FunctionDefParamsNode params, FunctionReturnNode returnType, FBodyNode fBody, HashMap<String, String> symTab) {
+    public FunctionDefNode(String id, ArrayList<FunctionDefParamsNode> params, String returnType, BodyNode body) {
         this.id = id;
         this.params = params;
         this.returnType = returnType;
-        this.fBody = fBody;
-        this.symTab = symTab;
+        this.body = body;
     }
 
     public static FunctionDefNode parseFunctionDefNode(ArrayList<Token> tokens, ArrayList<FunctionDefNode> funcDefs) throws SyntaxErrorException {
@@ -60,7 +59,7 @@ public class FunctionDefNode extends JottTree {
                 throw new SyntaxErrorException("Unexpected end of tokens while parsing parameters.", null);
             }
     
-            params.add(FunctionDefParamsNode.parseFunctionDefParamsNode(tokens, new HashMap<>()));
+            params.add(FunctionDefParamsNode.parseFunctionDefParamsNode(tokens));
         }
         tokens.remove(0); // Remove the "]"
     
@@ -79,24 +78,15 @@ public class FunctionDefNode extends JottTree {
         }
         tokens.remove(0); // Remove the "{"
     
-        HashMap<String, String> symTab = new HashMap<>();
-        symTab.put("return", returnType);
-        BodyNode body = BodyNode.parseBodyNode(tokens, symTab, 1, funcDefs);
+        BodyNode body = BodyNode.parseBodyNode(tokens);
     
-        return new FunctionDefNode(id, params, body, returnType, symTab, fileName, lineNumber);
+        return new FunctionDefNode(id, params, returnType, body);
     }    
 
     @Override
     public String convertToJott() {
-        StringBuilder jottCode = new StringBuilder();
-        jottCode.append("Def ").append(id).append("[");
-        if (params != null) {
-            jottCode.append(params.convertToJott());
-        }
-        jottCode.append("]: ").append(returnType.convertToJott()).append("{\n");
-        jottCode.append(fBody.convertToJott());
-        jottCode.append("}\n");
-        return jottCode.toString();
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'convertToJott'");
     }
 
 
