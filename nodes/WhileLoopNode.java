@@ -60,8 +60,11 @@ public class WhileLoopNode implements BodyStmtNode{
 
     @Override
     public String convertToJott() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJott'");
+        StringBuilder jottCode = new StringBuilder();
+        jottCode.append("While [");
+        jottCode.append(expr.convertToJott()).append("]\n{");
+        jottCode.append(body.convertToJott()).append("}\n");
+        return jottCode.toString();
     }
 
     @Override

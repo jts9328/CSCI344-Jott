@@ -60,8 +60,11 @@ public class ElseIfNode implements JottTree{
 
     @Override
     public String convertToJott() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJott'");
+        StringBuilder jottCode = new StringBuilder();
+        jottCode.append("Elseif [");
+        jottCode.append(expr.convertToJott()).append("]\n{");
+        jottCode.append(body.convertToJott()).append("}\n");
+        return jottCode.toString();
     }
 
     @Override

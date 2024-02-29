@@ -43,8 +43,14 @@ public class ElseNode implements JottTree{
 
     @Override
     public String convertToJott() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJott'");
+        if (body != null) {
+            StringBuilder jottCode = new StringBuilder();
+            jottCode.append("Else {");
+            jottCode.append(body.convertToJott()).append("}\n");
+            return jottCode.toString();
+        } else {
+            return "";
+        }
     }
 
     @Override
