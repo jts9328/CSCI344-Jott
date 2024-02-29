@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Gian
  **/
 
-public class IdNode extends ExprNode {
+public class IdNode implements OperandNode {
     private Token token;
 
     // ID Constructor

@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Gian
  **/
 
-public class StringNode extends ExprNode {
+public class StringNode implements ExprNode {
     private Token token;
 
     // String Constructor

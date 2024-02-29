@@ -8,7 +8,7 @@ import provided.Token;
 import java.util.ArrayList;
 
 
-public class AsmtNode implements JottTree{
+public class AsmtNode implements BodyStmtNode{
     private IdNode id;
     private ExprNode expr;
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import exceptions.SyntaxErrorException;
 
-public class FunctionCallNode implements JottTree {
+public class FunctionCallNode implements BodyStmtNode {
 
     private IdNode idNode;
     private ParamsNode paramsNode;

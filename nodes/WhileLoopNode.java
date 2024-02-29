@@ -9,7 +9,7 @@ import exceptions.*;
 
 import java.util.ArrayList;
 
-public class WhileLoopNode implements JottTree{
+public class WhileLoopNode implements BodyStmtNode{
     private ExprNode expr;
     private BodyNode body;
 

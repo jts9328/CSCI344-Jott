@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Gian
  **/
 
-public class NumNode extends ExprNode {
+public class NumNode implements OperandNode {
     private Token token;
 
     // NUMBER Constructor

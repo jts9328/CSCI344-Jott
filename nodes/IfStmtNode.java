@@ -9,7 +9,7 @@ import exceptions.*;
 
 import java.util.ArrayList;
 
-public class IfStmtNode implements JottTree{
+public class IfStmtNode implements BodyStmtNode{
     private ExprNode expr;
     private BodyNode body;
     private ArrayList<ElseIfNode> elseIfList;
