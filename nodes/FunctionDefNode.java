@@ -24,7 +24,7 @@ public class FunctionDefNode implements JottTree {
         this.fBodyNode = fBodyNode;
     }
 
-    public static FunctionDefNode parseFunctionDefNode(ArrayList<Token> tokens, ArrayList<FunctionDefNode> funcDefs) throws SyntaxErrorException {
+    public static FunctionDefNode parseFunctionDefNode(ArrayList<Token> tokens) throws SyntaxErrorException {
         if (tokens.isEmpty()) {
             throw new SyntaxErrorException("No tokens available for parsing.", null);
         }
