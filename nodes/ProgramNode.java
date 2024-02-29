@@ -23,8 +23,12 @@ public class ProgramNode implements JottTree {
     }
 
     public static ProgramNode parseProgram(ArrayList<Token> tokens) throws SyntaxErrorException {
-
-        return null;
+        ArrayList<FunctionDefNode> functionDefs = new ArrayList<>();
+        while (!tokens.isEmpty()) {
+            // create new funciton def
+            functionDefs.add(FunctionDefNode.parseFunctionDefNode(tokens));
+        }
+        return new ProgramNode(functionDefs);
     }
 
     @Override
