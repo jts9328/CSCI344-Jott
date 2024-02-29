@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import exceptions.SyntaxErrorException;
 
-public class FunctionCallNode implements BodyStmtNode {
+public class FunctionCallNode implements BodyStmtNode, OperandNode {
 
     private IdNode idNode;
     private ParamsNode paramsNode;
