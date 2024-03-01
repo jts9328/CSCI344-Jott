@@ -53,10 +53,10 @@ public class FunctionDefParamsNode implements JottTree{
         // Look for <id>
         IdNode idNode = IdNode.parseId(tokens);
 
-        // Look for ,
-        Token commaToken = tokens.remove(0);
-        if(commaToken.getTokenType() != TokenType.COMMA) {
-            throw new SyntaxErrorException("Expected ',' but got " + commaToken.getToken(), commaToken);
+        // Look for :
+        Token colonToken = tokens.remove(0);
+        if(colonToken.getTokenType() != TokenType.COLON) {
+            throw new SyntaxErrorException("Expected ':' but got " + colonToken.getToken(), colonToken);
         }
 
         // Look for <type>

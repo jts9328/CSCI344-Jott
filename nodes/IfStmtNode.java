@@ -31,7 +31,7 @@ public class IfStmtNode implements BodyStmtNode{
         Token token = tokens.remove(0);
 
         // Check if the first token is If
-        if (token.getToken().equals("If")) {
+        if (!token.getToken().equals("If")) {
             throw new SyntaxErrorException("Expected If in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getToken(), token);
         }
 

@@ -61,20 +61,13 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
             throw new SyntaxErrorException("Missing right square bracket, got " + lbToken.getToken(), rbToken);
         }
 
-        // This is technically a part of body_stmt, but it is easier to check here
-        // Look for ;
-        Token semiColonToken = tokens.remove(0);
-        if(semiColonToken.getTokenType() != TokenType.SEMICOLON){
-            throw new SyntaxErrorException("Missing ; after function call, got " + semiColonToken.getToken(), semiColonToken);
-        }
-
         return new FunctionCallNode(idNode, paramsNode);
     }
 
     
     @Override
     public String convertToJott() {
-        return "::" + idNode.convertToJott() + "[" + paramsNode.convertToJott() + "];";
+        return "::" + idNode.convertToJott() + "[" + paramsNode.convertToJott() + "]";
     }
 
     @Override

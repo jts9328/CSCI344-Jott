@@ -54,6 +54,9 @@ public class BodyNode implements JottTree{
         // if no body statements, should break out for loop right away
         for(BodyStmtNode bodyStmt: bodyStmts){
             jott = jott + bodyStmt.convertToJott();
+            if(bodyStmt instanceof FunctionCallNode){
+                jott = jott + ";";
+            }
         }
         if(returnStmt != null){
             jott = jott + returnStmt.convertToJott();

@@ -32,8 +32,18 @@ public class ElseNode implements JottTree{
         //check if there is an else statement
         if (token.getToken().equals("Else")) {
             token = tokens.remove(0); //remove else token
+            //check for left brace
+            token = tokens.remove(0);
+            if (token.getTokenType() != TokenType.L_BRACE) {
+                throw new SyntaxErrorException("Expected L_BRACE in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
+            }
             //parse body
             BodyNode body = BodyNode.parseBodyNode(tokens);
+            //check for right brace
+            token = tokens.remove(0);
+            if (token.getTokenType() != TokenType.R_BRACE) {
+                throw new SyntaxErrorException("Expected R_BRACE in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
+            }
             return new ElseNode(body);
         } else {
             // Token is not an identifier; handle error or return null

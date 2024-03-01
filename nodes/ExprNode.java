@@ -36,7 +36,7 @@ public interface ExprNode extends JottTree {
            return StringNode.parseString(tokens);
         }
         // Check if its a boolean
-        else if (token1.getTokenType()== TokenType.ID_KEYWORD){
+        else if (token1.getToken().equals("True") || token1.getToken().equals("False")){
             return BoolNode.parseBoolNode(tokens);
         }
         // if EOF check if its only an Operand

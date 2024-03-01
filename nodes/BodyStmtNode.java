@@ -27,7 +27,9 @@ public interface BodyStmtNode extends JottTree{
             return AsmtNode.parseAsmtNode(tokens);
         // Function call check
         } else if(token.getTokenType() == TokenType.FC_HEADER){
-            return FunctionCallNode.parseFunctionCallNode(tokens);
+            FunctionCallNode functionCallNode = FunctionCallNode.parseFunctionCallNode(tokens);
+            token = tokens.remove(0); // remove ;
+            return functionCallNode;
         // Invalid
         } else{
             throw new SyntaxErrorException("Expected Body Statement, but got " + token.getToken(), token);
