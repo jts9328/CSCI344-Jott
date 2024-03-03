@@ -30,6 +30,7 @@ public class FBodyNode implements JottTree{
             (token.getToken().equals("Integer") || token.getToken().equals("Double") || 
             token.getToken().equals("String") || token.getToken().equals("Boolean")))){
             varDecs.add(VarDecNode.parseVarDecNode(tokens));
+            token = tokens.get(0);
         }
         // checks and exception handling should be caught by parseBodyNode
         BodyNode bodyNode = BodyNode.parseBodyNode(tokens);

@@ -4,6 +4,7 @@ import exceptions.SyntaxErrorException;
 import provided.JottParser;
 import provided.JottTree;
 import provided.Token;
+import provided.TokenType;
 
 import java.util.ArrayList;
 
@@ -11,18 +12,23 @@ import java.util.ArrayList;
 public class AsmtNode implements BodyStmtNode{
     private IdNode id;
     private ExprNode expr;
+    private Token semiColon;
+    private Token equal;
 
     /**
      *  Grammar: < asmt > -> <id >= < expr >
      * 
      * @param id child node that is a id
      * @param expr child node that is an expression
-     * 
+     * @param semiColon semicolon expected at end
+     * @param equal assign expected between two nodes
      */
 
-    public AsmtNode(IdNode id, ExprNode expr){
+    public AsmtNode(IdNode id, ExprNode expr, Token equal, Token semiColon){
         this.id = id;
         this.expr = expr; 
+        this.semiColon = semiColon;
+        this.equal = equal;
     }
 
     /**
@@ -34,18 +40,32 @@ public class AsmtNode implements BodyStmtNode{
      */
     public static AsmtNode parseAsmtNode(ArrayList<Token> tokens) throws SyntaxErrorException{
 
+
+        IdNode idNode = IdNode.parseId(tokens);
         if (tokens == null || tokens.isEmpty()) {
             throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
-        }
+        } 
+        Token Equal = tokens.remove(0);
+        if(Equal.getTokenType()!=TokenType.ASSIGN){
+            throw new SyntaxErrorException("Expected Assign token", Equal );
+        } 
         ExprNode exprNode = ExprNode.parseExprNode(tokens);
-        IdNode idNode = IdNode.parseId(tokens);
-        return new AsmtNode(idNode, exprNode);
+        if(tokens.isEmpty()) {
+            throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
+        }
+        Token semiColon = tokens.remove(0);
+        if(semiColon.getTokenType()==TokenType.SEMICOLON){
+            return new AsmtNode(idNode, exprNode, semiColon, Equal);        
+        } else {
+            throw new SyntaxErrorException("Expected SemiColon", semiColon );
+        }
+
     }
 
     // returns both child nodes with an "=" inbetween them
     @Override
     public String convertToJott() {
-        return id.convertToJott() + "=" + expr.convertToJott();
+        return id.convertToJott() + "=" + expr.convertToJott() + ";";
     }
 
     @Override

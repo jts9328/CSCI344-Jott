@@ -30,12 +30,16 @@ public class BodyNode implements JottTree{
         ArrayList<BodyStmtNode> bodyStmts = new ArrayList<BodyStmtNode>();
 
         // While next token is not return or ] (end of function) and token is either an id (If, While, <id> from asmt) or fc header (::)
-        while(!(tokens.get(0).getToken().equals("Return") || tokens.get(0).getTokenType() == TokenType.R_BRACE) && 
-               (tokens.get(0).getTokenType() == TokenType.ID_KEYWORD || tokens.get(0).getTokenType() == TokenType.FC_HEADER)) {
+        while(tokens.isEmpty()==false && (!(tokens.get(0).getToken().equals("Return") || tokens.get(0).getTokenType() == TokenType.R_BRACE) && 
+               (tokens.get(0).getTokenType() == TokenType.ID_KEYWORD || tokens.get(0).getTokenType() == TokenType.FC_HEADER))) {
             bodyStmts.add(BodyStmtNode.parseBodyStmtNode(tokens));
         }
 
         // Should be Return or }
+
+        if (tokens == null || tokens.isEmpty()) {
+            throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
+        }
         Token endingToken = tokens.get(0);
 
         if(endingToken.getTokenType() == TokenType.ID_KEYWORD && endingToken.getToken().equals("Return")){
