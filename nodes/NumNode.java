@@ -16,11 +16,18 @@ import java.util.ArrayList;
 
 public class NumNode implements OperandNode {
     private Token token;
+    private Token sign;
 
-    // NUMBER Constructor
+    // NUMBER Constructors
     public NumNode(Token token) {
         this.token = token;
+        this.sign = null;
     }
+    public NumNode(Token token, Token sign){
+        this.token = token;
+        this.sign = sign;
+    }
+    
 
     public static NumNode parseNum(ArrayList<Token> tokens) throws SyntaxErrorException {
         if (!tokens.isEmpty()) {
@@ -31,7 +38,11 @@ public class NumNode implements OperandNode {
                 // Create an NumNode with the token's value
                 NumNode node = new NumNode(token);
                 return node;
-            } else {
+            } else if(token.getTokenType() == TokenType.MATH_OP && !tokens.isEmpty()){
+                Token sign = tokens.remove(0);
+                NumNode node = new NumNode(token,sign);
+                return node;
+            }else  {
                 // Token is not an identifier; handle error or return null
                 throw new SyntaxErrorException("Expected Number in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
             }
