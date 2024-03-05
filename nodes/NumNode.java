@@ -53,7 +53,12 @@ public class NumNode implements OperandNode {
     @Override
     public String convertToJott() {
         // Simply return the identifier's value for the Jott code representation
-        return this.token.getToken();
+        if (sign==null){
+            return this.token.getToken();
+         } else {
+            return this.sign.getToken() + this.token.getToken();
+
+        }
     }
 
     @Override
