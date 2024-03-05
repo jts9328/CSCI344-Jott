@@ -36,31 +36,20 @@ public interface ExprNode extends JottTree {
            return StringNode.parseString(tokens);
         }
         // Check if its a boolean
-        else if (token1.getToken().equals("True") || token1.getToken().equals("False")){
+        if (token1.getToken().equals("True") || token1.getToken().equals("False")){
             return BoolNode.parseBoolNode(tokens);
         }
-        // if EOF check if its only an Operand
-        else if(tokens.size()<3){
-           return OperandNode.parseOperandNode(tokens);
-        } 
-        else{
-            Token token2 = tokens.get(1);
-            // check if next token is a valid operation
-            if((token2.getTokenType()==TokenType.REL_OP) || token2.getTokenType()==TokenType.MATH_OP){
-                OperandNode firstOperand = OperandNode.parseOperandNode(tokens);
-                OpNode op = OpNode.parseOp(tokens);
-                OperandNode secondOperand = OperandNode.parseOperandNode(tokens);
-                // Helper object to allow one return
-                return new ExprNodeHelper(firstOperand,op,secondOperand);
-            } else { 
-                // returns only Operand if next node isn't an operation
-                return OperandNode.parseOperandNode(tokens);
-                }
-        } 
-        
-        
-        
-        
+
+        OperandNode operandNode = OperandNode.parseOperandNode(tokens);
+
+        if(tokens.get(0).getTokenType() == TokenType.REL_OP || tokens.get(0).getTokenType() == TokenType.MATH_OP) {
+            OpNode opNode = OpNode.parseOp(tokens);
+            OperandNode operandNode2 = OperandNode.parseOperandNode(tokens);
+            return new ExprNodeHelper(operandNode, opNode, operandNode2);
+        }
+
+        // Next token is not an operator, therefore this is a single operand
+        return operandNode;
     }
 
     @Override
