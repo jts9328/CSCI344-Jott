@@ -15,36 +15,36 @@ import java.util.ArrayList;
  **/
 
 public class NumNode implements OperandNode {
-    private Token token;
+    private Token number;
     private Token sign;
 
     // NUMBER Constructors
-    public NumNode(Token token) {
-        this.token = token;
+    public NumNode(Token first) {
+        this.number = first;
         this.sign = null;
     }
-    public NumNode(Token token, Token sign){
-        this.token = token;
-        this.sign = sign;
+    public NumNode(Token first, Token second){
+        this.number = second;
+        this.sign = first;
     }
     
 
     public static NumNode parseNum(ArrayList<Token> tokens) throws SyntaxErrorException {
         if (!tokens.isEmpty()) {
-            Token token = tokens.remove(0);
+            Token first = tokens.remove(0);
 
             // Check if the first token is of type NUMBER
-            if (token.getTokenType() == TokenType.NUMBER) {
+            if (first.getTokenType() == TokenType.NUMBER) {
                 // Create an NumNode with the token's value
-                NumNode node = new NumNode(token);
+                NumNode node = new NumNode(first);
                 return node;
-            } else if(token.getTokenType() == TokenType.MATH_OP && !tokens.isEmpty()){
-                Token sign = tokens.remove(0);
-                NumNode node = new NumNode(token,sign);
+            } else if(first.getTokenType() == TokenType.MATH_OP && !tokens.isEmpty()){
+                Token second = tokens.remove(0);
+                NumNode node = new NumNode(first,second);
                 return node;
             }else  {
                 // Token is not an identifier; handle error or return null
-                throw new SyntaxErrorException("Expected Number in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
+                throw new SyntaxErrorException("Expected Number in" + first.getFilename() + " at " + first.getLineNum() + ", found: " + first.getTokenType(), first);
             }
         }
         else throw new SyntaxErrorException("Unexpected End of File", JottParser.lastToken);
@@ -54,9 +54,9 @@ public class NumNode implements OperandNode {
     public String convertToJott() {
         // Simply return the identifier's value for the Jott code representation
         if (sign==null){
-            return this.token.getToken();
+            return this.number.getToken();
          } else {
-            return this.sign.getToken() + this.token.getToken();
+            return this.sign.getToken() + this.number.getToken();
 
         }
     }
