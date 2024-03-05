@@ -3,6 +3,7 @@ package provided;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -35,7 +36,7 @@ public class JottTokenizer {
                 while (index < characters.length) {
                     // Giant if else
                     // Whitespace
-                    if (characters[index] == ' ') {
+                    if (characters[index] == ' ' || characters[index] == '\t') {
                         index++;
                     }
                     // Comments

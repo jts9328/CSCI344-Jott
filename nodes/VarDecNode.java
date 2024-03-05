@@ -50,7 +50,7 @@ public class VarDecNode implements JottTree{
 
     @Override
     public String convertToJott() {
-        return type.convertToJott() + id.convertToJott() + ";";
+        return type.convertToJott() + " " + id.convertToJott() + ";";
     }
 
     @Override
