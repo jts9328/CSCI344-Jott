@@ -96,46 +96,45 @@ public class JottTokenizer {
                         }
                         String ID_KeywordToken = data.substring(startIndex, index);
                         tokens.add(new Token(ID_KeywordToken, filename, lineNum, TokenType.ID_KEYWORD));
-                    } 
+                    }
                     // Digit
                     else if (Character.isDigit(characters[index]) || characters[index] == '.') {
                         int startIndex = index;
-                        int decimalTrue = 0;
-                        // if starts with .
+                        boolean decimalFound = false; // Use boolean for clarity
+
                         if (characters[index] == '.') {
-                            decimalTrue = 1;
+                            decimalFound = true;
                         }
                         index++;
-                        // while a whole number (and first decimal)
-                        while (index < characters.length && (Character.isDigit(characters[index]) || (characters[index] == '.' && decimalTrue == 0)) ) {
-                            index++;
-                            if ( index < characters.length && characters[index] == '.') {
-                                decimalTrue = 1;
-                                break;
-                            }
-                        }
-                        if (decimalTrue == 1 && index < characters.length) {
-                            // two decimal check
+
+                        // Loop through characters to parse the number
+                        while (index < characters.length && (Character.isDigit(characters[index])
+                                || (characters[index] == '.' && !decimalFound))) {
                             if (characters[index] == '.') {
-                                System.err.println("Syntax Error\nInvalid Number: '..'" + filename + ":" + lineNum);
-                                return null;
+                                decimalFound = true; // Mark that a decimal point was found
                             }
-                            // accept decimal digits
-                            while (index < characters.length && Character.isDigit(characters[index])) {
-                                index++;
-                            }
-                        } else if(decimalTrue == 1){
-                            System.err.println("Syntax Error\nInvalid Number: '.'" + filename + ":" + lineNum);
+                            index++;
+                        }
+
+                        // Check for valid number format
+                        if (decimalFound && index < characters.length && characters[index] == '.') {
+                            // If another decimal point is found, it's an error
+                            System.err.println("Syntax Error\nInvalid Number with multiple decimals in " + filename
+                                    + ":" + lineNum);
                             return null;
                         }
-                        if (index <= characters.length) {
-                            String token = data.substring(startIndex, index);
-                            tokens.add(new Token(token, filename, lineNum, TokenType.NUMBER));
-                        } else {
-                            System.err.println("Syntax Error\nUnexpected Character in Number Token" + filename + ":" + lineNum);
+
+                        // Ensure the substring is a valid number (not just a ".")
+                        if (startIndex == index - 1 && characters[startIndex] == '.') {
+                            System.err.println("Syntax Error\nInvalid Number: lone '.' in " + filename + ":" + lineNum);
                             return null;
                         }
+
+                        // Create and add the token for the parsed number
+                        String token = data.substring(startIndex, index);
+                        tokens.add(new Token(token, filename, lineNum, TokenType.NUMBER));
                     }
+
                     // String Tokenization
                     else if (characters[index] == '\"') {
                         int startIndex = index;
@@ -152,7 +151,8 @@ public class JottTokenizer {
                         }
                         // Handle error, no closing quote
                         else {
-                            System.err.println("Syntax Error\nString literal expects following '\"'\n" + filename + ":" + lineNum);
+                            System.err.println(
+                                    "Syntax Error\nString literal expects following '\"'\n" + filename + ":" + lineNum);
                             return null;
                         }
                     }
@@ -160,16 +160,13 @@ public class JottTokenizer {
                     else if (characters[index] == '+') {
                         tokens.add(new Token("+", filename, lineNum, TokenType.MATH_OP));
                         index++;
-                    }
-                    else if (characters[index] == '-') {
+                    } else if (characters[index] == '-') {
                         tokens.add(new Token("-", filename, lineNum, TokenType.MATH_OP));
                         index++;
-                    }
-                    else if (characters[index] == '*') {
+                    } else if (characters[index] == '*') {
                         tokens.add(new Token("*", filename, lineNum, TokenType.MATH_OP));
                         index++;
-                    }
-                    else if (characters[index] == '/') {
+                    } else if (characters[index] == '/') {
                         tokens.add(new Token("/", filename, lineNum, TokenType.MATH_OP));
                         index++;
                     }
@@ -200,8 +197,7 @@ public class JottTokenizer {
                         } else {
                             tokens.add(new Token("<", filename, lineNum, TokenType.REL_OP));
                         }
-                    }
-                    else if (characters[index] == '>') {
+                    } else if (characters[index] == '>') {
                         index++;
                         if (index < characters.length) {
                             if (characters[index] == '=') {
