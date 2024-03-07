@@ -30,24 +30,24 @@ public class NumNode implements OperandNode {
     
 
     public static NumNode parseNum(ArrayList<Token> tokens) throws SyntaxErrorException {
-        if (!tokens.isEmpty()) {
-            Token first = tokens.remove(0);
-
-            // Check if the first token is of type NUMBER
-            if (first.getTokenType() == TokenType.NUMBER) {
-                // Create an NumNode with the token's value
-                NumNode node = new NumNode(first);
-                return node;
-            } else if(first.getTokenType() == TokenType.MATH_OP && !tokens.isEmpty()){
-                Token second = tokens.remove(0);
-                NumNode node = new NumNode(first,second);
-                return node;
-            }else  {
-                // Token is not an identifier; handle error or return null
-                throw new SyntaxErrorException("Expected Number, found: " + first.getTokenType(), first);
-            }
+        if (tokens.isEmpty()) {
+            throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
         }
-        else throw new SyntaxErrorException("Unexpected End of File", JottParser.lastToken);
+        Token first = tokens.remove(0);
+
+        // Check if the first token is of type NUMBER
+        if (first.getTokenType() == TokenType.NUMBER) {
+            // Create an NumNode with the token's value
+            NumNode node = new NumNode(first);
+            return node;
+        } else if(first.getTokenType() == TokenType.MATH_OP && !tokens.isEmpty()){
+            Token second = tokens.remove(0);
+            NumNode node = new NumNode(first,second);
+            return node;
+        }else  {
+            // Token is not an identifier; handle error or return null
+            throw new SyntaxErrorException("Expected Number, found: " + first.getTokenType(), first);
+        }
     }
 
     @Override
