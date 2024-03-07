@@ -23,20 +23,20 @@ public class OpNode implements ExprNode {
     }
 
     public static OpNode parseOp(ArrayList<Token> tokens) throws SyntaxErrorException {
-        if (!tokens.isEmpty()) {
-            Token token = tokens.remove(0);
+        if (tokens == null || tokens.isEmpty()) {
+            throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
+        } 
+        Token token = tokens.remove(0);
 
-            // Check if the first token is of type REL_OP or MATH_OP
-            if ((token.getTokenType() == TokenType.REL_OP) || token.getTokenType() == TokenType.MATH_OP) {
-                // Create an OpNode with the token's value
-                OpNode node = new OpNode(token);
-                return node;
-            } else {
-                // Token is not an identifier; handle error or return null
-                throw new SyntaxErrorException("Expected Relational Operator, found: " + token.getTokenType(), token);
-            }
+        // Check if the first token is of type REL_OP or MATH_OP
+        if ((token.getTokenType() == TokenType.REL_OP) || token.getTokenType() == TokenType.MATH_OP) {
+            // Create an OpNode with the token's value
+            OpNode node = new OpNode(token);
+            return node;
+        } else {
+            // Token is not an identifier; handle error or return null
+            throw new SyntaxErrorException("Expected Relational Operator, found: " + token.getTokenType(), token);
         }
-        else throw new SyntaxErrorException("Unexpected End of File", JottParser.lastToken);
     }
 
     @Override
