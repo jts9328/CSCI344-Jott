@@ -33,7 +33,7 @@ public class IdNode implements OperandNode {
                 return node;
             } else {
                 // Token is not an identifier; handle error or return null
-                throw new SyntaxErrorException("Expected ID, found: " + token.getTokenType(), token);
+                throw new SyntaxErrorException("Expected ID, found: " + token.getToken(), token);
             }
         }
         else throw new SyntaxErrorException("Unexpected End of File", JottParser.lastToken);
