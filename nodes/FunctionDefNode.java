@@ -71,7 +71,7 @@ public class FunctionDefNode implements JottTree {
         // Look for }
         Token rbraceToken = tokens.remove(0);
         if(rbraceToken.getTokenType() != TokenType.R_BRACE){
-            throw new SyntaxErrorException("Missing right brace but got " + rbraceToken.getToken(), rbraceToken);
+            throw new SyntaxErrorException("Expected right brace but got " + rbraceToken.getToken(), rbraceToken);
         }
 
         return new FunctionDefNode(idNode, functionDefParamsNode, functionReturnNode, fBodyNode);
