@@ -49,7 +49,7 @@ public class FunctionDefNode implements JottTree {
         // Look for ]
         Token rbToken = tokens.remove(0);
         if(rbToken.getTokenType() != TokenType.R_BRACKET){
-            throw new SyntaxErrorException("Missing right square bracket but got" + rbToken.getToken(), rbToken);
+            throw new SyntaxErrorException("Missing right square bracket but got " + rbToken.getToken(), rbToken);
         }
 
         // Look for :
