@@ -23,20 +23,21 @@ public class IdNode implements OperandNode {
     }
 
     public static IdNode parseId(ArrayList<Token> tokens) throws SyntaxErrorException {
-        if (!tokens.isEmpty()) {
-            Token token = tokens.remove(0);
-
-            // Check if the first token is of type ID
-            if (token.getTokenType() == TokenType.ID_KEYWORD) {
-                // Create an IdNode with the token's value
-                IdNode node = new IdNode(token);
-                return node;
-            } else {
-                // Token is not an identifier; handle error or return null
-                throw new SyntaxErrorException("Expected ID, found: " + token.getToken(), token);
-            }
+        if (tokens.isEmpty()) {
+            throw new SyntaxErrorException("Unexpected EOF", null);
         }
-        else throw new SyntaxErrorException("Unexpected End of File", JottParser.lastToken);
+
+        Token token = tokens.remove(0);
+
+        // Check if the first token is of type ID
+        if (token.getTokenType() == TokenType.ID_KEYWORD) {
+            // Create an IdNode with the token's value
+            IdNode node = new IdNode(token);
+            return node;
+        } else {
+            // Token is not an identifier; handle error or return null
+            throw new SyntaxErrorException("Expected ID, found: " + token.getToken(), token);
+        }
     }
 
     @Override

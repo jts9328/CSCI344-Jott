@@ -26,7 +26,7 @@ public class FunctionDefNode implements JottTree {
 
     public static FunctionDefNode parseFunctionDefNode(ArrayList<Token> tokens) throws SyntaxErrorException {
         if (tokens.isEmpty()) {
-            throw new SyntaxErrorException("No tokens available for parsing.", null);
+            throw new SyntaxErrorException("Unexpected EOF", null);
         }
     
         // Look for Def
