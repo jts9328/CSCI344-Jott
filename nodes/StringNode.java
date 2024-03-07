@@ -23,20 +23,20 @@ public class StringNode implements ExprNode {
     }
 
     public static StringNode parseString(ArrayList<Token> tokens) throws SyntaxErrorException {
-        if (!tokens.isEmpty()) {
-            Token token = tokens.remove(0);
-
-            // Check if the first token is of type NUMBER
-            if (token.getTokenType() == TokenType.STRING) {
-                // Create an StringNode with the token's value
-                StringNode node = new StringNode(token);
-                return node;
-            } else {
-                // Token is not an identifier; handle error or return null
-                throw new SyntaxErrorException("Expected Number, found: " + token.getTokenType(), token);
-            }
+        if(tokens.isEmpty()){
+            throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
         }
-        else throw new SyntaxErrorException("Unexpected End of File", JottParser.lastToken);
+        Token token = tokens.remove(0);
+
+        // Check if the first token is of type NUMBER
+        if (token.getTokenType() == TokenType.STRING) {
+            // Create an StringNode with the token's value
+            StringNode node = new StringNode(token);
+            return node;
+        } else {
+            // Token is not an identifier; handle error or return null
+            throw new SyntaxErrorException("Expected Number, found: " + token.getTokenType(), token);
+        }
     }
 
     @Override
