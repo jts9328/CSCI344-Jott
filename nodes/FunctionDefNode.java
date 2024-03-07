@@ -31,7 +31,7 @@ public class FunctionDefNode implements JottTree {
     
         // Look for Def
         Token defToken = tokens.remove(0);
-        if (defToken.getTokenType() != TokenType.ID_KEYWORD || defToken.getToken().equals("Def")) {
+        if (!defToken.getToken().equals("Def")) {
             throw new SyntaxErrorException("Expected Def but got: " + defToken.getToken(), defToken);
         }
     
