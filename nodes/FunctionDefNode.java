@@ -41,7 +41,7 @@ public class FunctionDefNode implements JottTree {
         // Look for [
         Token lbToken = tokens.remove(0);
         if(lbToken.getTokenType() != TokenType.L_BRACKET){
-            throw new SyntaxErrorException("Missing left square bracket " + lbToken.getToken(), lbToken);
+            throw new SyntaxErrorException("Expected left square bracket but got " + lbToken.getToken(), lbToken);
         }
 
         FunctionDefParamsNode functionDefParamsNode = FunctionDefParamsNode.parseFunctionDefParamsNode(tokens);
@@ -49,13 +49,13 @@ public class FunctionDefNode implements JottTree {
         // Look for ]
         Token rbToken = tokens.remove(0);
         if(rbToken.getTokenType() != TokenType.R_BRACKET){
-            throw new SyntaxErrorException("Missing right square bracket but got " + rbToken.getToken(), rbToken);
+            throw new SyntaxErrorException("Expected right square bracket but got " + rbToken.getToken(), rbToken);
         }
 
         // Look for :
         Token colonToken = tokens.remove(0);
         if(colonToken.getTokenType() != TokenType.COLON) {
-            throw new SyntaxErrorException("Missing colon but got " + colonToken.getToken(), colonToken);
+            throw new SyntaxErrorException("Expected colon but got " + colonToken.getToken(), colonToken);
         }
 
         FunctionReturnNode functionReturnNode = FunctionReturnNode.parseFunctionReturnNode(tokens);
@@ -63,7 +63,7 @@ public class FunctionDefNode implements JottTree {
         // Look for {
         Token lbraceToken = tokens.remove(0);
         if(lbraceToken.getTokenType() != TokenType.L_BRACE){
-            throw new SyntaxErrorException("Missing left brace but got " + lbraceToken.getToken(), lbraceToken);
+            throw new SyntaxErrorException("Expected left brace but got " + lbraceToken.getToken(), lbraceToken);
         }
 
         FBodyNode fBodyNode = FBodyNode.parseFBodyNode(tokens);
