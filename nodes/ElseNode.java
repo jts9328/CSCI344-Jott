@@ -46,8 +46,7 @@ public class ElseNode implements JottTree{
             }
             return new ElseNode(body);
         } else {
-            // Token is not an identifier; handle error or return null
-            throw new SyntaxErrorException("Expected Else, found: " + token.getToken(), token);
+            return new ElseNode();
         }
     }
 
