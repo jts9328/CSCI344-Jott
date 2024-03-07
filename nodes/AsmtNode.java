@@ -43,21 +43,21 @@ public class AsmtNode implements BodyStmtNode{
 
         IdNode idNode = IdNode.parseId(tokens);
         if (tokens == null || tokens.isEmpty()) {
-            throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
+            throw new SyntaxErrorException("Unexpected End Of File", JottParser.lastToken);
         } 
         Token Equal = tokens.remove(0);
         if(Equal.getTokenType()!=TokenType.ASSIGN){
-            throw new SyntaxErrorException("Expected Assign token", Equal );
+            throw new SyntaxErrorException("Expected Assign, found" + Equal.getTokenType(), Equal);
         } 
         ExprNode exprNode = ExprNode.parseExprNode(tokens);
         if(tokens.isEmpty()) {
-            throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
+            throw new SyntaxErrorException("Unexpected End Of File", JottParser.lastToken);
         }
         Token semiColon = tokens.remove(0);
         if(semiColon.getTokenType()==TokenType.SEMICOLON){
             return new AsmtNode(idNode, exprNode, semiColon, Equal);        
         } else {
-            throw new SyntaxErrorException("Expected SemiColon", semiColon );
+            throw new SyntaxErrorException("Expected SemiColon, found" + semiColon.getTokenType(), semiColon );
         }
 
     }
