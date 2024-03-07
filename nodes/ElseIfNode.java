@@ -21,7 +21,7 @@ public class ElseIfNode implements JottTree{
 
     public static ElseIfNode parseElseIf(ArrayList<Token> tokens) throws SyntaxErrorException {
         if (tokens == null || tokens.isEmpty()) {
-            throw new SyntaxErrorException("No tokens available for parsing.", null);
+            throw new SyntaxErrorException("Unexpected EOF", null);
         }
 
         Token token = tokens.remove(0);

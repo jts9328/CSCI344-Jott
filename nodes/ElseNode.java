@@ -24,7 +24,7 @@ public class ElseNode implements JottTree{
 
     public static ElseNode parseElse(ArrayList<Token> tokens) throws SyntaxErrorException {
         if (tokens == null || tokens.isEmpty()) {
-            throw new SyntaxErrorException("No tokens available for parsing.", null);
+            throw new SyntaxErrorException("Unexpected EOF", null);
         }
 
         Token token = tokens.get(0);
