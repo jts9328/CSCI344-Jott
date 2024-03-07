@@ -47,7 +47,7 @@ public class AsmtNode implements BodyStmtNode{
         } 
         Token Equal = tokens.remove(0);
         if(Equal.getTokenType()!=TokenType.ASSIGN){
-            throw new SyntaxErrorException("Expected Assign, found" + Equal.getTokenType(), Equal);
+            throw new SyntaxErrorException("Expected Assign, found: " + Equal.getTokenType(), Equal);
         } 
         ExprNode exprNode = ExprNode.parseExprNode(tokens);
         if(tokens.isEmpty()) {
@@ -57,7 +57,7 @@ public class AsmtNode implements BodyStmtNode{
         if(semiColon.getTokenType()==TokenType.SEMICOLON){
             return new AsmtNode(idNode, exprNode, semiColon, Equal);        
         } else {
-            throw new SyntaxErrorException("Expected SemiColon, found" + semiColon.getTokenType(), semiColon );
+            throw new SyntaxErrorException("Expected SemiColon, found: " + semiColon.getTokenType(), semiColon );
         }
 
     }
