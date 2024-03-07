@@ -5,4 +5,5 @@ JottParserTester and JottTokenizerTester classes should be in a package call tes
 
 the testCases directories should be in the working directory of your project. 
 
-Include the node folder and exceptions folder into your working directory.
+Include the node folder, exceptions folder into your working directory along with our
+updated JottParser.java and JottTokenizer.java
