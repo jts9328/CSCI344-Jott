@@ -43,7 +43,6 @@ public class TypeNode implements JottTree {
              token.getToken().equals("Boolean")
             )) {
 
-            System.out.println("creating type node of type: " + token.getToken());
             return new TypeNode(token);
         } else {
             throw new SyntaxErrorException(token.getToken() + " cannot be resolved to a type", token);

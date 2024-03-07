@@ -61,8 +61,6 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
             throw new SyntaxErrorException("Missing right square bracket, got " + lbToken.getToken(), rbToken);
         }
 
-        System.out.println("succesful function call seen");
-
         return new FunctionCallNode(idNode, paramsNode);
     }
 

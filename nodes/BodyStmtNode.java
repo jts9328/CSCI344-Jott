@@ -29,6 +29,9 @@ public interface BodyStmtNode extends JottTree{
         } else if(token.getTokenType() == TokenType.FC_HEADER){
             FunctionCallNode functionCallNode = FunctionCallNode.parseFunctionCallNode(tokens);
             token = tokens.remove(0); // remove ;
+            if (token.getTokenType() != TokenType.SEMICOLON) {
+                throw new SyntaxErrorException("Expected Semicolon, but got " + token.getTokenType(), token);
+            }
             return functionCallNode;
         // Invalid
         } else{
