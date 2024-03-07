@@ -18,28 +18,30 @@ public class BoolNode implements ExprNode{
     }
 
     public static BoolNode parseBoolNode(ArrayList<Token> tokens) throws SyntaxErrorException{
-        if(!tokens.isEmpty()){
-            Token boolToken = tokens.remove(0);
+        if(tokens.isEmpty()){
+            throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
+        }
+        Token boolToken = tokens.remove(0);
 
-            // Checks if the token type is ID_KEYWORD
-            if(boolToken.getTokenType() != TokenType.ID_KEYWORD){
-                throw new SyntaxErrorException("Expected ID, found: " + boolToken.getTokenType(), boolToken);
-            }
-            // IF keyword is "True" return valid BoolNode with token Value
-            else if(boolToken.getToken().equals("True")){
-                BoolNode node = new BoolNode(boolToken);
-                return node;
-            } 
-            // IF keyword is "False" return valid BoolNode with token Value
-            else if (boolToken.getToken().equals("False")){
-                BoolNode node = new BoolNode(boolToken);
-                return node;
-            }
-            else throw new SyntaxErrorException("Expected Bool Value, found: " + boolToken.getTokenType(), boolToken);
+        // Checks if the token type is ID_KEYWORD
+        if(boolToken.getTokenType() != TokenType.ID_KEYWORD){
+            throw new SyntaxErrorException("Expected ID, found: " + boolToken.getTokenType(), boolToken);
+        }
+        // IF keyword is "True" return valid BoolNode with token Value
+        else if(boolToken.getToken().equals("True")){
+            BoolNode node = new BoolNode(boolToken);
+            return node;
+        } 
+        // IF keyword is "False" return valid BoolNode with token Value
+        else if (boolToken.getToken().equals("False")){
+            BoolNode node = new BoolNode(boolToken);
+            return node;
         }
         // Throw Exception since Token is not a valid Boolean Keyword
-        else throw new SyntaxErrorException("Unexpected End of File", JottParser.lastToken);
-    }
+        else throw new SyntaxErrorException("Expected Bool Value, found: " + boolToken.getTokenType(), boolToken);
+    }  
+        
+        
 
     @Override
     public String convertToJott() {
