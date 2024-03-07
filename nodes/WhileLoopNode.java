@@ -29,7 +29,7 @@ public class WhileLoopNode implements BodyStmtNode{
             //check for left bracket
             token = tokens.remove(0);
             if (token.getTokenType() != TokenType.L_BRACKET) {
-                throw new SyntaxErrorException("Expected L_BRACKET in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
+                throw new SyntaxErrorException("Expected L_BRACKET, found: " + token.getTokenType(), token);
             }
             //parse expression
             ExprNode expr = ExprNode.parseExprNode(tokens);
