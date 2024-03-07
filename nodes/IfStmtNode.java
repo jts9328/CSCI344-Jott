@@ -25,7 +25,7 @@ public class IfStmtNode implements BodyStmtNode{
 
     public static IfStmtNode parseIfStmt(ArrayList<Token> tokens) throws SyntaxErrorException {
         if (tokens == null || tokens.isEmpty()) {
-            throw new SyntaxErrorException("No tokens available for parsing.", null);
+            throw new SyntaxErrorException("Unexpected EOF", null);
         }
 
         Token token = tokens.remove(0);
