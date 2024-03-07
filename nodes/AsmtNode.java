@@ -43,7 +43,7 @@ public class AsmtNode implements BodyStmtNode{
 
         IdNode idNode = IdNode.parseId(tokens);
         if (tokens == null || tokens.isEmpty()) {
-            throw new SyntaxErrorException("Unexpected End Of File", JottParser.lastToken);
+            throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
         } 
         Token Equal = tokens.remove(0);
         if(Equal.getTokenType()!=TokenType.ASSIGN){
@@ -51,7 +51,7 @@ public class AsmtNode implements BodyStmtNode{
         } 
         ExprNode exprNode = ExprNode.parseExprNode(tokens);
         if(tokens.isEmpty()) {
-            throw new SyntaxErrorException("Unexpected End Of File", JottParser.lastToken);
+            throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
         }
         Token semiColon = tokens.remove(0);
         if(semiColon.getTokenType()==TokenType.SEMICOLON){
