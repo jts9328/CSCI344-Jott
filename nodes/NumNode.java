@@ -44,7 +44,7 @@ public class NumNode implements OperandNode {
                 return node;
             }else  {
                 // Token is not an identifier; handle error or return null
-                throw new SyntaxErrorException("Expected Number in" + first.getFilename() + " at " + first.getLineNum() + ", found: " + first.getTokenType(), first);
+                throw new SyntaxErrorException("Expected Number, found: " + first.getTokenType(), first);
             }
         }
         else throw new SyntaxErrorException("Unexpected End of File", JottParser.lastToken);

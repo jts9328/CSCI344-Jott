@@ -29,32 +29,32 @@ public class ElseIfNode implements JottTree{
             //check for left bracket
             token = tokens.remove(0);
             if (token.getTokenType() != TokenType.L_BRACKET) {
-                throw new SyntaxErrorException("Expected L_BRACKET in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
+                throw new SyntaxErrorException("Expected L_BRACKET, found: " + token.getTokenType(), token);
             }
             //parse expression
             ExprNode expr = ExprNode.parseExprNode(tokens);
             //check for right bracket
             token = tokens.remove(0);
             if (token.getTokenType() != TokenType.R_BRACKET) {
-                throw new SyntaxErrorException("Expected R_BRACKET in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
+                throw new SyntaxErrorException("Expected R_BRACKET, found: " + token.getTokenType(), token);
             }
 
             //check for left brace
             token = tokens.remove(0);
             if (token.getTokenType() != TokenType.L_BRACE) {
-                throw new SyntaxErrorException("Expected L_BRACE in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
+                throw new SyntaxErrorException("Expected L_BRACE, found: " + token.getTokenType(), token);
             }
             //parse body
             BodyNode body = BodyNode.parseBodyNode(tokens);
             //check for right brace
             token = tokens.remove(0);
             if (token.getTokenType() != TokenType.R_BRACE) {
-                throw new SyntaxErrorException("Expected R_BRACE in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
+                throw new SyntaxErrorException("Expected R_BRACE, found: " + token.getTokenType(), token);
             }
 
             return new ElseIfNode(expr, body);
         } else {
-            throw new SyntaxErrorException("Expected Elseif in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getToken(), token);
+            throw new SyntaxErrorException("Expected Elseif, found: " + token.getToken(), token);
         }
     }
 

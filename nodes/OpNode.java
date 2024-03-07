@@ -33,7 +33,7 @@ public class OpNode implements ExprNode {
                 return node;
             } else {
                 // Token is not an identifier; handle error or return null
-                throw new SyntaxErrorException("Expected Relational Operator in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
+                throw new SyntaxErrorException("Expected Relational Operator, found: " + token.getTokenType(), token);
             }
         }
         else throw new SyntaxErrorException("Unexpected End of File", JottParser.lastToken);

@@ -23,7 +23,7 @@ public class BoolNode implements ExprNode{
 
             // Checks if the token type is ID_KEYWORD
             if(boolToken.getTokenType() != TokenType.ID_KEYWORD){
-                throw new SyntaxErrorException("Expected ID in" + boolToken.getFilename() + " at " + boolToken.getLineNum() + ", found: " + boolToken.getTokenType(), boolToken);
+                throw new SyntaxErrorException("Expected ID, found: " + boolToken.getTokenType(), boolToken);
             }
             // IF keyword is "True" return valid BoolNode with token Value
             else if(boolToken.getToken().equals("True")){
@@ -35,7 +35,7 @@ public class BoolNode implements ExprNode{
                 BoolNode node = new BoolNode(boolToken);
                 return node;
             }
-            else throw new SyntaxErrorException("Expected Bool Value in" + boolToken.getFilename() + " at " + boolToken.getLineNum() + ", found: " + boolToken.getTokenType(), boolToken);
+            else throw new SyntaxErrorException("Expected Bool Value, found: " + boolToken.getTokenType(), boolToken);
         }
         // Throw Exception since Token is not a valid Boolean Keyword
         else throw new SyntaxErrorException("Unexpected End of File", JottParser.lastToken);

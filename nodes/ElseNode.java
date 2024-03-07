@@ -35,19 +35,19 @@ public class ElseNode implements JottTree{
             //check for left brace
             token = tokens.remove(0);
             if (token.getTokenType() != TokenType.L_BRACE) {
-                throw new SyntaxErrorException("Expected L_BRACE in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
+                throw new SyntaxErrorException("Expected L_BRACE, found: " + token.getTokenType(), token);
             }
             //parse body
             BodyNode body = BodyNode.parseBodyNode(tokens);
             //check for right brace
             token = tokens.remove(0);
             if (token.getTokenType() != TokenType.R_BRACE) {
-                throw new SyntaxErrorException("Expected R_BRACE in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getTokenType(), token);
+                throw new SyntaxErrorException("Expected R_BRACE, found: " + token.getTokenType(), token);
             }
             return new ElseNode(body);
         } else {
             // Token is not an identifier; handle error or return null
-            throw new SyntaxErrorException("Expected Else in" + token.getFilename() + " at " + token.getLineNum() + ", found: " + token.getToken(), token);
+            throw new SyntaxErrorException("Expected Else, found: " + token.getToken(), token);
         }
     }
 
