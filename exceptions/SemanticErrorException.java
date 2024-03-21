@@ -2,7 +2,7 @@ package exceptions;
 
 import provided.Token;
 
-public class SyntaxErrorException extends Exception {
+public class SemanticErrorException extends Exception {
 
     private Token token;
 
@@ -13,7 +13,7 @@ public class SyntaxErrorException extends Exception {
      * @param errorMessage  specific error message
      * @param token         token that error occured on
      */
-    public SyntaxErrorException(String errorMessage, Token token) {
+    public SemanticErrorException(String errorMessage, Token token) {
         super(errorMessage);
         this.token = token;
     }
@@ -22,6 +22,6 @@ public class SyntaxErrorException extends Exception {
      * Print the appropriate error message
      */
     public void printErrorMessage() {
-        System.err.println("Syntax Error:\n" + getMessage() + "\n" + token.getFilename() + ":" + token.getLineNum());
+        System.err.println("Semantic Error:\n" + getMessage() + "\n" + token.getFilename() + ":" + token.getLineNum());
     }
 }
