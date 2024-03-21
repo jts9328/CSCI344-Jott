@@ -5,6 +5,7 @@ import provided.Token;
 import provided.TokenType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import exceptions.SyntaxErrorException;
 
@@ -22,7 +23,7 @@ public class ProgramNode implements JottTree {
         }
     }
 
-    public static ProgramNode parseProgram(ArrayList<Token> tokens) throws SyntaxErrorException {
+    public static ProgramNode parseProgram(ArrayList<Token> tokens, HashMap<String, String> varSymTab, HashMap<String, String> funcSymTab) throws SyntaxErrorException {
         ArrayList<FunctionDefNode> functionDefs = new ArrayList<>();
         while (!tokens.isEmpty()) {
             // create new funciton def

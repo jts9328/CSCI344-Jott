@@ -20,9 +20,7 @@ public class Jott {
             } else if(args[2].equals("Jott")){
                 // Run parser to convert to Jott
                 ArrayList<Token> tokens = JottTokenizer.tokenize(args[0]);
-                HashMap<String, String> varSymTab = new HashMap<>();
-                HashMap<String, String> funcSymTab = new HashMap<>();
-                JottTree tree = JottParser.parse(tokens, varSymTab, funcSymTab);
+                JottTree tree = JottParser.parse(tokens);
                 String jottCode = tree.convertToJott();
                 FileWriter writer = new FileWriter(args[1]);
                 writer.write(jottCode);

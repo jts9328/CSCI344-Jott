@@ -9,6 +9,7 @@ import nodes.ProgramNode;
  */
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import exceptions.SemanticErrorException;
 import exceptions.SyntaxErrorException;
@@ -28,8 +29,9 @@ public class JottParser {
             if(!tokens.isEmpty()) {
                 lastToken = tokens.get(tokens.size() - 1);
             }
-
-            return ProgramNode.parseProgram(tokens);
+            HashMap<String, String> varSymTab = new HashMap<>();
+            HashMap<String, String> funcSymTab = new HashMap<>();
+            return ProgramNode.parseProgram(tokens, varSymTab, funcSymTab);
         } catch (SyntaxErrorException e) {
             e.printErrorMessage();
             return null;
