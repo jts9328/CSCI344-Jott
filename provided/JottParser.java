@@ -29,8 +29,10 @@ public class JottParser {
             if(!tokens.isEmpty()) {
                 lastToken = tokens.get(tokens.size() - 1);
             }
+            // Format: <Variable Name, Variable Type>
             HashMap<String, String> varSymTab = new HashMap<>();
-            HashMap<String, String> funcSymTab = new HashMap<>();
+            // Format: <Function Name, ArrayList<Function Return Type, Parameter Types*>>
+            HashMap<String, ArrayList<String>> funcSymTab = new HashMap<>();
             return ProgramNode.parseProgram(tokens, varSymTab, funcSymTab);
         } catch (SyntaxErrorException e) {
             e.printErrorMessage();

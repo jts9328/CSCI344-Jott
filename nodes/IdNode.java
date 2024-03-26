@@ -22,6 +22,13 @@ public class IdNode implements OperandNode {
         this.token = token;
     }
 
+    /**
+     * Parses a id node given the list of remaining tokens
+     * 
+     * @param tokens arraylist of tokens to parse through
+     * @return IdNode
+     * @throws SyntaxErrorException
+     */
     public static IdNode parseId(ArrayList<Token> tokens) throws SyntaxErrorException {
         if (tokens.isEmpty()) {
             throw new SyntaxErrorException("Unexpected EOF", null);
@@ -66,8 +73,11 @@ public class IdNode implements OperandNode {
 
     @Override
     public boolean validateTree() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
+        return true;
+    }
+
+    public Token getToken() {
+        return token;
     }
     
 }

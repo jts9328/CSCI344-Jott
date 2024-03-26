@@ -21,6 +21,7 @@ public class Jott {
                 // Run parser to convert to Jott
                 ArrayList<Token> tokens = JottTokenizer.tokenize(args[0]);
                 JottTree tree = JottParser.parse(tokens);
+                tree.validateTree();
                 String jottCode = tree.convertToJott();
                 FileWriter writer = new FileWriter(args[1]);
                 writer.write(jottCode);
