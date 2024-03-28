@@ -53,6 +53,10 @@ public interface ExprNode extends JottTree {
         return operandNode;
     }
 
+    public String getResultingType();
+
+    public Token getToken();
+
     @Override
     public String convertToJott();
 

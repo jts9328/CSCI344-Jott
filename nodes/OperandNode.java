@@ -47,6 +47,10 @@ public interface OperandNode extends ExprNode{
 
     }
 
+    public String getResultingType();
+
+    public Token getToken();
+
     @Override
     public String convertToJott();
 

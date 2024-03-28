@@ -50,6 +50,20 @@ public class NumNode implements OperandNode {
         }
     }
 
+    public String getResultingType() {
+        String numberString = this.number.getToken();
+        if (numberString.indexOf('.').equals(-1)) {
+            return "Int"
+        } else {
+            return "Double"
+        }
+    }
+
+    public Token getToken() {
+        // sign is fake lmao
+        return this.number;
+    }
+
     @Override
     public String convertToJott() {
         // Simply return the identifier's value for the Jott code representation

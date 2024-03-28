@@ -39,6 +39,15 @@ public class OpNode implements ExprNode {
         }
     }
 
+    public String getResultingType() {
+        //only rel and math ops
+        return null;
+    }
+
+    public Token getToken() {
+        return this.token;
+    }
+
     @Override
     public String convertToJott() {
         // Simply return the identifier's value for the Jott code representation

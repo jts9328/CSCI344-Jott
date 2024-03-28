@@ -39,9 +39,15 @@ public class BoolNode implements ExprNode{
         }
         // Throw Exception since Token is not a valid Boolean Keyword
         else throw new SyntaxErrorException("Expected Bool Value, found: " + boolToken.getTokenType(), boolToken);
-    }  
-        
-        
+    }
+
+    public String getResultingType() {
+        return "Bool";
+    }
+
+    public Token getToken() {
+        return this.boolToken;
+    }    
 
     @Override
     public String convertToJott() {

@@ -39,6 +39,14 @@ public class StringNode implements ExprNode {
         }
     }
 
+    public String getResultingType() {
+        return "String";
+    }
+
+    public Token getToken() {
+        return this.token;
+    }
+
     @Override
     public String convertToJott() {
         // Simply return the identifier's value for the Jott code representation

@@ -65,6 +65,14 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
         return new FunctionCallNode(idNode, paramsNode);
     }
 
+    public String getResultingType() {
+        return JottParser.symTable.funcSymTab.get(this.idNode.getToken());
+    }
+
+    public Token getToken() {
+        return null;
+    }
+
     
     @Override
     public String convertToJott() {
