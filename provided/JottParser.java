@@ -17,6 +17,7 @@ import exceptions.SyntaxErrorException;
 public class JottParser {
 
     public static Token lastToken;
+    public static SymTable symTable = new SymTable();
 
     /**
      * Parses an ArrayList of Jotton tokens into a Jott Parse Tree.
@@ -33,6 +34,7 @@ public class JottParser {
             HashMap<String, String> varSymTab = new HashMap<>();
             // Format: <Function Name, ArrayList<Function Return Type, Parameter Types*>>
             HashMap<String, ArrayList<String>> funcSymTab = new HashMap<>();
+
             return ProgramNode.parseProgram(tokens, varSymTab, funcSymTab);
         } catch (SyntaxErrorException e) {
             e.printErrorMessage();
