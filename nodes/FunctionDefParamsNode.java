@@ -1,6 +1,7 @@
 package nodes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import exceptions.SyntaxErrorException;
 import provided.JottParser;
@@ -47,6 +48,7 @@ public class FunctionDefParamsNode implements JottTree{
 
         // If the next token is just a ], that means there are no params (ε)
         if(tokens.get(0).getTokenType() == TokenType.R_BRACKET) {
+            //hasParams = false;
             return new FunctionDefParamsNode();
         }
 
@@ -62,7 +64,6 @@ public class FunctionDefParamsNode implements JottTree{
         // Look for <type>
         TypeNode typeNode = TypeNode.parseTypeNode(tokens);
 
-
         // Look for <function_def_params_t>*
         ArrayList<FunctionDefParamsTNode> functionDefParamsTNodes = new ArrayList<>();
 
@@ -72,7 +73,6 @@ public class FunctionDefParamsNode implements JottTree{
 
         return new FunctionDefParamsNode(idNode, typeNode, functionDefParamsTNodes);
     }
-
 
     @Override
     public String convertToJott() {

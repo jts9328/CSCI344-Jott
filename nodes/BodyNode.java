@@ -1,6 +1,7 @@
 package nodes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import exceptions.SyntaxErrorException;
 import provided.JottParser;
@@ -16,10 +17,12 @@ public class BodyNode implements JottTree{
 
     private ArrayList<BodyStmtNode> bodyStmts;
     private ReturnStmtNode returnStmt;
+    private HashMap<String, String> symTab;
 
-    public BodyNode(ArrayList<BodyStmtNode> bodyStmts, ReturnStmtNode returnStmt){
+    public BodyNode(ArrayList<BodyStmtNode> bodyStmts, ReturnStmtNode returnStmt, HashMap<String, String> symTab){
         this.bodyStmts = bodyStmts;
         this.returnStmt = returnStmt;
+        this.symTab = symTab;
     }
 
     public static BodyNode parseBodyNode(ArrayList<Token> tokens) throws SyntaxErrorException {
@@ -88,8 +91,13 @@ public class BodyNode implements JottTree{
 
     @Override
     public boolean validateTree() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
+        for(BodyStmtNode bodyStmt : this.bodyStmts){
+            bodyStmt.validateTree();
+        }
+        if(this.returnStmt != null){
+            this.returnStmt.validateTree();
+        }
+        return true;
     }
     
 }

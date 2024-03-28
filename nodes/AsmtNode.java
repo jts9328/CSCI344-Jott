@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 
 public class AsmtNode implements BodyStmtNode{
+    private TypeNode type;
     private IdNode id;
     private ExprNode expr;
     private Token semiColon;
@@ -88,8 +89,16 @@ public class AsmtNode implements BodyStmtNode{
 
     @Override
     public boolean validateTree() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
+        this.expr.validateTree();
+
+        String type;
+        if(this.type != null){
+            type = this.type.getToken().getToken();
+        }
+
+        // CHECK IF VAR TYPE MATCHES WITH ASSIGNMENT TYPE!
+
+        return true;
     }
     
 }

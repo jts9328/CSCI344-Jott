@@ -16,6 +16,8 @@ public class FunctionDefNode implements JottTree {
     private FunctionReturnNode functionReturnNode;
     private FBodyNode fBodyNode;
 
+    public HashMap<String, IdNode> symTab = new HashMap<>();
+
     // Constructor
     public FunctionDefNode(IdNode idNode, FunctionDefParamsNode functionDefParamsNode, FunctionReturnNode functionReturnNode, FBodyNode fBodyNode) {
         this.idNode = idNode;
@@ -66,7 +68,7 @@ public class FunctionDefNode implements JottTree {
             throw new SyntaxErrorException("Expected left brace but got " + lbraceToken.getToken(), lbraceToken);
         }
 
-        FBodyNode fBodyNode = FBodyNode.parseFBodyNode(tokens);
+        FBodyNode fBodyNode = FBodyNode.parseFBodyNode(tokens, symTab);
 
         // Look for }
         Token rbraceToken = tokens.remove(0);

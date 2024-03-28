@@ -45,7 +45,7 @@ public class IdNode implements OperandNode {
             // Token is not an identifier; handle error or return null
             throw new SyntaxErrorException("Expected ID, found: " + token.getToken(), token);
         }
-    }
+    } 
 
     @Override
     public String convertToJott() {

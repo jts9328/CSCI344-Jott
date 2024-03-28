@@ -87,8 +87,10 @@ public class WhileLoopNode implements BodyStmtNode{
 
     @Override
     public boolean validateTree() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
+        this.expr.validateTree();
+        this.body.validateTree();
+
+        return true;
     }
     
 }
