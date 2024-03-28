@@ -7,6 +7,7 @@ import provided.JottTree;
 
 import java.util.ArrayList;
 
+import exceptions.SemanticErrorException;
 import exceptions.SyntaxErrorException;
 
 
@@ -59,6 +60,6 @@ public interface OperandNode extends ExprNode{
     public String convertToPython();
 
     @Override
-    public boolean validateTree();
+    public boolean validateTree() throws SemanticErrorException;
     
 }

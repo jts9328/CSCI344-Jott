@@ -3,6 +3,7 @@ package nodes;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import exceptions.SemanticErrorException;
 import exceptions.SyntaxErrorException;
 import provided.JottParser;
 import provided.JottTree;
@@ -17,12 +18,10 @@ public class BodyNode implements JottTree{
 
     private ArrayList<BodyStmtNode> bodyStmts;
     private ReturnStmtNode returnStmt;
-    private HashMap<String, String> symTab;
 
-    public BodyNode(ArrayList<BodyStmtNode> bodyStmts, ReturnStmtNode returnStmt, HashMap<String, String> symTab){
+    public BodyNode(ArrayList<BodyStmtNode> bodyStmts, ReturnStmtNode returnStmt){
         this.bodyStmts = bodyStmts;
         this.returnStmt = returnStmt;
-        this.symTab = symTab;
     }
 
     public static BodyNode parseBodyNode(ArrayList<Token> tokens) throws SyntaxErrorException {
@@ -90,7 +89,7 @@ public class BodyNode implements JottTree{
     }
 
     @Override
-    public boolean validateTree() {
+    public boolean validateTree() throws SemanticErrorException {
         for(BodyStmtNode bodyStmt : this.bodyStmts){
             bodyStmt.validateTree();
         }

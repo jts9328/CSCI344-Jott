@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import exceptions.SemanticErrorException;
+
 public class Jott {
     public static void main(String[] args) throws IOException {
         if(args.length == 3){
@@ -21,7 +23,13 @@ public class Jott {
                 // Run parser to convert to Jott
                 ArrayList<Token> tokens = JottTokenizer.tokenize(args[0]);
                 JottTree tree = JottParser.parse(tokens);
-                tree.validateTree();
+                try {
+                    tree.validateTree();
+                } catch (SemanticErrorException e) {
+                    e.printErrorMessage();
+                    return;
+                }
+                
                 String jottCode = tree.convertToJott();
                 FileWriter writer = new FileWriter(args[1]);
                 writer.write(jottCode);

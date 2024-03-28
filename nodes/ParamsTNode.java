@@ -2,6 +2,7 @@ package nodes;
 
 import java.util.ArrayList;
 
+import exceptions.SemanticErrorException;
 import exceptions.SyntaxErrorException;
 import provided.JottParser;
 import provided.JottTree;
@@ -69,9 +70,13 @@ public class ParamsTNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() {
+    public boolean validateTree() throws SemanticErrorException {
         this.exprNode.validateTree();
         return true;
+    }
+
+    public String getResultingType() {
+        return exprNode.getResultingType();
     }
     
 }

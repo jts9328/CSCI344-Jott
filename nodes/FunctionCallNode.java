@@ -7,6 +7,7 @@ import provided.TokenType;
 
 import java.util.ArrayList;
 
+import exceptions.SemanticErrorException;
 import exceptions.SyntaxErrorException;
 
 public class FunctionCallNode implements BodyStmtNode, OperandNode {
@@ -53,7 +54,7 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
         }
 
         // Look for <params>
-        ParamsNode paramsNode = ParamsNode.parseParamsNode(tokens);
+        ParamsNode paramsNode = ParamsNode.parseParamsNode(tokens, idNode.toString());
 
         // Look for ]
         Token rbToken = tokens.remove(0);
@@ -89,9 +90,13 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
     }
 
     @Override
-    public boolean validateTree() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
+    public boolean validateTree() throws SemanticErrorException {
+        // The function id provided does not exist
+        if(JottParser.symTable.funcSymTab.containsKey(idNode.getToken().getToken())) {
+            throw new SemanticErrorException("Semantic Error:\nCall to unknown function " + idNode.getToken().getToken(), idNode.getToken());
+        }
+        
+        return paramsNode.validateTree();
     }
-    
+
 }

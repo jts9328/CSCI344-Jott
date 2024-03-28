@@ -1,5 +1,6 @@
 package nodes;
 
+import exceptions.SemanticErrorException;
 import exceptions.SyntaxErrorException;
 import provided.JottParser;
 import provided.JottTree;
@@ -88,7 +89,7 @@ public class AsmtNode implements BodyStmtNode{
     }
 
     @Override
-    public boolean validateTree() {
+    public boolean validateTree() throws SemanticErrorException {
         this.expr.validateTree();
 
         String type;

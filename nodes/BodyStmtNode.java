@@ -2,6 +2,7 @@ package nodes;
 
 import java.util.ArrayList;
 
+import exceptions.SemanticErrorException;
 import exceptions.SyntaxErrorException;
 import provided.JottParser;
 import provided.JottTree;
@@ -52,6 +53,6 @@ public interface BodyStmtNode extends JottTree{
     public String convertToPython();
 
     @Override
-    public boolean validateTree();
+    public boolean validateTree() throws SemanticErrorException;
     
 }

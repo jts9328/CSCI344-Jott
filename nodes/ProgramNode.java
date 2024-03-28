@@ -23,7 +23,7 @@ public class ProgramNode implements JottTree {
         }
     }
 
-    public static ProgramNode parseProgram(ArrayList<Token> tokens, HashMap<String, String> varSymTab, HashMap<String, ArrayList<String>> funcSymTab) throws SyntaxErrorException {
+    public static ProgramNode parseProgram(ArrayList<Token> tokens) throws SyntaxErrorException {
         ArrayList<FunctionDefNode> functionDefs = new ArrayList<>();
         while (!tokens.isEmpty()) {
             // create new funciton def

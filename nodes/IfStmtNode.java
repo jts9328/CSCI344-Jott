@@ -108,7 +108,7 @@ public class IfStmtNode implements BodyStmtNode{
     }
 
     @Override
-    public boolean validateTree() {
+    public boolean validateTree() throws SemanticErrorException {
         this.expr.validateTree();
         this.body.validateTree();
         

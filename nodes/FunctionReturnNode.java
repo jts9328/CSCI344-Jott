@@ -50,7 +50,7 @@ public class FunctionReturnNode implements JottTree {
      * @return                      FunctionReturnNode complete with children
      * @throws SyntaxErrorException if a syntax error is detected
      */
-    public static FunctionReturnNode parseFunctionReturnNode(ArrayList<Token> tokens) throws SyntaxErrorException {
+    public static FunctionReturnNode parseFunctionReturnNode(ArrayList<Token> tokens, String funcId) throws SyntaxErrorException {
         if(tokens.isEmpty()) {
             throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
         }
@@ -59,11 +59,13 @@ public class FunctionReturnNode implements JottTree {
 
         if (token.getTokenType() == TokenType.ID_KEYWORD && token.getToken().equals("Void")) {
             tokens.remove(0);
+            JottParser.symTable.funcSymTab.get(funcId).add("Void");
             return new FunctionReturnNode(token);
         } 
         
         TypeNode typeNode = TypeNode.parseTypeNode(tokens);
         
+        JottParser.symTable.funcSymTab.get(funcId).add(typeNode.toString());
         return new FunctionReturnNode(typeNode);
     }
 
@@ -96,8 +98,8 @@ public class FunctionReturnNode implements JottTree {
 
     @Override
     public boolean validateTree() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
+        typeNode.validateTree();
+        return true;
     }
     
 }
