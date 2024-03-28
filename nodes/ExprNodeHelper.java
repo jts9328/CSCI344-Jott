@@ -51,8 +51,16 @@ public class ExprNodeHelper implements ExprNode{
 
     @Override
     public boolean validateTree() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
+        this.first.validateTree();
+        this.op.validateTree();
+        this.second.validateTree();
+
+        // check types of first and second operands
+        if (!this.first.getResultingType().equals(this.second.getResultingType())) {
+            throw new SemanticErrorException("Semantic Error:\nMismatched Operand Types " + this.first.getToken(), this.second.getToken());
+            return false;
+        }
+        return true;
     }
 
 }
