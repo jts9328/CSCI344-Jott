@@ -38,7 +38,7 @@ public class FunctionDefNode implements JottTree {
         // Look for <id>
         IdNode idNode = IdNode.parseId(tokens);
 
-        String idString = idNode.getToken().getToken();
+        String idString = idNode.toString();
         ArrayList<String> params = new ArrayList<>();
         JottParser.symTable.funcSymTab.put(idNode.getToken().getToken(), params);
 

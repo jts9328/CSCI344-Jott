@@ -18,7 +18,7 @@ public class FunctionDefParamsTNode implements JottTree{
         this.typeNode = typeNode;
     }
 
-    public static FunctionDefParamsTNode parseFunctionDefParamsTNode(ArrayList<Token> tokens) throws SyntaxErrorException {
+    public static FunctionDefParamsTNode parseFunctionDefParamsTNode(ArrayList<Token> tokens, String idString) throws SyntaxErrorException {
         // errors if EOF
         if (tokens == null || tokens.isEmpty()){
             throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
@@ -39,6 +39,9 @@ public class FunctionDefParamsTNode implements JottTree{
         token = tokens.get(0);
         // parse Type
         TypeNode typeNode = TypeNode.parseTypeNode(tokens);
+
+        JottParser.symTable.funcSymTab.get(idString).add(typeNode.toString());
+
         return new FunctionDefParamsTNode(idNode, typeNode);
     }
 

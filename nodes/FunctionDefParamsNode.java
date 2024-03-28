@@ -64,11 +64,13 @@ public class FunctionDefParamsNode implements JottTree{
         // Look for <type>
         TypeNode typeNode = TypeNode.parseTypeNode(tokens);
 
+        JottParser.symTable.funcSymTab.get(idString).add(typeNode.toString());
+
         // Look for <function_def_params_t>*
         ArrayList<FunctionDefParamsTNode> functionDefParamsTNodes = new ArrayList<>();
 
         while(tokens.get(0).getTokenType() == TokenType.COMMA) {
-            functionDefParamsTNodes.add(FunctionDefParamsTNode.parseFunctionDefParamsTNode(tokens));
+            functionDefParamsTNodes.add(FunctionDefParamsTNode.parseFunctionDefParamsTNode(tokens, idString));
         }
 
         return new FunctionDefParamsNode(idNode, typeNode, functionDefParamsTNodes);
