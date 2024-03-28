@@ -62,7 +62,7 @@ public class FunctionDefNode implements JottTree {
             throw new SyntaxErrorException("Expected colon but got " + colonToken.getToken(), colonToken);
         }
 
-        FunctionReturnNode functionReturnNode = FunctionReturnNode.parseFunctionReturnNode(tokens);
+        FunctionReturnNode functionReturnNode = FunctionReturnNode.parseFunctionReturnNode(tokens, idString);
 
         // Look for {
         Token lbraceToken = tokens.remove(0);
@@ -70,7 +70,7 @@ public class FunctionDefNode implements JottTree {
             throw new SyntaxErrorException("Expected left brace but got " + lbraceToken.getToken(), lbraceToken);
         }
 
-        FBodyNode fBodyNode = FBodyNode.parseFBodyNode(tokens, symTab);
+        FBodyNode fBodyNode = FBodyNode.parseFBodyNode(tokens);
 
         // Look for }
         Token rbraceToken = tokens.remove(0);
