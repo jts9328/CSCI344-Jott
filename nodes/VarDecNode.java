@@ -7,6 +7,7 @@ import provided.TokenType;
 
 import java.util.ArrayList;
 
+import exceptions.SemanticErrorException;
 import exceptions.SyntaxErrorException;
 
 public class VarDecNode implements JottTree{
@@ -72,9 +73,15 @@ public class VarDecNode implements JottTree{
     }
 
     @Override
-    public boolean validateTree() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
+    public boolean validateTree() throws SemanticErrorException {
+        if(JottParser.symTable.varSymTab.get(id.toString()).equals(null)){
+            JottParser.symTable.varSymTab.put(id.toString(),type.toString());
+            return true;
+        } else {
+            throw new SemanticErrorException("Variable already declared", id.getToken());
+        }
+
     }
+    
     
 }
