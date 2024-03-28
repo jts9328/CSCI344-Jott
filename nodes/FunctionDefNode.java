@@ -16,8 +16,6 @@ public class FunctionDefNode implements JottTree {
     private FunctionReturnNode functionReturnNode;
     private FBodyNode fBodyNode;
 
-    public HashMap<String, IdNode> symTab = new HashMap<>();
-
     // Constructor
     public FunctionDefNode(IdNode idNode, FunctionDefParamsNode functionDefParamsNode, FunctionReturnNode functionReturnNode, FBodyNode fBodyNode) {
         this.idNode = idNode;
@@ -40,13 +38,17 @@ public class FunctionDefNode implements JottTree {
         // Look for <id>
         IdNode idNode = IdNode.parseId(tokens);
 
+        String idString = idNode.getToken().getToken();
+        ArrayList<String> params = new ArrayList<>();
+        JottParser.symTable.funcSymTab.put(idNode.getToken().getToken(), params);
+
         // Look for [
         Token lbToken = tokens.remove(0);
         if(lbToken.getTokenType() != TokenType.L_BRACKET){
             throw new SyntaxErrorException("Expected left square bracket but got " + lbToken.getToken(), lbToken);
         }
 
-        FunctionDefParamsNode functionDefParamsNode = FunctionDefParamsNode.parseFunctionDefParamsNode(tokens);
+        FunctionDefParamsNode functionDefParamsNode = FunctionDefParamsNode.parseFunctionDefParamsNode(tokens, idString);
 
         // Look for ]
         Token rbToken = tokens.remove(0);
