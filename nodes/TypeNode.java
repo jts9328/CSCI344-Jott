@@ -78,5 +78,9 @@ public class TypeNode implements JottTree {
     public boolean validateTree() {
         return true;
     }
+
+    public String toString(){
+        return this.token.getToken();
+    }
     
 }

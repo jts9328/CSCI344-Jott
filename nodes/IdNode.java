@@ -79,5 +79,9 @@ public class IdNode implements OperandNode {
     public Token getToken() {
         return token;
     }
+
+    public  String toString() {
+        return this.token.getToken();
+    }
     
 }
