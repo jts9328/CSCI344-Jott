@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 
 public class AsmtNode implements BodyStmtNode{
-    private TypeNode type;
     private IdNode id;
     private ExprNode expr;
     private Token semiColon;
@@ -90,16 +89,18 @@ public class AsmtNode implements BodyStmtNode{
 
     @Override
     public boolean validateTree() throws SemanticErrorException {
-        this.expr.validateTree();
-
-        String type;
-        if(this.type != null){
-            type = this.type.getToken().getToken();
+        String exprType = this.expr.getResultingType();
+        String type = JottParser.symTable.varSymTab.get(this.id.toString());
+        if(type != null && exprType != null){
+            if(type.equals(exprType)){
+                return true;
+            }
         }
+        throw new SemanticErrorException("Semantic Error:\nMismatched Types " + id.getToken(), this.expr.getToken());
 
         // CHECK IF VAR TYPE MATCHES WITH ASSIGNMENT TYPE!
 
-        return true;
     }
     
 }
+
