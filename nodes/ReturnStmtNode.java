@@ -41,6 +41,15 @@ public class ReturnStmtNode implements JottTree{
             throw new SyntaxErrorException("Expected return or end of function", token);
         }
     }
+
+    public String getReturnType(){
+        return this.expr.getResultingType();
+    }
+
+    public Token getToken(){
+        return this.expr.getToken();
+    }
+
     @Override
     public String convertToJott() {
         // No return check
@@ -73,8 +82,6 @@ public class ReturnStmtNode implements JottTree{
     @Override
     public boolean validateTree() throws SemanticErrorException{
         this.expr.validateTree();
-        // Check if return type matches func return type
-
         return true;
     }
     

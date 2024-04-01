@@ -106,7 +106,14 @@ public class FunctionDefNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() {
+    public boolean validateTree() throws SemanticErrorException{
+        // rest of validation still needed, this is just for the return type validating
+        this.fBodyNode.validateTree();
+        ArrayList<String> funcTab = JottParser.symTable.funcSymTab.get(this.idNode.toString());
+        String returnType = funcTab.get(funcTab.size()-1);
+        if(!(returnType.equals(this.fBodyNode.getReturnType()))){
+            throw new SemanticErrorException("Semantic Error:\nmismatch return type for function " + this.idNode.toString(), this.fBodyNode.getReturnToken());
+        }
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
     }

@@ -2,6 +2,7 @@ package nodes;
 
 import java.util.ArrayList;
 
+import exceptions.SemanticErrorException;
 import exceptions.SyntaxErrorException;
 import provided.JottParser;
 import provided.JottTree;
@@ -37,6 +38,14 @@ public class FBodyNode implements JottTree{
         return new FBodyNode(bodyNode, varDecs);
     }
 
+    public String getReturnType(){
+        return this.bodyNode.getReturnType();
+    }
+
+    public Token getReturnToken(){
+        return this.bodyNode.getReturnToken();
+    }
+
     @Override
     public String convertToJott() {
         String jott = "";
@@ -67,9 +76,14 @@ public class FBodyNode implements JottTree{
     }
 
     @Override
-    public boolean validateTree() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
+    public boolean validateTree() throws SemanticErrorException{
+        for(VarDecNode varDec : this.varDecs){
+            varDec.validateTree();
+        }
+        if(this.bodyNode != null){
+            this.bodyNode.validateTree();
+        }
+        return true;
     }
     
 }

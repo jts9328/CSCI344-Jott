@@ -54,6 +54,15 @@ public class BodyNode implements JottTree{
             throw new SyntaxErrorException("Expected Return statement or '}' but got " + endingToken.getToken(), endingToken);
         }
     }
+
+    public String getReturnType(){
+        return this.returnStmt.getReturnType();
+    }
+
+    public Token getReturnToken(){
+        return this.returnStmt.getToken();
+    }
+
     @Override
     public String convertToJott() {
         String jott = "";
