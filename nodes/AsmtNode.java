@@ -3,7 +3,6 @@ package nodes;
 import exceptions.SemanticErrorException;
 import exceptions.SyntaxErrorException;
 import provided.JottParser;
-import provided.JottTree;
 import provided.Token;
 import provided.TokenType;
 
@@ -90,17 +89,22 @@ public class AsmtNode implements BodyStmtNode{
     @Override
     public boolean validateTree() throws SemanticErrorException {
         String exprType = this.expr.getResultingType();
-        String type = JottParser.symTable.varSymTab.get(this.id.toString());
-        if(type != null && exprType != null){
-            if(type.equals(exprType)){
+        String varType = JottParser.symTable.varSymTab.get(this.id.toString());
+    
+        // Ensure both the variable and expression types are found and not null
+        if (varType != null && exprType != null) {
+            // Check if the variable type matches the expression type
+            if (varType.equals(exprType)) {
+                // Types match, so the tree is semantically valid for this part
                 return true;
+            } else {
+                // Types do not match, throw a semantic error exception
+                throw new SemanticErrorException("Semantic Error: Mismatched Types. Expected " + varType + ", got " + exprType + " for " + id.getToken(), this.expr.getToken());
             }
+        } else {
+            // One or both of the types are null, indicating a missing type or undeclared variable
+            throw new SemanticErrorException("Semantic Error: Missing type information for " + (varType == null ? "variable " + id.getToken() : "expression " + expr.getToken()), this.expr.getToken());
         }
-        throw new SemanticErrorException("Semantic Error:\nMismatched Types " + id.getToken(), this.expr.getToken());
-
-        // CHECK IF VAR TYPE MATCHES WITH ASSIGNMENT TYPE!
-
-    }
+    }    
     
 }
-

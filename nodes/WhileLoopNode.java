@@ -1,7 +1,5 @@
 package nodes;
 
-import provided.JottTree;
-import provided.JottParser;
 import provided.Token;
 import provided.TokenType;
 

@@ -10,7 +10,7 @@ public class ExprNodeHelper implements ExprNode{
     private OpNode op;
     private OperandNode second;
 
-    public ExprNodeHelper(OperandNode first,OpNode op, OperandNode second ){
+    public ExprNodeHelper(OperandNode first, OpNode op, OperandNode second){
         this.first = first;
         this.op = op;
         this.second = second;

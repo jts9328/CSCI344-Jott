@@ -8,7 +8,6 @@ import provided.TokenType;
 import exceptions.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class FunctionDefNode implements JottTree {
     private IdNode idNode;

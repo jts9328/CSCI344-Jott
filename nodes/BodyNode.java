@@ -1,7 +1,6 @@
 package nodes;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import exceptions.SemanticErrorException;
 import exceptions.SyntaxErrorException;

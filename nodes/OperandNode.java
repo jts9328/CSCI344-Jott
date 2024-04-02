@@ -3,7 +3,6 @@ package nodes;
 import provided.Token;
 import provided.TokenType;
 import provided.JottParser;
-import provided.JottTree;
 
 import java.util.ArrayList;
 
