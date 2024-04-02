@@ -40,6 +40,8 @@ public interface BodyStmtNode extends JottTree{
         }
     }
 
+    public String getReturnType() throws SemanticErrorException;
+
     @Override
     public String convertToJott();
 

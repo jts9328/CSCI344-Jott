@@ -54,8 +54,29 @@ public class BodyNode implements JottTree{
         }
     }
 
-    public String getReturnType(){
-        return this.returnStmt.getReturnType();
+    public String getReturnType() throws SemanticErrorException{
+        String returnStmtType = "";
+        if(this.returnStmt != null){
+            returnStmtType = this.returnStmt.getReturnType();
+        }
+        ArrayList<String> bodyStmtsReturns = new ArrayList<String>();
+        for(BodyStmtNode bodyStmt: bodyStmts){
+            bodyStmtsReturns.add(bodyStmt.getReturnType());
+        }
+        String returnPrime = bodyStmtsReturns.get(0);
+        for(String bodyStmtReturn: bodyStmtsReturns){
+            if(!(returnPrime.equals(bodyStmtReturn))){
+                throw new SemanticErrorException("Semantic Error: Return types of body statements do not match", getReturnToken());
+            }
+        }
+        if(!(returnStmtType.equals(returnPrime))){
+            throw new SemanticErrorException("Semantic Error: Return types of body statements do not match", getReturnToken());
+        }
+        if(this.returnStmt != null){
+            return returnStmtType;
+        } else{
+            return returnPrime;
+        }
     }
 
     public Token getReturnToken(){
