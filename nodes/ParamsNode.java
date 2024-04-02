@@ -105,7 +105,6 @@ public class ParamsNode implements JottTree{
         // Check if the first param is correct
         if(exprNode.getResultingType() != paramTypes.remove(0)) {
             throw new SemanticErrorException("Semantic Error:\nIncorrect arguments for function " + funcId, exprNode.getToken());
-            return false;
         }
 
         exprNode.validateTree();
@@ -114,7 +113,6 @@ public class ParamsNode implements JottTree{
         for (ParamsTNode paramsTNode : paramsTNodes) {
             if(paramsTNode.getResultingType() != paramTypes.remove(0)) {
                 throw new SemanticErrorException("Semantic Error:\nIncorrect arguments for function " + funcId, exprNode.getToken());
-                return false;
             }
 
             paramsTNode.validateTree();
@@ -123,7 +121,6 @@ public class ParamsNode implements JottTree{
         // Function was not given all the params
         if(!paramTypes.isEmpty()) {
             throw new SemanticErrorException("Semantic Error:\nIncorrect arguments for function " + funcId, exprNode.getToken());
-            return false;
         }
 
         return true;

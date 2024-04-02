@@ -19,11 +19,11 @@ public class ExprNodeHelper implements ExprNode{
     public String getResultingType() {
         Token opToken = this.op.getToken();
         if (opToken.getTokenType() == TokenType.REL_OP) {
-            return "Bool";
+            return "Boolean";
         }
-        if (opToken.getTokenType() == TokenType.MATH_OP) {
-            return this.first.getResultingType();
-        }
+
+        return this.first.getResultingType();
+        
     }
 
     public Token getToken() {
@@ -62,7 +62,6 @@ public class ExprNodeHelper implements ExprNode{
         // check types of first and second operands
         if (!this.first.getResultingType().equals(this.second.getResultingType())) {
             throw new SemanticErrorException("Semantic Error:\nMismatched Operand Types " + this.first.getToken(), this.second.getToken());
-            return false;
         }
         return true;
     }
