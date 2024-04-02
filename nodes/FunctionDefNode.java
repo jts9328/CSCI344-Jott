@@ -38,8 +38,6 @@ public class FunctionDefNode implements JottTree {
         IdNode idNode = IdNode.parseId(tokens);
 
         String idString = idNode.toString();
-        ArrayList<String> params = new ArrayList<>();
-        JottParser.symTable.funcSymTab.put(idNode.getToken().getToken(), params);
 
         // Look for [
         Token lbToken = tokens.remove(0);
@@ -105,16 +103,35 @@ public class FunctionDefNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() throws SemanticErrorException{
-        // rest of validation still needed, this is just for the return type validating
-        this.fBodyNode.validateTree();
-        ArrayList<String> funcTab = JottParser.symTable.funcSymTab.get(this.idNode.toString());
-        String returnType = funcTab.get(funcTab.size()-1);
-        if(!(returnType.equals(this.fBodyNode.getReturnType()))){
-            throw new SemanticErrorException("Semantic Error:\nmismatch return type for function " + this.idNode.toString(), this.fBodyNode.getReturnToken());
+    public boolean validateTree() throws SemanticErrorException {
+
+        // If the func id already exists, throw a semantic error
+        
+        if(JottParser.symTable.funcSymTab.containsKey(idNode.toString())) {
+            throw new SemanticErrorException("Duplicate function " + idNode.toString(), idNode.getToken());
         }
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
+
+        JottParser.symTable.funcSymTab.put(idNode.toString(), new ArrayList<>());
+
+        functionDefParamsNode.validateTree();
+
+        functionReturnNode.validateTree();
+
+        fBodyNode.validateTree();
+
+        return true;
+
+
+        // // rest of validation still needed, this is just for the return type validating
+        // this.fBodyNode.validateTree();
+        // ArrayList<String> funcTab = JottParser.symTable.funcSymTab.get(this.idNode.toString());
+        // String returnType = funcTab.get(funcTab.size()-1);
+
+        // if(!(returnType.equals(this.fBodyNode.getReturnType()))){
+        //     throw new SemanticErrorException("Mismatch return type for function " + this.idNode.toString(), this.fBodyNode.getReturnToken());
+        // }
+        
+        // return true;
     }
     
 }

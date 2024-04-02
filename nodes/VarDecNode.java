@@ -13,19 +13,16 @@ import exceptions.SyntaxErrorException;
 public class VarDecNode implements JottTree{
     private TypeNode type;
     private IdNode id;
-    private Token Semi;
 
     /**
      *  Grammar: <Var_Dec> -> < type > < id>;
      * 
      * @param type  child node that is a type
      * @param id child node that is an id
-     * @param Semi semicolon at end 
      */
-    public VarDecNode(TypeNode type, IdNode id, Token Semi){
+    public VarDecNode(TypeNode type, IdNode id){
         this.type = type;
         this.id = id;
-        this.Semi = Semi;
     }
 
     /**
@@ -35,15 +32,19 @@ public class VarDecNode implements JottTree{
      * @return                          Defined Variable Declaratio Node
      * @throws SyntaxErrorException     one of Child Nodes was incorrect
      */
-    public static VarDecNode parseVarDecNode(ArrayList<Token> tokens) throws SyntaxErrorException{
-        TypeNode typeNode = TypeNode.parseTypeNode(tokens);
-        IdNode idNode = IdNode.parseId(tokens);
+    public static VarDecNode parseVarDecNode(ArrayList<Token> tokens) throws SyntaxErrorException {
         if(tokens.isEmpty()) {
             throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
         }
+
+        TypeNode typeNode = TypeNode.parseTypeNode(tokens);
+        IdNode idNode = IdNode.parseId(tokens);
+
+        
+        
         Token semiColon = tokens.remove(0);
         if(semiColon.getTokenType()==TokenType.SEMICOLON){
-            return new VarDecNode(typeNode, idNode, semiColon);        
+            return new VarDecNode(typeNode, idNode);        
         } else {
             throw new SyntaxErrorException("Expected SemiColon", semiColon );
         }
@@ -74,13 +75,12 @@ public class VarDecNode implements JottTree{
 
     @Override
     public boolean validateTree() throws SemanticErrorException {
-        if(JottParser.symTable.varSymTab.get(id.toString()).equals(null)){
-            JottParser.symTable.varSymTab.put(id.toString(),type.toString());
-            return true;
-        } else {
+        if(JottParser.symTable.varSymTab.containsKey(id.toString())){
             throw new SemanticErrorException("Variable already declared", id.getToken());
         }
-
+        
+        JottParser.symTable.varSymTab.put(id.toString(), type.toString());
+        return true;
     }
     
     

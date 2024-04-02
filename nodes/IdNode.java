@@ -47,9 +47,9 @@ public class IdNode implements OperandNode {
         }
     } 
 
-    public String getResultingType() {
+    public String getReturnType() {
         return JottParser.symTable.varSymTab.get(this.token.getToken());
-    }
+    } 
 
     @Override
     public String convertToJott() {

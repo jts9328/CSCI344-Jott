@@ -12,37 +12,40 @@ public class FunctionDefParamsTNode implements JottTree{
 
     private IdNode idNode;
     private TypeNode typeNode;
+    private String funcId;
 
-    public FunctionDefParamsTNode(IdNode idNode, TypeNode typeNode){
+    public FunctionDefParamsTNode(IdNode idNode, TypeNode typeNode, String funcId){
         this.idNode = idNode;
         this.typeNode = typeNode;
+        this.funcId = funcId;
     }
 
-    public static FunctionDefParamsTNode parseFunctionDefParamsTNode(ArrayList<Token> tokens, String idString) throws SyntaxErrorException {
+    public static FunctionDefParamsTNode parseFunctionDefParamsTNode(ArrayList<Token> tokens, String funcId) throws SyntaxErrorException {
         // errors if EOF
         if (tokens == null || tokens.isEmpty()){
             throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
         }
+
         Token token = tokens.remove(0);
         // check for the leading comma
         if (token.getTokenType() != TokenType.COMMA){
             throw new SyntaxErrorException("Expected ','", token);
         }
-        token = tokens.get(0);
+
+
         // parse ID
         IdNode idNode = IdNode.parseId(tokens);
+
         token = tokens.remove(0);
         // check for colon
         if(token.getTokenType() != TokenType.COLON){
             throw new SyntaxErrorException("Expected ':'", token);
         }
-        token = tokens.get(0);
+        
         // parse Type
         TypeNode typeNode = TypeNode.parseTypeNode(tokens);
 
-        JottParser.symTable.funcSymTab.get(idString).add(typeNode.toString());
-
-        return new FunctionDefParamsTNode(idNode, typeNode);
+        return new FunctionDefParamsTNode(idNode, typeNode, funcId);
     }
 
     @Override
@@ -70,8 +73,9 @@ public class FunctionDefParamsTNode implements JottTree{
 
     @Override
     public boolean validateTree() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
+        // Add param to symbol table
+        JottParser.symTable.funcSymTab.get(funcId).add(typeNode.toString());
+        return true;
     }
     
 }

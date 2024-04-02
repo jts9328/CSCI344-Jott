@@ -13,6 +13,7 @@ public class FunctionReturnNode implements JottTree {
 
     private TypeNode typeNode;
     private Token voidToken;
+    private String funcId;
 
     /**
      * Grammar: < function_return > --> < type > | Void
@@ -20,27 +21,10 @@ public class FunctionReturnNode implements JottTree {
      * @param typeNode  typeNode
      * @param voidToken void keyword token
      */
-    private FunctionReturnNode(TypeNode typeNode, Token voidToken) {
+    public FunctionReturnNode(TypeNode typeNode, Token voidToken, String funcId) {
         this.typeNode = typeNode;
         this.voidToken = voidToken;
-    }
-
-    /**
-     * Grammar: < function_return > --> < type > 
-     * 
-     * @param typeNode typeNode
-     */
-    public FunctionReturnNode(TypeNode typeNode) {
-        this(typeNode, null);
-    }
-
-    /**
-     * Grammar: < function_return > --> Void
-     * 
-     * @param voidToken void keyword token
-     */
-    public FunctionReturnNode(Token voidToken) {
-        this(null, voidToken);
+        this.funcId = funcId;
     }
 
     /**
@@ -59,14 +43,12 @@ public class FunctionReturnNode implements JottTree {
 
         if (token.getTokenType() == TokenType.ID_KEYWORD && token.getToken().equals("Void")) {
             tokens.remove(0);
-            JottParser.symTable.funcSymTab.get(funcId).add("Void");
-            return new FunctionReturnNode(token);
+            return new FunctionReturnNode(null, token, funcId);
         } 
         
         TypeNode typeNode = TypeNode.parseTypeNode(tokens);
         
-        JottParser.symTable.funcSymTab.get(funcId).add(typeNode.toString());
-        return new FunctionReturnNode(typeNode);
+        return new FunctionReturnNode(typeNode, null, funcId);
     }
 
     @Override
@@ -98,7 +80,13 @@ public class FunctionReturnNode implements JottTree {
 
     @Override
     public boolean validateTree() {
-        typeNode.validateTree();
+        String returnType = "Void";
+        if(typeNode != null) {
+            returnType = typeNode.toString();
+        }
+
+        JottParser.symTable.funcSymTab.get(funcId).add(returnType);
+        
         return true;
     }
     

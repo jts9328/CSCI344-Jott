@@ -64,7 +64,7 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
         return new FunctionCallNode(idNode, paramsNode);
     }
 
-    public String getResultingType() {
+    public String getReturnType() {
         // Retrieve the list associated with this function.
         ArrayList<String> typeInfo = JottParser.symTable.funcSymTab.get(this.idNode.toString());
     
@@ -107,17 +107,11 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
     @Override
     public boolean validateTree() throws SemanticErrorException {
         // The function id provided does not exist
-        if(JottParser.symTable.funcSymTab.containsKey(idNode.getToken().getToken())) {
-            throw new SemanticErrorException("Semantic Error:\nCall to unknown function " + idNode.getToken().getToken(), idNode.getToken());
+        if(!JottParser.symTable.funcSymTab.containsKey(idNode.getToken().getToken())) {
+            throw new SemanticErrorException("Call to unknown function " + idNode.getToken().getToken(), idNode.getToken());
         }
         
         return paramsNode.validateTree();
-    }
-
-    @Override
-    public String getReturnType() throws SemanticErrorException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getReturnType'");
     }
 
 }

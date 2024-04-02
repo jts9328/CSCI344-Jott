@@ -40,7 +40,7 @@ public class BoolNode implements ExprNode{
         else throw new SyntaxErrorException("Expected Bool Value, found: " + boolToken.getTokenType(), boolToken);
     }
 
-    public String getResultingType() {
+    public String getReturnType() {
         return "Bool";
     }
 

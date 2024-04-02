@@ -46,7 +46,7 @@ public interface OperandNode extends ExprNode{
 
     }
 
-    public String getResultingType();
+    public String getReturnType();
 
     public Token getToken();
 

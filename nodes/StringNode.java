@@ -39,7 +39,7 @@ public class StringNode implements ExprNode {
         }
     }
 
-    public String getResultingType() {
+    public String getReturnType() {
         return "String";
     }
 

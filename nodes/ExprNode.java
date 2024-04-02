@@ -53,7 +53,7 @@ public interface ExprNode extends JottTree {
         return operandNode;
     }
 
-    public String getResultingType();
+    public String getReturnType();
 
     public Token getToken();
 

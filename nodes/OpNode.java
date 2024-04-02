@@ -39,7 +39,7 @@ public class OpNode implements ExprNode {
         }
     }
 
-    public String getResultingType() {
+    public String getReturnType() {
         //only rel and math ops
         return null;
     }

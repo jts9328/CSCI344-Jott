@@ -50,11 +50,11 @@ public class NumNode implements OperandNode {
         }
     }
 
-    public String getResultingType() {
+    public String getReturnType() {
         String numberString = this.number.getToken();
         // Use == for comparison with int, not .equals
         if (numberString.indexOf('.') == -1) {
-            return "Int"; // Return "Int" if no decimal point is found
+            return "Integer"; // Return "Int" if no decimal point is found
         } else {
             return "Double"; // Return "Double" if a decimal point is found
         }

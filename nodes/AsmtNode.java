@@ -88,14 +88,16 @@ public class AsmtNode implements BodyStmtNode{
 
     @Override
     public boolean validateTree() throws SemanticErrorException {
-        String exprType = this.expr.getResultingType();
+        expr.validateTree();
+
+        String exprType = this.expr.getReturnType();
         String varType = JottParser.symTable.varSymTab.get(this.id.toString());
     
         // Ensure both the variable and expression types are found and not null
         if (varType != null && exprType != null) {
             // Check if the variable type matches the expression type
             if (varType.equals(exprType)) {
-                // Types match, so the tree is semantically valid for this part
+                // Types match, so the tree is semantically valid for this part 
                 return true;
             } else {
                 // Types do not match, throw a semantic error exception

@@ -34,20 +34,28 @@ public class ReturnStmtNode implements JottTree{
             // return the created node
             return returnNode;
         // no return check (valid)
-        } else if(token.getTokenType() == TokenType.R_BRACKET){
+        } else if(token.getTokenType() == TokenType.R_BRACE){
             return new ReturnStmtNode(null);
         // Invalid
         } else{
-            throw new SyntaxErrorException("Expected return or end of function", token);
+            throw new SyntaxErrorException("Expected Return statement or '}' but got " + token.getToken(), token);
         }
     }
 
     public String getReturnType(){
-        return this.expr.getResultingType();
+        if(expr != null) {
+            return this.expr.getReturnType();
+        }
+        
+        return "Void";
     }
 
     public Token getToken(){
-        return this.expr.getToken();
+        if(expr != null) {
+            return this.expr.getToken();
+        }
+        
+        return null;
     }
 
     @Override
@@ -80,8 +88,11 @@ public class ReturnStmtNode implements JottTree{
     }
 
     @Override
-    public boolean validateTree() throws SemanticErrorException{
-        this.expr.validateTree();
+    public boolean validateTree() throws SemanticErrorException {
+        if(expr != null) {
+            expr.validateTree();
+        }
+  
         return true;
     }
     

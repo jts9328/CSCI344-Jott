@@ -20,9 +20,14 @@ public class Jott {
                 // Run parser to convert to Java
                 throw new UnsupportedOperationException("Unimplemented Java call");
             } else if(args[2].equals("Jott")){
+                
                 // Run parser to convert to Jott
                 ArrayList<Token> tokens = JottTokenizer.tokenize(args[0]);
                 JottTree tree = JottParser.parse(tokens);
+
+                // Syntax Error
+                if(tree == null) return;
+
                 try {
                     tree.validateTree();
                 } catch (SemanticErrorException e) {

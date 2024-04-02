@@ -16,13 +16,13 @@ public class ExprNodeHelper implements ExprNode{
         this.second = second;
     }
 
-    public String getResultingType() {
+    public String getReturnType() {
         Token opToken = this.op.getToken();
         if (opToken.getTokenType() == TokenType.REL_OP) {
             return "Boolean";
         }
 
-        return this.first.getResultingType();
+        return this.first.getReturnType();
         
     }
 
@@ -60,8 +60,8 @@ public class ExprNodeHelper implements ExprNode{
         this.second.validateTree();
 
         // check types of first and second operands
-        if (!this.first.getResultingType().equals(this.second.getResultingType())) {
-            throw new SemanticErrorException("Semantic Error:\nMismatched Operand Types " + this.first.getToken(), this.second.getToken());
+        if (!this.first.getReturnType().equals(this.second.getReturnType())) {
+            throw new SemanticErrorException("Mismatched Operand Types " + this.first.getToken(), this.second.getToken());
         }
         return true;
     }

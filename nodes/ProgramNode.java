@@ -5,6 +5,7 @@ import provided.Token;
 
 import java.util.ArrayList;
 
+import exceptions.SemanticErrorException;
 import exceptions.SyntaxErrorException;
 
 
@@ -60,9 +61,12 @@ public class ProgramNode implements JottTree {
     }
 
     @Override
-    public boolean validateTree() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
+    public boolean validateTree() throws SemanticErrorException {
+        for(FunctionDefNode functionDefNode : functionDefs) {
+            functionDefNode.validateTree();
+        }
+
+        return true;
     }
     
 }

@@ -75,8 +75,8 @@ public class ParamsTNode implements JottTree {
         return true;
     }
 
-    public String getResultingType() {
-        return exprNode.getResultingType();
+    public String getReturnType() {
+        return exprNode.getReturnType();
     }
     
 }
