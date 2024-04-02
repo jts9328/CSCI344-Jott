@@ -109,8 +109,8 @@ public class FunctionDefParamsNode implements JottTree{
 
     @Override
     public boolean validateTree() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
+        return idNode.validateTree() && typeNode.validateTree()
+        && functionDefParamsTNodes.validateTree();
     }
     
 }

@@ -52,12 +52,13 @@ public class NumNode implements OperandNode {
 
     public String getResultingType() {
         String numberString = this.number.getToken();
-        if (numberString.indexOf('.').equals(-1)) {
-            return "Int";
+        // Use == for comparison with int, not .equals
+        if (numberString.indexOf('.') == -1) {
+            return "Int"; // Return "Int" if no decimal point is found
         } else {
-            return "Double";
+            return "Double"; // Return "Double" if a decimal point is found
         }
-    }
+    }    
 
     public Token getToken() {
         // sign is fake lmao

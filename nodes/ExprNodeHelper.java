@@ -1,5 +1,9 @@
 package nodes;
 
+import exceptions.SemanticErrorException;
+import provided.Token;
+import provided.TokenType;
+
 // assist ExprNode Interface with two of it branches.
 public class ExprNodeHelper implements ExprNode{
     private OperandNode first;
@@ -15,7 +19,7 @@ public class ExprNodeHelper implements ExprNode{
     public String getResultingType() {
         Token opToken = this.op.getToken();
         if (opToken.getTokenType() == TokenType.REL_OP) {
-            return "Bool"
+            return "Bool";
         }
         if (opToken.getTokenType() == TokenType.MATH_OP) {
             return this.first.getResultingType();
@@ -50,7 +54,7 @@ public class ExprNodeHelper implements ExprNode{
     }
 
     @Override
-    public boolean validateTree() {
+    public boolean validateTree() throws SemanticErrorException {
         this.first.validateTree();
         this.op.validateTree();
         this.second.validateTree();

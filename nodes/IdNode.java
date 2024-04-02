@@ -51,10 +51,6 @@ public class IdNode implements OperandNode {
         return JottParser.symTable.varSymTab.get(this.token.getToken());
     }
 
-    public Token getToken() {
-        return this.token;
-    }
-
     @Override
     public String convertToJott() {
         // Simply return the identifier's value for the Jott code representation
@@ -88,7 +84,7 @@ public class IdNode implements OperandNode {
         return token;
     }
 
-    public  String toString() {
+    public String toString() {
         return this.token.getToken();
     }
     
