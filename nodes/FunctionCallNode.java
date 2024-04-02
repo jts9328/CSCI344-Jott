@@ -114,4 +114,10 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
         return paramsNode.validateTree();
     }
 
+    @Override
+    public String getReturnType() throws SemanticErrorException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getReturnType'");
+    }
+
 }

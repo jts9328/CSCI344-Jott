@@ -105,6 +105,12 @@ public class AsmtNode implements BodyStmtNode{
             // One or both of the types are null, indicating a missing type or undeclared variable
             throw new SemanticErrorException("Semantic Error: Missing type information for " + (varType == null ? "variable " + id.getToken() : "expression " + expr.getToken()), this.expr.getToken());
         }
+    }
+
+    @Override
+    public String getReturnType() throws SemanticErrorException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getReturnType'");
     }    
     
 }
