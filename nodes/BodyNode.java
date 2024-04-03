@@ -58,7 +58,7 @@ public class BodyNode implements JottTree{
         // }
     }
 
-    public String getReturnType() {
+    public String getReturnType() throws SemanticErrorException {
 
         return returnStmt.getReturnType();
         // String returnStmtType = "";
@@ -79,7 +79,13 @@ public class BodyNode implements JottTree{
         // }
 
         // if(!(returnStmtType.equals(returnPrime))){
-        //     throw new SemanticErrorException("2Return types of body statements do not match", getReturnToken());
+        //     if(returnPrime.equals("Void")){
+        //         return returnStmtType;
+        //     } else if(returnStmtType.equals("Void")){
+        //         return returnPrime;
+        //     } else{
+        //         throw new SemanticErrorException("2Return types of body statements do not match", getReturnToken());
+        //     }
         // }
         // if(this.returnStmt != null){
         //     return returnStmtType;
