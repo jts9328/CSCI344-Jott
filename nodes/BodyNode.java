@@ -17,10 +17,12 @@ public class BodyNode implements JottTree{
 
     private ArrayList<BodyStmtNode> bodyStmts;
     private ReturnStmtNode returnStmt;
+    private String funcId;
 
-    public BodyNode(ArrayList<BodyStmtNode> bodyStmts, ReturnStmtNode returnStmt){
+    public BodyNode(ArrayList<BodyStmtNode> bodyStmts, ReturnStmtNode returnStmt, String funcId){
         this.bodyStmts = bodyStmts;
         this.returnStmt = returnStmt;
+        this.funcId = funcId;
     }
 
     public static BodyNode parseBodyNode(ArrayList<Token> tokens, String funcId) throws SyntaxErrorException {
@@ -44,9 +46,9 @@ public class BodyNode implements JottTree{
         
         //Token endingToken = tokens.get(0);
 
-        ReturnStmtNode returnStmt = ReturnStmtNode.parseReturnStmtNode(tokens);
+        ReturnStmtNode returnStmt = ReturnStmtNode.parseReturnStmtNode(tokens, funcId);
 
-        return new BodyNode(bodyStmts, returnStmt);
+        return new BodyNode(bodyStmts, returnStmt, funcId);
 
         // if(endingToken.getTokenType() == TokenType.ID_KEYWORD && endingToken.getToken().equals("Return")){
         //     ReturnStmtNode returnStmt = ReturnStmtNode.parseReturnStmtNode(tokens);
@@ -134,14 +136,10 @@ public class BodyNode implements JottTree{
 
     @Override
     public boolean validateTree() throws SemanticErrorException{
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
-    }
-
-    public boolean validateTree(String funcId) throws SemanticErrorException {
         boolean bodyStmtsRets = true;
         boolean isIfOrWhile = true;
         if(this.returnStmt != null){
-            this.returnStmt.validateTree(funcId);
+            this.returnStmt.validateTree();
         } else{
             for(BodyStmtNode bodyStmt : this.bodyStmts){
                 isIfOrWhile = isIfOrWhile && ((bodyStmt instanceof IfStmtNode) || (bodyStmt instanceof WhileLoopNode));
@@ -150,7 +148,7 @@ public class BodyNode implements JottTree{
                 return false;
             } else{
                 for(BodyStmtNode bodyStmt : this.bodyStmts){
-                    bodyStmtsRets = bodyStmtsRets && bodyStmt.validateTree(funcId);
+                    bodyStmtsRets = bodyStmtsRets && bodyStmt.validateTree();
                 }
                 if (bodyStmtsRets){
                     return true;
@@ -160,7 +158,7 @@ public class BodyNode implements JottTree{
             }
         }
         for(BodyStmtNode bodyStmt : this.bodyStmts){
-            bodyStmt.validateTree(funcId);
+            bodyStmt.validateTree();
         }
         return true;
     }

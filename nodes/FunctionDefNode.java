@@ -117,7 +117,11 @@ public class FunctionDefNode implements JottTree {
 
         functionReturnNode.validateTree();
 
-        fBodyNode.validateTree(idNode.toString());
+        if(idNode.toString().equals("main") && !functionReturnNode.getReturnType().equals("Void")) {
+            throw new SemanticErrorException("Main must be of return Void", idNode.getToken());
+        }
+
+        fBodyNode.validateTree();
 
         return true;
 

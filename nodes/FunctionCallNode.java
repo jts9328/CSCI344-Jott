@@ -113,10 +113,4 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
         return paramsNode.validateTree();
     }
 
-    @Override
-    public boolean validateTree(String funcId) throws SemanticErrorException {
-        this.validateTree();
-        return true;
-    }
-
 }

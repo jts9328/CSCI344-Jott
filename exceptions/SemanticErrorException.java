@@ -22,6 +22,10 @@ public class SemanticErrorException extends Exception {
      * Print the appropriate error message
      */
     public void printErrorMessage() {
+        if (token == null) {
+            System.err.println("Semantic Error:\n" + getMessage());
+            return;
+        }
         System.err.println("Semantic Error:\n" + getMessage() + "\n" + token.getFilename() + ":" + token.getLineNum());
     }
 }

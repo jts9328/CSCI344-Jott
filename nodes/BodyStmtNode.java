@@ -56,7 +56,5 @@ public interface BodyStmtNode extends JottTree{
 
     @Override
     public boolean validateTree() throws SemanticErrorException;
-
-    public boolean validateTree(String funcId) throws SemanticErrorException;
     
 }
