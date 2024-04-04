@@ -60,9 +60,9 @@ public class BodyNode implements JottTree{
         // }
     }
 
-    public String getReturnType() throws SemanticErrorException {
+    // public String getReturnType() throws SemanticErrorException {
 
-        return returnStmt.getReturnType();
+    //     return returnStmt.getReturnType();
         // String returnStmtType = "";
         // if(this.returnStmt != null){
         //     returnStmtType = this.returnStmt.getReturnType();
@@ -94,7 +94,7 @@ public class BodyNode implements JottTree{
         // } else{
         //     return returnPrime;
         // }
-    }
+    // }
 
     public Token getReturnToken() {
         return this.returnStmt.getToken();

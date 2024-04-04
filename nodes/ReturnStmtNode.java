@@ -44,13 +44,13 @@ public class ReturnStmtNode implements JottTree{
         }
     }
 
-    public String getReturnType(){
-        if(expr != null) {
-            return this.expr.getReturnType();
-        }
+    // public String getReturnType(){
+    //     if(expr != null) {
+    //         return this.expr.getReturnType();
+    //     }
         
-        return "Void";
-    }
+    //     return "Void";
+    // }
 
     public Token getToken(){
         if(expr != null) {
