@@ -57,9 +57,9 @@ public class ElseIfNode implements JottTree{
         }
     }
 
-    public String getReturnType() throws SemanticErrorException{
-        return this.body.getReturnType();
-    }
+    // public String getReturnType() throws SemanticErrorException{
+        // return this.body.getReturnType();
+    // }
 
     @Override
     public String convertToJott() {
