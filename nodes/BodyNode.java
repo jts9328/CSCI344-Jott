@@ -138,11 +138,29 @@ public class BodyNode implements JottTree{
     }
 
     public boolean validateTree(String funcId) throws SemanticErrorException {
-        for(BodyStmtNode bodyStmt : this.bodyStmts){
-            bodyStmt.validateTree(funcId);
-        }
+        boolean bodyStmtsRets = true;
+        boolean isIfOrWhile = true;
         if(this.returnStmt != null){
             this.returnStmt.validateTree(funcId);
+        } else{
+            for(BodyStmtNode bodyStmt : this.bodyStmts){
+                isIfOrWhile = isIfOrWhile && ((bodyStmt instanceof IfStmtNode) || (bodyStmt instanceof WhileLoopNode));
+            }
+            if(isIfOrWhile){
+                return false;
+            } else{
+                for(BodyStmtNode bodyStmt : this.bodyStmts){
+                    bodyStmtsRets = bodyStmtsRets && bodyStmt.validateTree(funcId);
+                }
+                if (bodyStmtsRets){
+                    return true;
+                } else{
+                    throw new SemanticErrorException("All cases must return the same type as the function definition", getReturnToken());
+                }
+            }
+        }
+        for(BodyStmtNode bodyStmt : this.bodyStmts){
+            bodyStmt.validateTree(funcId);
         }
         return true;
     }

@@ -147,5 +147,4 @@ public class IfStmtNode implements BodyStmtNode{
         
         return true;
     }
-    
 }
