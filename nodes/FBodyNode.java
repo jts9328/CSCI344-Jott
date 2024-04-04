@@ -77,15 +77,11 @@ public class FBodyNode implements JottTree{
 
     @Override
     public boolean validateTree() throws SemanticErrorException{
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
-    }
-
-    public boolean validateTree(String funcId) throws SemanticErrorException{
         for(VarDecNode varDec : this.varDecs){
             varDec.validateTree();
         }
         if(this.bodyNode != null){
-            this.bodyNode.validateTree(funcId);
+            this.bodyNode.validateTree();
         }
         return true;
     }

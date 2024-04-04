@@ -27,7 +27,7 @@ public class ExprNodeHelper implements ExprNode{
     }
 
     public Token getToken() {
-        return null;
+        return first.getToken();
     }
 
     @Override

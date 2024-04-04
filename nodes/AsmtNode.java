@@ -117,11 +117,5 @@ public class AsmtNode implements BodyStmtNode{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getReturnType'");
     }
-
-    @Override
-    public boolean validateTree(String funcId) throws SemanticErrorException {
-        this.validateTree();
-        return true;
-    }    
     
 }

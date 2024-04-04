@@ -94,11 +94,5 @@ public class ElseIfNode implements JottTree{
         this.body.validateTree();
         return true;
     }
-
-    public boolean validateTree(String funcId) throws SemanticErrorException{
-        this.expr.validateTree();
-        this.body.validateTree(funcId);
-        return true;
-    }
     
 }

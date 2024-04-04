@@ -94,11 +94,5 @@ public class WhileLoopNode implements BodyStmtNode{
 
         return true;
     }
-    
-    @Override
-    public boolean validateTree(String funcId) throws SemanticErrorException{
-        this.expr.validateTree();
-        this.body.validateTree(funcId);
-        return true;
-    }
+
 }
