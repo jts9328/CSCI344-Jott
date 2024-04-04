@@ -88,5 +88,10 @@ public class ElseNode implements JottTree{
         this.body.validateTree();
         return true;
     }
+
+    public boolean validateTree(String funcId) throws SemanticErrorException{
+        this.body.validateTree(funcId);
+        return true;
+    }
     
 }

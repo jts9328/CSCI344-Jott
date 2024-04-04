@@ -117,7 +117,7 @@ public class FunctionDefNode implements JottTree {
 
         functionReturnNode.validateTree();
 
-        fBodyNode.validateTree();
+        fBodyNode.validateTree(idNode.toString());
 
         return true;
 

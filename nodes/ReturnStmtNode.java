@@ -88,12 +88,19 @@ public class ReturnStmtNode implements JottTree{
     }
 
     @Override
-    public boolean validateTree() throws SemanticErrorException {
+    public boolean validateTree() throws SemanticErrorException{
+        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
+    }
+
+    public boolean validateTree(String funcId) throws SemanticErrorException {
         if(expr != null) {
             expr.validateTree();
         }
-  
-        return true;
+        ArrayList<String> funcTypes = JottParser.symTable.funcSymTab.get(funcId);
+        if(expr.getReturnType().equals(funcTypes.get(funcTypes.size()-1))){
+            return true;
+        }
+        throw new SemanticErrorException("Return type does match function definition", getToken());
     }
     
 }

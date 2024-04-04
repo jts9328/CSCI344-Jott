@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Jott",
+            "request": "launch",
+            "mainClass": "provided.Jott",
+            "projectName": "jott_831a93ae"
+        },
+        {
+            "type": "java",
+            "name": "JottParserTester",
+            "request": "launch",
+            "mainClass": "testers.JottParserTester",
+            "projectName": "jott_831a93ae"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -16,7 +30,11 @@
             "request": "launch",
             "mainClass": "provided.Jott",
             "projectName": "jott_84b55c3",
-            "args": [".\\phase3testcases\\funcReturnInExpr.jott", "output.jott", "Jott"]
+            "args": [
+                ".\\phase3testcases\\funcReturnInExpr.jott",
+                "output.jott",
+                "Jott"
+            ]
         },
         {
             "type": "java",

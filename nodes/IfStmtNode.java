@@ -134,5 +134,18 @@ public class IfStmtNode implements BodyStmtNode{
         
         return true;
     }
+
+    @Override
+    public boolean validateTree(String funcId) throws SemanticErrorException{
+        this.expr.validateTree();
+        this.body.validateTree(funcId);
+        
+        for(ElseIfNode elseif : this.elseIfList){
+            elseif.validateTree(funcId);
+        }
+        if(this.elseStmt != null) this.elseStmt.validateTree(funcId);
+        
+        return true;
+    }
     
 }
