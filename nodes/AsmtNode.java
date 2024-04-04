@@ -111,5 +111,10 @@ public class AsmtNode implements BodyStmtNode{
             throw new SemanticErrorException("Missing type information for " + (varType == null ? "variable " + id.toString() : "expression " + expr.toString()), this.expr.getToken());
         }
     }
+
+    @Override
+    public boolean doesAllReturn() {
+        return false;
+    }
     
 }

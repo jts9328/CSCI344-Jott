@@ -134,5 +134,22 @@ public class IfStmtNode implements BodyStmtNode{
         
         return true;
     }
+
+    @Override
+    public boolean doesAllReturn() {
+        // check if body within if() doesn't have a return
+        if(!body.doesReturn()) return false;
+
+        // check bodies of else ifs 
+        for(ElseIfNode elseIfNode : elseIfList) {
+            if(!elseIfNode.doesAllReturn()) return false;
+        }
+
+        // check if else statement has also returns
+        if(!elseStmt.doesAllReturn()) return false;
+
+        return true;
+        
+    }
     
 }

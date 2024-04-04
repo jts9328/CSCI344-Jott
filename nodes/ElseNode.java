@@ -92,5 +92,11 @@ public class ElseNode implements JottTree{
         this.body.validateTree();
         return true;
     }
+
+    public boolean doesAllReturn() {
+        if(body != null) return body.doesReturn();
+
+        return false;
+    }
     
 }

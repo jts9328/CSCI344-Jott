@@ -14,24 +14,27 @@ public class ParamsNode implements JottTree{
     private ExprNode exprNode;
     private ArrayList<ParamsTNode> paramsTNodes;
     private String funcId;
+    private Token rBracketToken;
 
     /**
      * Grammar: < params > --> < expr > < params_t >*
      * 
      * @param exprNode      child node ExprNode 
      * @param paramsTNodes  arraylist of child nodes paramsTNode
+     * @param rBracketToken token to throw an error on if necessary
      */
-    public ParamsNode(ExprNode exprNode, ArrayList<ParamsTNode> paramsTNodes, String funcId) {
+    public ParamsNode(ExprNode exprNode, ArrayList<ParamsTNode> paramsTNodes, Token rBracketToken, String funcId) {
         this.exprNode = exprNode;
         this.paramsTNodes = paramsTNodes;
+        this.rBracketToken = rBracketToken;
         this.funcId = funcId;
     }
 
     /**
      * Grammar: < params > --> ε
      */
-    public ParamsNode() {
-        this(null, null, null);
+    public ParamsNode(Token rBracketToken, String funcId) {
+        this(null, null, rBracketToken, funcId);
     }
 
     /**
@@ -48,7 +51,7 @@ public class ParamsNode implements JottTree{
 
         // If the next token is just a ], that means there are no params (ε)
         if(tokens.get(0).getTokenType() == TokenType.R_BRACKET) {
-            return new ParamsNode();
+            return new ParamsNode(tokens.get(0), funcId);
         }
 
         // Look for <expr>
@@ -61,7 +64,7 @@ public class ParamsNode implements JottTree{
             paramsTNodes.add(ParamsTNode.parseParamsTNode(tokens));
         }
 
-        return new ParamsNode(exprNode, paramsTNodes, funcId);
+        return new ParamsNode(exprNode, paramsTNodes, tokens.get(0), funcId);
     }
 
     @Override
@@ -97,11 +100,20 @@ public class ParamsNode implements JottTree{
 
     @Override
     public boolean validateTree() throws SemanticErrorException {
-        if(exprNode == null) return true;
-
         ArrayList<String> paramTypes = new ArrayList<String>(JottParser.symTable.funcSymTab.get(funcId));
 
         paramTypes.remove(paramTypes.size() - 1); // Remove the return type from the list
+
+        // No params given
+        if(exprNode == null) {
+            // function required params, throw error
+            if(!paramTypes.isEmpty()) {
+                throw new SemanticErrorException("Incorrect number of arguments for function " + funcId, rBracketToken);
+            } else {
+                return true;
+            }
+            
+        }
         
         // Check if the first param is correct
 

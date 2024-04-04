@@ -1,6 +1,7 @@
 package nodes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import exceptions.SemanticErrorException;
 import exceptions.SyntaxErrorException;
@@ -17,12 +18,10 @@ public class BodyNode implements JottTree{
 
     private ArrayList<BodyStmtNode> bodyStmts;
     private ReturnStmtNode returnStmt;
-    private String funcId;
 
-    public BodyNode(ArrayList<BodyStmtNode> bodyStmts, ReturnStmtNode returnStmt, String funcId){
+    public BodyNode(ArrayList<BodyStmtNode> bodyStmts, ReturnStmtNode returnStmt){
         this.bodyStmts = bodyStmts;
         this.returnStmt = returnStmt;
-        this.funcId = funcId;
     }
 
     public static BodyNode parseBodyNode(ArrayList<Token> tokens, String funcId) throws SyntaxErrorException {
@@ -48,7 +47,7 @@ public class BodyNode implements JottTree{
 
         ReturnStmtNode returnStmt = ReturnStmtNode.parseReturnStmtNode(tokens, funcId);
 
-        return new BodyNode(bodyStmts, returnStmt, funcId);
+        return new BodyNode(bodyStmts, returnStmt);
 
         // if(endingToken.getTokenType() == TokenType.ID_KEYWORD && endingToken.getToken().equals("Return")){
         //     ReturnStmtNode returnStmt = ReturnStmtNode.parseReturnStmtNode(tokens);
@@ -143,6 +142,14 @@ public class BodyNode implements JottTree{
             this.returnStmt.validateTree();
         }
         return true;
+    }
+
+    public boolean doesReturn() {
+        return returnStmt.doesReturn();
+    }
+
+    public ArrayList<BodyStmtNode> getBodyStmts() {
+        return bodyStmts;
     }
     
 }

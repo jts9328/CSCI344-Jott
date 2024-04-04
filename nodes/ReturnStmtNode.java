@@ -13,10 +13,12 @@ public class ReturnStmtNode implements JottTree{
     
     private ExprNode expr;
     private String funcId;
+    private boolean mustReturn;
 
     public ReturnStmtNode(ExprNode expr, String funcId){
         this.expr = expr;
         this.funcId = funcId;
+        this.mustReturn = mustReturn;
     }
 
     public static ReturnStmtNode parseReturnStmtNode(ArrayList<Token> tokens, String funcId) throws SyntaxErrorException {
@@ -104,6 +106,10 @@ public class ReturnStmtNode implements JottTree{
             return true;
         }
         
+    }
+
+    public boolean doesReturn() {
+        return expr != null;
     }
 
 }

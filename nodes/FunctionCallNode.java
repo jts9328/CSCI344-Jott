@@ -113,4 +113,9 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
         return paramsNode.validateTree();
     }
 
+    @Override
+    public boolean doesAllReturn() {
+        return false;
+    }
+
 }

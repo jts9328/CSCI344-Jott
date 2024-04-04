@@ -95,4 +95,12 @@ public class WhileLoopNode implements BodyStmtNode{
         return true;
     }
 
+    @Override
+    public boolean doesAllReturn() {
+        // False because there is always the case the loop is not entered
+        // If there is a return afterwards, it will have already been caught by the 
+        // loop in fbodynode's validateTree()
+        return false;
+    }
+
 }

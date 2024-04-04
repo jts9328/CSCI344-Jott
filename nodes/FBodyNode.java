@@ -1,6 +1,7 @@
 package nodes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import exceptions.SemanticErrorException;
 import exceptions.SyntaxErrorException;
@@ -13,10 +14,12 @@ public class FBodyNode implements JottTree{
 
     private BodyNode bodyNode;
     private ArrayList<VarDecNode> varDecs = new ArrayList<VarDecNode>();
+    private String funcId;
 
-    public FBodyNode(BodyNode bodyNode, ArrayList<VarDecNode> varDecs){
+    public FBodyNode(BodyNode bodyNode, ArrayList<VarDecNode> varDecs, String funcId){
         this.bodyNode = bodyNode;
         this.varDecs = varDecs;
+        this.funcId = funcId;
     }
 
     public static FBodyNode parseFBodyNode(ArrayList<Token> tokens, String funcId) throws SyntaxErrorException {
@@ -35,7 +38,7 @@ public class FBodyNode implements JottTree{
         }
         // checks and exception handling should be caught by parseBodyNode
         BodyNode bodyNode = BodyNode.parseBodyNode(tokens, funcId);
-        return new FBodyNode(bodyNode, varDecs);
+        return new FBodyNode(bodyNode, varDecs, funcId);
     }
 
     // public String getReturnType() throws SemanticErrorException{
@@ -80,9 +83,31 @@ public class FBodyNode implements JottTree{
         for(VarDecNode varDec : this.varDecs){
             varDec.validateTree();
         }
-        if(this.bodyNode != null){
-            this.bodyNode.validateTree();
+
+        String mustReturnType = JottParser.symTable.funcSymTab.get(funcId).get(JottParser.symTable.funcSymTab.get(funcId).size() - 1);
+
+        // No overarching return at the bottom of the function
+        if(!bodyNode.doesReturn() && mustReturnType != "Void") {
+            ArrayList<BodyStmtNode> reversedArr = new ArrayList<>(bodyNode.getBodyStmts());
+            Collections.reverse(reversedArr);
+            boolean foundValidReturns = false;
+            for(BodyStmtNode bodyStmt : reversedArr) {
+                // A body statement does always return somewhere
+                // Might be dead code somewhere but we don't check that
+                if(bodyStmt.doesAllReturn()) {
+                    foundValidReturns = true;
+                    break;
+                }
+            }
+
+            if(!foundValidReturns) {
+                
+                throw new SemanticErrorException("Method " + funcId + " must return type " + mustReturnType, null);
+            }
         }
+        
+        this.bodyNode.validateTree();
+        
         return true;
     }
     

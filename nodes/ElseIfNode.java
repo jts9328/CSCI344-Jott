@@ -94,5 +94,9 @@ public class ElseIfNode implements JottTree{
         this.body.validateTree();
         return true;
     }
+
+    public boolean doesAllReturn() {
+        return body.doesReturn();
+    }
     
 }
