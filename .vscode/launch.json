@@ -31,7 +31,7 @@
             "mainClass": "provided.Jott",
             "projectName": "jott_84b55c3",
             "args": [
-                ".\\phase3testcases\\funcReturnInExpr.jott",
+                ".\\phase3testcases\\funcWrongParamType.jott",
                 "output.jott",
                 "Jott"
             ]

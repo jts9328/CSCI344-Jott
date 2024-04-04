@@ -40,7 +40,7 @@ public interface BodyStmtNode extends JottTree{
         }
     }
 
-    public String getReturnType() throws SemanticErrorException;
+    // public String getReturnType() throws SemanticErrorException;
 
     @Override
     public String convertToJott();
@@ -56,7 +56,5 @@ public interface BodyStmtNode extends JottTree{
 
     @Override
     public boolean validateTree() throws SemanticErrorException;
-
-    public boolean validateTree(String funcId) throws SemanticErrorException;
     
 }

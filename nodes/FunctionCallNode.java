@@ -69,7 +69,7 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
         ArrayList<String> typeInfo = JottParser.symTable.funcSymTab.get(this.idNode.toString());
         if (typeInfo != null && !typeInfo.isEmpty()) {
             // Return the last item from the list, which represents the function's return type.
-            return typeInfo.getLast();
+            return typeInfo.get(typeInfo.size() - 1);
         } else {
             // Handle error
             return null;
@@ -111,12 +111,6 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
         }
         
         return paramsNode.validateTree();
-    }
-
-    @Override
-    public boolean validateTree(String funcId) throws SemanticErrorException {
-        this.validateTree();
-        return true;
     }
 
 }

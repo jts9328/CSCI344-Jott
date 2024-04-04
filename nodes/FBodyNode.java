@@ -38,9 +38,9 @@ public class FBodyNode implements JottTree{
         return new FBodyNode(bodyNode, varDecs);
     }
 
-    public String getReturnType() throws SemanticErrorException{
-        return this.bodyNode.getReturnType();
-    }
+    // public String getReturnType() throws SemanticErrorException{
+        // return this.bodyNode.getReturnType();
+    // }
 
     public Token getReturnToken(){
         return this.bodyNode.getReturnToken();
@@ -77,15 +77,11 @@ public class FBodyNode implements JottTree{
 
     @Override
     public boolean validateTree() throws SemanticErrorException{
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
-    }
-
-    public boolean validateTree(String funcId) throws SemanticErrorException{
         for(VarDecNode varDec : this.varDecs){
             varDec.validateTree();
         }
         if(this.bodyNode != null){
-            this.bodyNode.validateTree(funcId);
+            this.bodyNode.validateTree();
         }
         return true;
     }

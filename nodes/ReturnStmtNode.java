@@ -12,12 +12,14 @@ import provided.TokenType;
 public class ReturnStmtNode implements JottTree{
     
     private ExprNode expr;
+    private String funcId;
 
-    public ReturnStmtNode(ExprNode expr){
+    public ReturnStmtNode(ExprNode expr, String funcId){
         this.expr = expr;
+        this.funcId = funcId;
     }
 
-    public static ReturnStmtNode parseReturnStmtNode(ArrayList<Token> tokens) throws SyntaxErrorException {
+    public static ReturnStmtNode parseReturnStmtNode(ArrayList<Token> tokens, String funcId) throws SyntaxErrorException {
         // EOF
         if (tokens == null || tokens.isEmpty()) {
             throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
@@ -28,27 +30,27 @@ public class ReturnStmtNode implements JottTree{
             // remove 'Return' token
             tokens.remove(0);
             // parse the expression (should remove expression token)
-            ReturnStmtNode returnNode = new ReturnStmtNode(ExprNode.parseExprNode(tokens));
+            ReturnStmtNode returnNode = new ReturnStmtNode(ExprNode.parseExprNode(tokens), funcId);
             // remove the ';' token
             tokens.remove(0);
             // return the created node
             return returnNode;
         // no return check (valid)
         } else if(token.getTokenType() == TokenType.R_BRACE){
-            return new ReturnStmtNode(null);
+            return new ReturnStmtNode(null, funcId);
         // Invalid
         } else{
             throw new SyntaxErrorException("Expected Return statement or '}' but got " + token.getToken(), token);
         }
     }
 
-    public String getReturnType(){
-        if(expr != null) {
-            return this.expr.getReturnType();
-        }
+    // public String getReturnType(){
+    //     if(expr != null) {
+    //         return this.expr.getReturnType();
+    //     }
         
-        return "Void";
-    }
+    //     return "Void";
+    // }
 
     public Token getToken(){
         if(expr != null) {
@@ -89,10 +91,6 @@ public class ReturnStmtNode implements JottTree{
 
     @Override
     public boolean validateTree() throws SemanticErrorException{
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
-    }
-
-    public boolean validateTree(String funcId) throws SemanticErrorException {
         if(expr != null) {
             expr.validateTree();
 
@@ -107,4 +105,5 @@ public class ReturnStmtNode implements JottTree{
         }
         
     }
+
 }

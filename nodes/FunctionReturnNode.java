@@ -89,5 +89,12 @@ public class FunctionReturnNode implements JottTree {
         
         return true;
     }
+
+    public String getReturnType() {
+        if(typeNode != null) {
+            return typeNode.toString();
+        }
+        return "Void";
+    }
     
 }

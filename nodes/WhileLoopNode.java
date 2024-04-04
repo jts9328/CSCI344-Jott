@@ -56,9 +56,9 @@ public class WhileLoopNode implements BodyStmtNode{
         }
     }
 
-    public String getReturnType() throws SemanticErrorException{
-        return this.body.getReturnType();
-    }
+    // public String getReturnType() throws SemanticErrorException{
+    //     return this.body.getReturnType();
+    // }
 
     @Override
     public String convertToJott() {
@@ -94,11 +94,5 @@ public class WhileLoopNode implements BodyStmtNode{
 
         return true;
     }
-    
-    @Override
-    public boolean validateTree(String funcId) throws SemanticErrorException{
-        this.expr.validateTree();
-        this.body.validateTree(funcId);
-        return true;
-    }
+
 }

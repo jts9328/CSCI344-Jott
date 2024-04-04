@@ -74,22 +74,22 @@ public class IfStmtNode implements BodyStmtNode{
         return new IfStmtNode(expr, body, elseIfList, elseStmt);        
     }
 
-    public String getReturnType() throws SemanticErrorException{
-        String bodyReturn = this.body.getReturnType();
-        ArrayList<String> returnTypes = new ArrayList<String>();
-        for(ElseIfNode elseIfNode: elseIfList){
-            returnTypes.add(elseIfNode.getReturnType());
-        }
-        for(String returnType: returnTypes){
-            if(!(bodyReturn.equals(returnType))){
-                throw new SemanticErrorException("Semantic Error: return types do not match in all if-else statements", null);
-            }
-        }
-        if(!(bodyReturn.equals(this.elseStmt.getReturnType()))){
-            throw new SemanticErrorException("Semantic Error: return types do not match in all if-else statements", null);
-        }
-        return bodyReturn;
-    }
+    // public String getReturnType() throws SemanticErrorException{
+    //     String bodyReturn = this.body.getReturnType();
+    //     ArrayList<String> returnTypes = new ArrayList<String>();
+    //     for(ElseIfNode elseIfNode: elseIfList){
+    //         returnTypes.add(elseIfNode.getReturnType());
+    //     }
+    //     for(String returnType: returnTypes){
+    //         if(!(bodyReturn.equals(returnType))){
+    //             throw new SemanticErrorException("Semantic Error: return types do not match in all if-else statements", null);
+    //         }
+    //     }
+    //     if(!(bodyReturn.equals(this.elseStmt.getReturnType()))){
+    //         throw new SemanticErrorException("Semantic Error: return types do not match in all if-else statements", null);
+    //     }
+    //     return bodyReturn;
+    // }
 
     @Override
     public String convertToJott() {
@@ -123,7 +123,7 @@ public class IfStmtNode implements BodyStmtNode{
     }
 
     @Override
-    public boolean validateTree() throws SemanticErrorException {
+    public boolean validateTree() throws SemanticErrorException{
         this.expr.validateTree();
         this.body.validateTree();
         
@@ -131,19 +131,6 @@ public class IfStmtNode implements BodyStmtNode{
             elseif.validateTree();
         }
         if(this.elseStmt != null) this.elseStmt.validateTree();
-        
-        return true;
-    }
-
-    @Override
-    public boolean validateTree(String funcId) throws SemanticErrorException{
-        this.expr.validateTree();
-        this.body.validateTree(funcId);
-        
-        for(ElseIfNode elseif : this.elseIfList){
-            elseif.validateTree(funcId);
-        }
-        if(this.elseStmt != null) this.elseStmt.validateTree(funcId);
         
         return true;
     }
