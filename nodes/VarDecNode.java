@@ -13,6 +13,7 @@ import exceptions.SyntaxErrorException;
 public class VarDecNode implements JottTree{
     private TypeNode type;
     private IdNode id;
+    private String funcId;
 
     /**
      *  Grammar: <Var_Dec> -> < type > < id>;
@@ -20,9 +21,10 @@ public class VarDecNode implements JottTree{
      * @param type  child node that is a type
      * @param id child node that is an id
      */
-    public VarDecNode(TypeNode type, IdNode id){
+    public VarDecNode(TypeNode type, IdNode id, String funcId){
         this.type = type;
         this.id = id;
+        this.funcId = funcId;
     }
 
     /**
@@ -32,7 +34,7 @@ public class VarDecNode implements JottTree{
      * @return                          Defined Variable Declaratio Node
      * @throws SyntaxErrorException     one of Child Nodes was incorrect
      */
-    public static VarDecNode parseVarDecNode(ArrayList<Token> tokens) throws SyntaxErrorException {
+    public static VarDecNode parseVarDecNode(ArrayList<Token> tokens, String funcId) throws SyntaxErrorException {
         if(tokens.isEmpty()) {
             throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
         }
@@ -44,7 +46,7 @@ public class VarDecNode implements JottTree{
         
         Token semiColon = tokens.remove(0);
         if(semiColon.getTokenType()==TokenType.SEMICOLON){
-            return new VarDecNode(typeNode, idNode);        
+            return new VarDecNode(typeNode, idNode, funcId);        
         } else {
             throw new SyntaxErrorException("Expected SemiColon", semiColon );
         }
@@ -75,11 +77,12 @@ public class VarDecNode implements JottTree{
 
     @Override
     public boolean validateTree() throws SemanticErrorException {
-        if(JottParser.symTable.varSymTab.containsKey(id.toString())){
+        if(JottParser.symTable.varSymTab.containsKey(id.toString()) && JottParser.symTable.varSymTab.get(id.toString())[0].equals(funcId)){
             throw new SemanticErrorException("Variable already declared", id.getToken());
         }
         
-        JottParser.symTable.varSymTab.put(id.toString(), type.toString());
+        String[] varData = {type.toString(), funcId};
+        JottParser.symTable.varSymTab.put(id.toString(), varData);
         return true;
     }
     

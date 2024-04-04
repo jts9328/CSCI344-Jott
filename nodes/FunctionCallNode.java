@@ -67,10 +67,9 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
     public String getReturnType() {
         // Retrieve the list associated with this function.
         ArrayList<String> typeInfo = JottParser.symTable.funcSymTab.get(this.idNode.toString());
-    
         if (typeInfo != null && !typeInfo.isEmpty()) {
             // Return the last item from the list, which represents the function's return type.
-            return typeInfo.get(typeInfo.size() - 1);
+            return typeInfo.getLast();
         } else {
             // Handle error
             return null;
@@ -78,7 +77,7 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
     }
     
     public Token getToken() {
-        return null;
+        return idNode.getToken();
     }
     
     @Override

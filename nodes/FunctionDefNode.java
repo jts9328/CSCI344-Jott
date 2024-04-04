@@ -67,7 +67,7 @@ public class FunctionDefNode implements JottTree {
             throw new SyntaxErrorException("Expected left brace but got " + lbraceToken.getToken(), lbraceToken);
         }
 
-        FBodyNode fBodyNode = FBodyNode.parseFBodyNode(tokens);
+        FBodyNode fBodyNode = FBodyNode.parseFBodyNode(tokens, idString);
 
         // Look for }
         Token rbraceToken = tokens.remove(0);

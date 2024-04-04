@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class SymTable {
-    // Format: <Variable Name, Variable Type>
-    public HashMap<String, String> varSymTab;
+    // Format: <Variable Name, [Variable Type, funcOfOriginId]>
+    public HashMap<String, String[]> varSymTab;
     // Format: <Function Name, ArrayList<Parameter Types*, Return Type>>
     public HashMap<String, ArrayList<String>> funcSymTab;
 

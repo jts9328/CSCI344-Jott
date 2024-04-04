@@ -34,6 +34,7 @@ public class Jott {
                     e.printErrorMessage();
                     return;
                 }
+
                 
                 String jottCode = tree.convertToJott();
                 FileWriter writer = new FileWriter(args[1]);

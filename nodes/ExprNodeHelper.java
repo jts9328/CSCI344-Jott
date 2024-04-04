@@ -61,7 +61,7 @@ public class ExprNodeHelper implements ExprNode{
 
         // check types of first and second operands
         if (!this.first.getReturnType().equals(this.second.getReturnType())) {
-            throw new SemanticErrorException("Mismatched Operand Types " + this.first.getToken(), this.second.getToken());
+            throw new SemanticErrorException("Mismatched Operand Types ", this.first.getToken());
         }
         return true;
     }

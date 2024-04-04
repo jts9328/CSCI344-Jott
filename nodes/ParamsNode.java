@@ -106,8 +106,8 @@ public class ParamsNode implements JottTree{
         // Check if the first param is correct
 
         String firstType = paramTypes.remove(0);
-        if(!firstType.equals("Any") && exprNode.getReturnType() != firstType) {
-            throw new SemanticErrorException("Incorrect parameter type(s) for function " + funcId, exprNode.getToken());
+        if(!firstType.equals("Any") && !exprNode.getReturnType().equals(firstType)) {
+            throw new SemanticErrorException("Incorrect parameter type(s) for function " + funcId + " got " + exprNode.getReturnType(), exprNode.getToken());
         }
 
         exprNode.validateTree();
@@ -115,7 +115,7 @@ public class ParamsNode implements JottTree{
         // Check if the following params are correct
         for (ParamsTNode paramsTNode : paramsTNodes) {
             String type = paramTypes.remove(0);
-            if(!type.equals("Any") && paramsTNode.getReturnType() != type) {
+            if(!type.equals("Any") && !paramsTNode.getReturnType().equals(type)) {
                 throw new SemanticErrorException("Incorrect parameter type(s) for function " + funcId, exprNode.getToken());
             }
 

@@ -118,7 +118,8 @@ public class FunctionDefParamsNode implements JottTree{
         JottParser.symTable.funcSymTab.get(funcId).add(typeNode.toString());
 
         // Add the variable param to the var sym table
-        JottParser.symTable.varSymTab.put(idNode.toString(), typeNode.toString());
+        String[] varData = {typeNode.toString(), funcId};
+        JottParser.symTable.varSymTab.put(idNode.toString(), varData);
 
         // Run subsequent params validate trees
         for (FunctionDefParamsTNode functionDefParamsTNode : functionDefParamsTNodes) {

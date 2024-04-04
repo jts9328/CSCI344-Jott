@@ -21,7 +21,7 @@ public class IfStmtNode implements BodyStmtNode{
         this.elseStmt = elseStmt;
     }
 
-    public static IfStmtNode parseIfStmt(ArrayList<Token> tokens) throws SyntaxErrorException {
+    public static IfStmtNode parseIfStmt(ArrayList<Token> tokens, String funcId) throws SyntaxErrorException {
         if (tokens == null || tokens.isEmpty()) {
             throw new SyntaxErrorException("Unexpected EOF", null);
         }
@@ -52,7 +52,7 @@ public class IfStmtNode implements BodyStmtNode{
             throw new SyntaxErrorException("Expected L_BRACE, found: " + token.getTokenType(), token);
         }
         //parse body
-        BodyNode body = BodyNode.parseBodyNode(tokens);
+        BodyNode body = BodyNode.parseBodyNode(tokens, funcId);
         //check for right brace
         token = tokens.remove(0);
         if (token.getTokenType() != TokenType.R_BRACE) {
@@ -64,12 +64,12 @@ public class IfStmtNode implements BodyStmtNode{
         // check if there is an elseif next
         while (token.getToken().equals("Elseif")) {
             // append to elseIfList
-            elseIfList.add(ElseIfNode.parseElseIf(tokens));
+            elseIfList.add(ElseIfNode.parseElseIf(tokens, funcId));
             token = tokens.get(0);
         }
         
         // parse else
-        ElseNode elseStmt = ElseNode.parseElse(tokens);
+        ElseNode elseStmt = ElseNode.parseElse(tokens, funcId);
         
         return new IfStmtNode(expr, body, elseIfList, elseStmt);        
     }

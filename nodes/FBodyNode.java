@@ -19,7 +19,7 @@ public class FBodyNode implements JottTree{
         this.varDecs = varDecs;
     }
 
-    public static FBodyNode parseFBodyNode(ArrayList<Token> tokens) throws SyntaxErrorException {
+    public static FBodyNode parseFBodyNode(ArrayList<Token> tokens, String funcId) throws SyntaxErrorException {
         // EOF
         if (tokens == null || tokens.isEmpty()) {
             throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
@@ -30,11 +30,11 @@ public class FBodyNode implements JottTree{
         while((token.getTokenType() == TokenType.ID_KEYWORD && 
             (token.getToken().equals("Integer") || token.getToken().equals("Double") || 
             token.getToken().equals("String") || token.getToken().equals("Boolean")))){
-            varDecs.add(VarDecNode.parseVarDecNode(tokens));
+            varDecs.add(VarDecNode.parseVarDecNode(tokens, funcId));
             token = tokens.get(0);
         }
         // checks and exception handling should be caught by parseBodyNode
-        BodyNode bodyNode = BodyNode.parseBodyNode(tokens);
+        BodyNode bodyNode = BodyNode.parseBodyNode(tokens, funcId);
         return new FBodyNode(bodyNode, varDecs);
     }
 

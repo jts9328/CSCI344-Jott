@@ -95,12 +95,16 @@ public class ReturnStmtNode implements JottTree{
     public boolean validateTree(String funcId) throws SemanticErrorException {
         if(expr != null) {
             expr.validateTree();
-        }
-        ArrayList<String> funcTypes = JottParser.symTable.funcSymTab.get(funcId);
-        if(expr.getReturnType().equals(funcTypes.get(funcTypes.size()-1))){
+
+            ArrayList<String> funcTypes = JottParser.symTable.funcSymTab.get(funcId);
+            if(expr.getReturnType().equals(funcTypes.get(funcTypes.size()-1))){
+                return true;
+            } else {
+                throw new SemanticErrorException("Return type does match function definition", getToken());
+            }
+        } else {
             return true;
         }
-        throw new SemanticErrorException("Return type does match function definition", getToken());
+        
     }
-    
 }

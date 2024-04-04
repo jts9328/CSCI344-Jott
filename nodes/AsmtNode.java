@@ -12,9 +12,7 @@ import java.util.ArrayList;
 public class AsmtNode implements BodyStmtNode{
     private IdNode id;
     private ExprNode expr;
-    private Token semiColon;
-    private Token equal;
-
+    private String funcId;
     /**
      *  Grammar: < asmt > -> <id >= < expr >
      * 
@@ -24,11 +22,10 @@ public class AsmtNode implements BodyStmtNode{
      * @param equal assign expected between two nodes
      */
 
-    public AsmtNode(IdNode id, ExprNode expr, Token equal, Token semiColon){
+    public AsmtNode(IdNode id, ExprNode expr, String funcId){
         this.id = id;
         this.expr = expr; 
-        this.semiColon = semiColon;
-        this.equal = equal;
+        this.funcId = funcId;
     }
 
     /**
@@ -38,7 +35,7 @@ public class AsmtNode implements BodyStmtNode{
      * @return                          Define AsmtNode
      * @throws SyntaxErrorException     One of child Nodes was incorrect
      */
-    public static AsmtNode parseAsmtNode(ArrayList<Token> tokens) throws SyntaxErrorException{
+    public static AsmtNode parseAsmtNode(ArrayList<Token> tokens, String funcId) throws SyntaxErrorException{
 
 
         IdNode idNode = IdNode.parseId(tokens);
@@ -55,7 +52,7 @@ public class AsmtNode implements BodyStmtNode{
         }
         Token semiColon = tokens.remove(0);
         if(semiColon.getTokenType()==TokenType.SEMICOLON){
-            return new AsmtNode(idNode, exprNode, semiColon, Equal);        
+            return new AsmtNode(idNode, exprNode, funcId);        
         } else {
             throw new SyntaxErrorException("Expected SemiColon, found: " + semiColon.getTokenType(), semiColon );
         }
@@ -91,7 +88,13 @@ public class AsmtNode implements BodyStmtNode{
         expr.validateTree();
 
         String exprType = this.expr.getReturnType();
-        String varType = JottParser.symTable.varSymTab.get(this.id.toString());
+        String[] varData = JottParser.symTable.varSymTab.get(this.id.toString());
+
+        if(!varData[1].equals(funcId)) {
+            throw new SemanticErrorException("Unkown variable " + varData[0], expr.getToken());
+        }
+
+        String varType = varData[0];
     
         // Ensure both the variable and expression types are found and not null
         if (varType != null && exprType != null) {
@@ -101,11 +104,11 @@ public class AsmtNode implements BodyStmtNode{
                 return true;
             } else {
                 // Types do not match, throw a semantic error exception
-                throw new SemanticErrorException("Semantic Error: Mismatched Types. Expected " + varType + ", got " + exprType + " for " + id.getToken(), this.expr.getToken());
+                throw new SemanticErrorException("Mismatched Types. Expected " + varType + ", got " + exprType + " for " + id.toString(), this.expr.getToken());
             }
         } else {
             // One or both of the types are null, indicating a missing type or undeclared variable
-            throw new SemanticErrorException("Semantic Error: Missing type information for " + (varType == null ? "variable " + id.getToken() : "expression " + expr.getToken()), this.expr.getToken());
+            throw new SemanticErrorException("Missing type information for " + (varType == null ? "variable " + id.toString() : "expression " + expr.toString()), this.expr.getToken());
         }
     }
 

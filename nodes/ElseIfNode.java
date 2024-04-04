@@ -18,7 +18,7 @@ public class ElseIfNode implements JottTree{
         this.body = body;
     }
 
-    public static ElseIfNode parseElseIf(ArrayList<Token> tokens) throws SyntaxErrorException {
+    public static ElseIfNode parseElseIf(ArrayList<Token> tokens, String funcId) throws SyntaxErrorException {
         if (tokens == null || tokens.isEmpty()) {
             throw new SyntaxErrorException("Unexpected EOF", null);
         }
@@ -44,7 +44,7 @@ public class ElseIfNode implements JottTree{
                 throw new SyntaxErrorException("Expected L_BRACE, found: " + token.getTokenType(), token);
             }
             //parse body
-            BodyNode body = BodyNode.parseBodyNode(tokens);
+            BodyNode body = BodyNode.parseBodyNode(tokens, funcId);
             //check for right brace
             token = tokens.remove(0);
             if (token.getTokenType() != TokenType.R_BRACE) {

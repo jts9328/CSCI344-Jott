@@ -17,7 +17,7 @@ public class WhileLoopNode implements BodyStmtNode{
         this.body = body;
     }
 
-    public static WhileLoopNode parseWhileLoop(ArrayList<Token> tokens) throws SyntaxErrorException {
+    public static WhileLoopNode parseWhileLoop(ArrayList<Token> tokens, String funcId) throws SyntaxErrorException {
         if (tokens == null || tokens.isEmpty()) {
             throw new SyntaxErrorException("Unexpected EOF", null);
         }
@@ -43,7 +43,7 @@ public class WhileLoopNode implements BodyStmtNode{
                 throw new SyntaxErrorException("Expected L_BRACE, found: " + token.getTokenType(), token);
             }
             //parse body
-            BodyNode body = BodyNode.parseBodyNode(tokens);
+            BodyNode body = BodyNode.parseBodyNode(tokens, funcId);
             //check for right brace
             token = tokens.remove(0);
             if (token.getTokenType() != TokenType.R_BRACE) {

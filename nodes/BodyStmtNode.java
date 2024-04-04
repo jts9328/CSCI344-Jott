@@ -11,7 +11,7 @@ import provided.TokenType;
 
 public interface BodyStmtNode extends JottTree{
 
-    public static BodyStmtNode parseBodyStmtNode(ArrayList<Token> tokens) throws SyntaxErrorException {
+    public static BodyStmtNode parseBodyStmtNode(ArrayList<Token> tokens, String funcId) throws SyntaxErrorException {
         // If EOF
         if (tokens == null || tokens.isEmpty()) {
             throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
@@ -19,13 +19,13 @@ public interface BodyStmtNode extends JottTree{
         Token token = tokens.get(0);
         // If check
         if(token.getTokenType() == TokenType.ID_KEYWORD && token.getToken().equals("If")){
-            return IfStmtNode.parseIfStmt(tokens);
+            return IfStmtNode.parseIfStmt(tokens, funcId);
         // While check
         } else if(token.getTokenType() == TokenType.ID_KEYWORD && token.getToken().equals("While")){
-            return WhileLoopNode.parseWhileLoop(tokens);
+            return WhileLoopNode.parseWhileLoop(tokens, funcId);
         // Assignment check
         } else if(token.getTokenType() == TokenType.ID_KEYWORD){
-            return AsmtNode.parseAsmtNode(tokens);
+            return AsmtNode.parseAsmtNode(tokens, funcId);
         // Function call check
         } else if(token.getTokenType() == TokenType.FC_HEADER){
             FunctionCallNode functionCallNode = FunctionCallNode.parseFunctionCallNode(tokens);

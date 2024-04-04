@@ -23,7 +23,7 @@ public class BodyNode implements JottTree{
         this.returnStmt = returnStmt;
     }
 
-    public static BodyNode parseBodyNode(ArrayList<Token> tokens) throws SyntaxErrorException {
+    public static BodyNode parseBodyNode(ArrayList<Token> tokens, String funcId) throws SyntaxErrorException {
         // EOF
         if (tokens == null || tokens.isEmpty()) {
             throw new SyntaxErrorException("Unexpected EOF", JottParser.lastToken);
@@ -33,7 +33,7 @@ public class BodyNode implements JottTree{
         // While next token is not return or ] (end of function) and token is either an id (If, While, <id> from asmt) or fc header (::)
         while(tokens.isEmpty()==false && (!(tokens.get(0).getToken().equals("Return") || tokens.get(0).getTokenType() == TokenType.R_BRACE) && 
                (tokens.get(0).getTokenType() == TokenType.ID_KEYWORD || tokens.get(0).getTokenType() == TokenType.FC_HEADER))) {
-            bodyStmts.add(BodyStmtNode.parseBodyStmtNode(tokens));
+            bodyStmts.add(BodyStmtNode.parseBodyStmtNode(tokens, funcId));
         }
 
         // Should be Return or }
