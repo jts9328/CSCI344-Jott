@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 Def foo[x:Integer]:Integer{Return x+1;}Def main1[]:Void{Integer x;x=0;While [x<10]
 {x=::foo[x];::print[x];}
 }
+=======
+Def foo[]:Integer{Integer x;x=0;While [x<10]
+{::print[x];Return x;}
+}Def main[]:Void{Integer y;y=::foo[];}
+>>>>>>> aca5eca1de29f5d671563a13c327dc789bb93d02
