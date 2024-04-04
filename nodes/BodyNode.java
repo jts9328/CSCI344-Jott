@@ -137,14 +137,14 @@ public class BodyNode implements JottTree{
     @Override
     public boolean validateTree() throws SemanticErrorException{
         boolean bodyStmtsRets = true;
-        boolean isIfOrWhile = true;
+        boolean isIfOrWhile = false;
         if(this.returnStmt != null){
             this.returnStmt.validateTree();
         } else{
             for(BodyStmtNode bodyStmt : this.bodyStmts){
-                isIfOrWhile = isIfOrWhile && ((bodyStmt instanceof IfStmtNode) || (bodyStmt instanceof WhileLoopNode));
+                isIfOrWhile = isIfOrWhile || ((bodyStmt instanceof IfStmtNode) || (bodyStmt instanceof WhileLoopNode));
             }
-            if(isIfOrWhile){
+            if(!isIfOrWhile){
                 return false;
             } else{
                 for(BodyStmtNode bodyStmt : this.bodyStmts){
