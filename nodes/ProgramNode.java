@@ -2,6 +2,7 @@ package nodes;
 
 import provided.JottTree;
 import provided.Token;
+import provided.JottParser;
 
 import java.util.ArrayList;
 
@@ -64,6 +65,11 @@ public class ProgramNode implements JottTree {
     public boolean validateTree() throws SemanticErrorException {
         for(FunctionDefNode functionDefNode : functionDefs) {
             functionDefNode.validateTree();
+        }
+
+        if (!JottParser.symTable.funcSymTab.containsKey("main")) {
+            
+            throw new SemanticErrorException("Missing main function", null);
         }
 
         return true;
