@@ -10,7 +10,7 @@ Include the node folder, exceptions folder, and provided folder into your workin
 Run "javac provided/\*.java exceptions/\*.java nodes/\*.java" without the "\"s, from your 
 working directory to compile everything.
 
-In order to run the program, run "java provided/Jott [input.jott] provided/output.jott Jott"
+In order to run the program, run "java provided/Jott [input.jott] [output.jott] Jott"
 input.jott should be the path to the input file from the working directory. If running the
 phase3testcase helloWorld.jott, then you would put "phase3testcases/helloWorld.jott" as the 
 input.jott parameter.
