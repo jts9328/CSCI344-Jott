@@ -226,8 +226,8 @@ public class JottTokenizer {
                             return null;
                         }
                     } else {
-                        System.out.println("Error: Unexcepted token " + characters[index] + " on line " + lineNum);
-                        index++;
+                        System.err.println("Error: Unexcepted token " + characters[index] + " on line " + lineNum);
+                        return null;
                     }
                 }
             }
