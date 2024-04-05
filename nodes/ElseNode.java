@@ -49,10 +49,6 @@ public class ElseNode implements JottTree{
         }
     }
 
-    // public String getReturnType() throws SemanticErrorException{
-    //     return this.body.getReturnType();
-    // }
-
     @Override
     public String convertToJott() {
         if (body != null) {

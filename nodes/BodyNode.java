@@ -1,7 +1,6 @@
 package nodes;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import exceptions.SemanticErrorException;
 import exceptions.SyntaxErrorException;
@@ -48,52 +47,7 @@ public class BodyNode implements JottTree{
         ReturnStmtNode returnStmt = ReturnStmtNode.parseReturnStmtNode(tokens, funcId);
 
         return new BodyNode(bodyStmts, returnStmt);
-
-        // if(endingToken.getTokenType() == TokenType.ID_KEYWORD && endingToken.getToken().equals("Return")){
-        //     ReturnStmtNode returnStmt = ReturnStmtNode.parseReturnStmtNode(tokens);
-        //     return new BodyNode(bodyStmts, returnStmt);
-        // } else if(endingToken.getTokenType() == TokenType.R_BRACE){
-        //     return new BodyNode(bodyStmts, null);
-        // } else{
-        //     throw new SyntaxErrorException("Expected Return statement or '}' but got " + endingToken.getToken(), endingToken);
-        // }
     }
-
-    // public String getReturnType() throws SemanticErrorException {
-
-    //     return returnStmt.getReturnType();
-        // String returnStmtType = "";
-        // if(this.returnStmt != null){
-        //     returnStmtType = this.returnStmt.getReturnType();
-        // }
-
-        // ArrayList<String> bodyStmtsReturns = new ArrayList<String>();
-        // for(BodyStmtNode bodyStmt: bodyStmts){
-        //     bodyStmtsReturns.add(bodyStmt.getReturnType());
-        // }
-
-        // String returnPrime = bodyStmtsReturns.get(0);
-        // for(String bodyStmtReturn: bodyStmtsReturns){
-        //     if(!(returnPrime.equals(bodyStmtReturn))){
-        //         throw new SemanticErrorException("1Return types of body statements do not match", getReturnToken());
-        //     }
-        // }
-
-        // if(!(returnStmtType.equals(returnPrime))){
-        //     if(returnPrime.equals("Void")){
-        //         return returnStmtType;
-        //     } else if(returnStmtType.equals("Void")){
-        //         return returnPrime;
-        //     } else{
-        //         throw new SemanticErrorException("2Return types of body statements do not match", getReturnToken());
-        //     }
-        // }
-        // if(this.returnStmt != null){
-        //     return returnStmtType;
-        // } else{
-        //     return returnPrime;
-        // }
-    // }
 
     public Token getReturnToken() {
         return this.returnStmt.getToken();

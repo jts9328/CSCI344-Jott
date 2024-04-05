@@ -41,10 +41,6 @@ public class FBodyNode implements JottTree{
         return new FBodyNode(bodyNode, varDecs, funcId);
     }
 
-    // public String getReturnType() throws SemanticErrorException{
-        // return this.bodyNode.getReturnType();
-    // }
-
     public Token getReturnToken(){
         return this.bodyNode.getReturnToken();
     }

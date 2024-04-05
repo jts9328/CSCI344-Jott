@@ -13,12 +13,10 @@ public class ReturnStmtNode implements JottTree{
     
     private ExprNode expr;
     private String funcId;
-    private boolean mustReturn;
 
     public ReturnStmtNode(ExprNode expr, String funcId){
         this.expr = expr;
         this.funcId = funcId;
-        this.mustReturn = mustReturn;
     }
 
     public static ReturnStmtNode parseReturnStmtNode(ArrayList<Token> tokens, String funcId) throws SyntaxErrorException {
@@ -45,14 +43,6 @@ public class ReturnStmtNode implements JottTree{
             throw new SyntaxErrorException("Expected Return statement or '}' but got " + token.getToken(), token);
         }
     }
-
-    // public String getReturnType(){
-    //     if(expr != null) {
-    //         return this.expr.getReturnType();
-    //     }
-        
-    //     return "Void";
-    // }
 
     public Token getToken(){
         if(expr != null) {

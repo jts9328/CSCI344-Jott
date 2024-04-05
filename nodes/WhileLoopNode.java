@@ -56,10 +56,6 @@ public class WhileLoopNode implements BodyStmtNode{
         }
     }
 
-    // public String getReturnType() throws SemanticErrorException{
-    //     return this.body.getReturnType();
-    // }
-
     @Override
     public String convertToJott() {
         StringBuilder jottCode = new StringBuilder();

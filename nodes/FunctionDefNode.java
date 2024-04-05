@@ -124,18 +124,6 @@ public class FunctionDefNode implements JottTree {
         fBodyNode.validateTree();
 
         return true;
-
-
-        // // rest of validation still needed, this is just for the return type validating
-        // this.fBodyNode.validateTree();
-        // ArrayList<String> funcTab = JottParser.symTable.funcSymTab.get(this.idNode.toString());
-        // String returnType = funcTab.get(funcTab.size()-1);
-
-        // if(!(returnType.equals(this.fBodyNode.getReturnType()))){
-        //     throw new SemanticErrorException("Mismatch return type for function " + this.idNode.toString(), this.fBodyNode.getReturnToken());
-        // }
-        
-        // return true;
     }
     
 }

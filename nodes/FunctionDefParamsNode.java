@@ -127,18 +127,6 @@ public class FunctionDefParamsNode implements JottTree{
         }
 
         return true;
-
-        // // Validate idNode and typeNode if they are not null
-        // boolean isValid = (idNode == null || idNode.validateTree()) && (typeNode == null || typeNode.validateTree());
-    
-        // // If functionDefParamsTNodes is not null, iterate through the list and validate each node
-        // if (functionDefParamsTNodes != null) {
-        //     for (FunctionDefParamsTNode functionDefParamsTNode : functionDefParamsTNodes) {
-        //         isValid &= functionDefParamsTNode.validateTree();
-        //     }
-        // }
-    
-        // return isValid;
     }
     
     
