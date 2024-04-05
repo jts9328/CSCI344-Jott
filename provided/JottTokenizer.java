@@ -3,7 +3,6 @@ package provided;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -233,8 +232,8 @@ public class JottTokenizer {
             }
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            System.out.println("Error opening file " + filename);
+            return null;
         }
         return tokens;
     }

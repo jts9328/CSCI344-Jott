@@ -1,9 +1,8 @@
 package provided;
-import java.io.File;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import exceptions.SemanticErrorException;
 
@@ -37,6 +36,7 @@ public class Jott {
 
                 
                 String jottCode = tree.convertToJott();
+                
                 FileWriter writer = new FileWriter(args[1]);
                 writer.write(jottCode);
                 writer.close();

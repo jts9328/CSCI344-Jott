@@ -9,9 +9,6 @@ import nodes.ProgramNode;
  */
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import exceptions.SemanticErrorException;
 import exceptions.SyntaxErrorException;
 
 public class JottParser {
@@ -26,6 +23,11 @@ public class JottParser {
      *         or null upon an error in parsing.
      */
     public static JottTree parse(ArrayList<Token> tokens){
+        if(tokens == null) {
+            System.err.println("No tokens to parse");
+            return null;
+        }
+
         try {
             if(!tokens.isEmpty()) {
                 lastToken = tokens.get(tokens.size() - 1);
