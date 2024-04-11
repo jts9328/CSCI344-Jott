@@ -45,8 +45,11 @@ public class ProgramNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJava'");
+        StringBuilder javaCode = new StringBuilder();
+        for (FunctionDefNode funcDef : functionDefs) {
+            javaCode.append(funcDef.convertToJava(className));
+        }
+        return javaCode.toString();
     }
 
     @Override

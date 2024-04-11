@@ -92,8 +92,15 @@ public class FunctionDefParamsNode implements JottTree{
 
     @Override
     public String convertToJava(String className) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJava'");
+        if(idNode == null && typeNode == null && functionDefParamsTNodes == null && funcId == null) {
+            return "";
+        } else {
+            StringBuilder javaCode = new StringBuilder(typeNode.convertToJava(className) + idNode.convertToJava(className));
+            for (FunctionDefParamsTNode functionDefParamsTNode : functionDefParamsTNodes) {
+                javaCode.append(functionDefParamsTNode.convertToJava(className));
+            }
+            return javaCode.toString();
+        }
     }
 
     @Override

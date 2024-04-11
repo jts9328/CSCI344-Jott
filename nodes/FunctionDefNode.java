@@ -86,8 +86,32 @@ public class FunctionDefNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJava'");
+        String j_return;
+
+        switch (this.functionReturnNode.getReturnType()) {
+            case "Integer":
+                j_return = "int";
+                break;
+            case "Double":
+                j_return = "double";
+                break;
+            case "Boolean":
+                j_return = "boolean";
+                break;
+            case "String":
+                j_return = "String";
+                break;
+            case "Void":
+                j_return = "void";
+                break;
+            default:
+                System.out.println("Return Type not properly defined");
+                return "";  
+        }
+        String java = "public static " + j_return + " " + this.idNode.toString() + "(" + this.functionDefParamsNode.convertToJava(className);
+        java += ") { " + this.fBodyNode.convertToJava(className) + "}";
+        return java;
+
     }
 
     @Override
