@@ -56,8 +56,7 @@ public class OpNode implements ExprNode {
 
     @Override
     public String convertToJava(String className) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJava'");
+        return this.token.getToken();
     }
 
     @Override

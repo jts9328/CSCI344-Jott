@@ -13,6 +13,8 @@ public class SymTable {
     public SymTable() {
         this.funcSymTab = new HashMap<>();
         funcSymTab.put("print", new ArrayList<>(Arrays.asList("Any", "Void")));
+        funcSymTab.put("concat", new ArrayList<>(Arrays.asList("String", "String", "String")));
+        funcSymTab.put("length", new ArrayList<>(Arrays.asList("String", "Integer")));
         this.varSymTab = new HashMap<>();
 
         System.out.println();

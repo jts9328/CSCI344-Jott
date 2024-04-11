@@ -37,8 +37,8 @@ public class ExprNodeHelper implements ExprNode{
 
     @Override
     public String convertToJava(String className) {
+        return first.convertToJava(className) + op.convertToJava(className) + second.convertToJava(className);
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJava'");
     }
 
     @Override

@@ -59,8 +59,11 @@ public class VarDecNode implements JottTree{
 
     @Override
     public String convertToJava(String className) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJava'");
+        if(type.getToken().getToken().equals("String"))
+            return type.convertToJava(className) + " " + id.convertToJava(className) + " =\"\";\n";
+        else{
+            return type.convertToJava(className) + " " + id.convertToJava(className) +";";
+        }
     }
 
     @Override

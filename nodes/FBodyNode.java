@@ -58,14 +58,24 @@ public class FBodyNode implements JottTree{
 
     @Override
     public String convertToJava(String className) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJava'");
+        String java = "";
+        // if no variable declarations, should break out for loop
+        for(VarDecNode varDec: this.varDecs){
+            java = java + varDec.convertToJava(className);
+        }
+        java = java + bodyNode.convertToJava(className);
+        return java;
     }
 
     @Override
     public String convertToC() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
+        String c = "";
+        // if no variable declarations, should break out for loop
+        for(VarDecNode varDec: this.varDecs){
+            c = c + varDec.convertToC();
+        }
+        c = c + bodyNode.convertToC();
+        return c;
     }
 
     @Override

@@ -65,14 +65,24 @@ public class ReturnStmtNode implements JottTree{
 
     @Override
     public String convertToJava(String className) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJava'");
+        // No return check
+        if(this.expr == null){
+            return "";
+        // return check
+        } else{
+            return "return " + this.expr.convertToJava(className) + ";\n";
+        }
     }
 
     @Override
     public String convertToC() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
+        // No return check
+        if(this.expr == null){
+            return "return 1;\n";
+        // return check
+        } else{
+            return "return " + this.expr.convertToC() + ";\n";
+        }
     }
 
     @Override
