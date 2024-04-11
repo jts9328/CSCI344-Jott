@@ -91,12 +91,12 @@ public class IfStmtNode implements BodyStmtNode{
     public String convertToJava(String className) {
         StringBuilder javaCode = new StringBuilder();
         javaCode.append("if (");
-        javaCode.append(expr.convertToJava()).append(")\n{");
-        javaCode.append(body.convertToJava()).append("}\n");
+        javaCode.append(expr.convertToJava(className)).append(")\n{");
+        javaCode.append(body.convertToJava(className)).append("}\n");
         for (ElseIfNode elseIfNode : elseIfList) {
-                javaCode.append(elseIfNode.convertToJava());
+                javaCode.append(elseIfNode.convertToJava(className));
             }
-        javaCode.append(elseStmt.convertToJava());
+        javaCode.append(elseStmt.convertToJava(className));
         return javaCode.toString();
     }
 

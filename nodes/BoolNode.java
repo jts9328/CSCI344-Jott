@@ -55,12 +55,14 @@ public class BoolNode implements ExprNode{
 
     @Override
     public String convertToJava(String className) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJava'");
+        return this.boolToken.getToken();
     }
 
     @Override
     public String convertToC() {
+        if(this.boolToken.getToken().equals("true")){
+
+        }
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
     }

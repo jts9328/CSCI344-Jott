@@ -69,8 +69,8 @@ public class WhileLoopNode implements BodyStmtNode{
     public String convertToJava(String className) {
         StringBuilder javaCode = new StringBuilder();
         javaCode.append("while (");
-        javaCode.append(expr.convertToJava()).append(")\n{");
-        javaCode.append(body.convertToJava()).append("}\n");
+        javaCode.append(expr.convertToJava(className)).append(")\n{");
+        javaCode.append(body.convertToJava(className)).append("}\n");
         return javaCode.toString();
     }
 

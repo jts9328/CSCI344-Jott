@@ -66,7 +66,7 @@ public class ElseNode implements JottTree{
         if (body != null) {
             StringBuilder javaCode = new StringBuilder();
             javaCode.append("else {");
-            javaCode.append(body.convertToJava()).append("}\n");
+            javaCode.append(body.convertToJava(className)).append("}\n");
             return javaCode.toString();
         } else {
             return "";
