@@ -58,8 +58,13 @@ public class TypeNode implements JottTree {
 
     @Override
     public String convertToJava(String className) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJava'");
+        switch(token.getToken()) {
+            case "Double": return "double";
+            case "Integer": return "int";
+            case "String": return "String";
+            case "Boolean": return "boolean";
+            default: return "TypeNode convertToJava error";
+        }
     }
 
     @Override
