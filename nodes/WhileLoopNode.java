@@ -76,8 +76,11 @@ public class WhileLoopNode implements BodyStmtNode{
 
     @Override
     public String convertToC() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
+        StringBuilder cCode = new StringBuilder();
+        cCode.append("while (");
+        cCode.append(expr.convertToC()).append(")\n{");
+        cCode.append(body.convertToC()).append("}\n");
+        return cCode.toString();
     }
 
     @Override

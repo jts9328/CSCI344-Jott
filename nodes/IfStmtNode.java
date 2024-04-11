@@ -102,8 +102,15 @@ public class IfStmtNode implements BodyStmtNode{
 
     @Override
     public String convertToC() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
+        StringBuilder cCode = new StringBuilder();
+        cCode.append("if (");
+        cCode.append(expr.convertToC()).append(")\n{");
+        cCode.append(body.convertToC()).append("}\n");
+        for (ElseIfNode elseIfNode : elseIfList) {
+                cCode.append(elseIfNode.convertToC());
+            }
+        cCode.append(elseStmt.convertToC());
+        return cCode.toString();
     }
 
     @Override
