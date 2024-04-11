@@ -16,7 +16,8 @@ public class FunctionDefNode implements JottTree {
     private FBodyNode fBodyNode;
 
     // Constructor
-    public FunctionDefNode(IdNode idNode, FunctionDefParamsNode functionDefParamsNode, FunctionReturnNode functionReturnNode, FBodyNode fBodyNode) {
+    public FunctionDefNode(IdNode idNode, FunctionDefParamsNode functionDefParamsNode,
+            FunctionReturnNode functionReturnNode, FBodyNode fBodyNode) {
         this.idNode = idNode;
         this.functionDefParamsNode = functionDefParamsNode;
         this.functionReturnNode = functionReturnNode;
@@ -27,13 +28,13 @@ public class FunctionDefNode implements JottTree {
         if (tokens.isEmpty()) {
             throw new SyntaxErrorException("Unexpected EOF", null);
         }
-    
+
         // Look for Def
         Token defToken = tokens.remove(0);
         if (!defToken.getToken().equals("Def")) {
             throw new SyntaxErrorException("Expected Def but got: " + defToken.getToken(), defToken);
         }
-    
+
         // Look for <id>
         IdNode idNode = IdNode.parseId(tokens);
 
@@ -41,21 +42,22 @@ public class FunctionDefNode implements JottTree {
 
         // Look for [
         Token lbToken = tokens.remove(0);
-        if(lbToken.getTokenType() != TokenType.L_BRACKET){
+        if (lbToken.getTokenType() != TokenType.L_BRACKET) {
             throw new SyntaxErrorException("Expected left square bracket but got " + lbToken.getToken(), lbToken);
         }
 
-        FunctionDefParamsNode functionDefParamsNode = FunctionDefParamsNode.parseFunctionDefParamsNode(tokens, idString);
+        FunctionDefParamsNode functionDefParamsNode = FunctionDefParamsNode.parseFunctionDefParamsNode(tokens,
+                idString);
 
         // Look for ]
         Token rbToken = tokens.remove(0);
-        if(rbToken.getTokenType() != TokenType.R_BRACKET){
+        if (rbToken.getTokenType() != TokenType.R_BRACKET) {
             throw new SyntaxErrorException("Expected right square bracket but got " + rbToken.getToken(), rbToken);
         }
 
         // Look for :
         Token colonToken = tokens.remove(0);
-        if(colonToken.getTokenType() != TokenType.COLON) {
+        if (colonToken.getTokenType() != TokenType.COLON) {
             throw new SyntaxErrorException("Expected colon but got " + colonToken.getToken(), colonToken);
         }
 
@@ -63,7 +65,7 @@ public class FunctionDefNode implements JottTree {
 
         // Look for {
         Token lbraceToken = tokens.remove(0);
-        if(lbraceToken.getTokenType() != TokenType.L_BRACE){
+        if (lbraceToken.getTokenType() != TokenType.L_BRACE) {
             throw new SyntaxErrorException("Expected left brace but got " + lbraceToken.getToken(), lbraceToken);
         }
 
@@ -71,18 +73,18 @@ public class FunctionDefNode implements JottTree {
 
         // Look for }
         Token rbraceToken = tokens.remove(0);
-        if(rbraceToken.getTokenType() != TokenType.R_BRACE){
+        if (rbraceToken.getTokenType() != TokenType.R_BRACE) {
             throw new SyntaxErrorException("Expected right brace but got " + rbraceToken.getToken(), rbraceToken);
         }
 
         return new FunctionDefNode(idNode, functionDefParamsNode, functionReturnNode, fBodyNode);
-    }    
+    }
 
     @Override
     public String convertToJott() {
-        return "Def " + idNode.convertToJott() + "[" + functionDefParamsNode.convertToJott() + "]:" + functionReturnNode.convertToJott() + "{" + fBodyNode.convertToJott() + "}";
+        return "Def " + idNode.convertToJott() + "[" + functionDefParamsNode.convertToJott() + "]:"
+                + functionReturnNode.convertToJott() + "{" + fBodyNode.convertToJott() + "}";
     }
-
 
     @Override
     public String convertToJava(String className) {
@@ -106,9 +108,10 @@ public class FunctionDefNode implements JottTree {
                 break;
             default:
                 System.out.println("Return Type not properly defined");
-                return "";  
+                return "";
         }
-        String java = "public static " + j_return + " " + this.idNode.toString() + "(" + this.functionDefParamsNode.convertToJava(className);
+        String java = "public static " + j_return + " " + this.idNode.toString() + "("
+                + this.functionDefParamsNode.convertToJava(className);
         java += ") { " + this.fBodyNode.convertToJava(className) + "}";
         return java;
 
@@ -116,8 +119,36 @@ public class FunctionDefNode implements JottTree {
 
     @Override
     public String convertToC() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
+        String c_code;
+        if (this.idNode.convertToC("main")) {
+            c_code = "int main(void";
+        } else {
+            String c_return;
+
+            switch (this.functionReturnNode.getReturnType()) {
+                case "Integer":
+                    c_return = "int";
+                    break;
+                case "Double":
+                    c_return = "double";
+                    break;
+                case "Boolean":
+                    c_return = "bool";
+                    break;
+                case "String":
+                    c_return = "char";
+                    break;
+                case "Void":
+                    c_return = "void";
+                    break;
+                default:
+                    System.out.println("Return Type not properly defined");
+                    return "";
+            }
+            c_code = c_return + " " + this.idNode.convertToC() + "(";
+        }
+        // Deal with params later
+        return c_code;
     }
 
     @Override
@@ -130,8 +161,8 @@ public class FunctionDefNode implements JottTree {
     public boolean validateTree() throws SemanticErrorException {
 
         // If the func id already exists, throw a semantic error
-        
-        if(JottParser.symTable.funcSymTab.containsKey(idNode.toString())) {
+
+        if (JottParser.symTable.funcSymTab.containsKey(idNode.toString())) {
             throw new SemanticErrorException("Duplicate function " + idNode.toString(), idNode.getToken());
         }
 
@@ -141,7 +172,7 @@ public class FunctionDefNode implements JottTree {
 
         functionReturnNode.validateTree();
 
-        if(idNode.toString().equals("main") && !functionReturnNode.getReturnType().equals("Void")) {
+        if (idNode.toString().equals("main") && !functionReturnNode.getReturnType().equals("Void")) {
             throw new SemanticErrorException("Main must be of return Void", idNode.getToken());
         }
 
@@ -149,5 +180,5 @@ public class FunctionDefNode implements JottTree {
 
         return true;
     }
-    
+
 }
