@@ -87,19 +87,59 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
 
     @Override
     public String convertToJava(String className) {
-        return "" + idNode.convertToJava(className) + "(" + paramsNode.convertToJava(className) + ")";
+        String funcId = idNode.convertToJava(className);
+
+        switch(funcId) {
+            case "print": return "System.out.println(" + paramsNode.convertToJava(className) + ")";
+            case "concat":
+                String[] data = paramsNode.getFirstTwoParamsJava(className);
+                return data[0] + " + " + data[1];
+            case "length":
+                return paramsNode.getFirstParamJava(className) + ".length()";
+            default: return "FunctionCallNode convertToJava error";
+        }
+    }
+
+    @Override
+    public String convertToPython(int tabs) {
+        String funcId = idNode.convertToPython(tabs);
+
+        switch(funcId) {
+            case "print": return "print(" + paramsNode.convertToPython(tabs) + ")";
+            case "concat":
+                String[] data = paramsNode.getFirstTwoParamsPython();
+                return data[0] + " + " + data[1];
+            case "length":
+                return "len(" + paramsNode.getFirstParamPython() + ")";
+            default: return "FunctionCallNode convertToPython error";
+        }
     }
 
     @Override
     public String convertToC() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
-    }
+        String funcId = idNode.convertToPython();
 
-    @Override
-    public String convertToPython() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
+        switch(funcId) {
+            case "print":
+                String result = "printf(\"";
+                String typeOfParam = paramsNode.getExpr().getReturnType();
+                switch(typeOfParam) {
+                    case "Double": result += "%f"; break;
+                    case "String": result += "%s"; break;
+                    case "Integer": result += "%d"; break;
+                    case "Boolean": result += "%d"; break;
+                    default: return "FunctionCallNode convertToJava error";
+                }    
+                result += "\", " + paramsNode.getFirstParamC() + ")";
+                return result;
+
+            case "concat":
+                String[] data = paramsNode.getFirstTwoParamsC();
+                return "strcat(" + data[0] + ", " + data[1] + ")";
+            case "length":
+                return "strlen(" + paramsNode.getFirstParamC() + ")";
+            default: return "FunctionCallNode convertToJava error";
+        }
     }
 
     @Override

@@ -93,16 +93,68 @@ public class ParamsNode implements JottTree{
         }
     }
 
+    public String[] getFirstTwoParamsJava(String className) {
+        String val1 = exprNode.convertToJava(className);
+        String val2 = paramsTNodes.get(0).getParamExprJava(className);
+        String[] data = {val1, val2};
+        return data;
+    }
+
+    public String getFirstParamJava(String className) {
+        return exprNode.convertToJava(className);
+    }
+
+    public String[] getFirstTwoParamsPython() {
+        String val1 = exprNode.convertToPython();
+        String val2 = paramsTNodes.get(0).getParamExprPython();
+        String[] data = {val1, val2};
+        return data;
+    }
+
+    public String getFirstParamPython() {
+        return exprNode.convertToPython();
+    }
+
+    public String[] getFirstTwoParamsC() {
+        String val1 = exprNode.convertToC();
+        String val2 = paramsTNodes.get(0).getParamExprC();
+        String[] data = {val1, val2};
+        return data;
+    }
+
+    public String getFirstParamC() {
+        return exprNode.convertToC();
+    }
+
+    public ExprNode getExpr() {
+        return exprNode;
+    }
+
+
     @Override
     public String convertToC() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
+        if(exprNode == null && paramsTNodes == null) {
+            return "";
+        } else {
+            StringBuilder javaCode = new StringBuilder(exprNode.convertToC());
+            for (ParamsTNode paramsTNode : paramsTNodes) {
+                javaCode.append(paramsTNode.convertToC());
+            }
+            return javaCode.toString();
+        }
     }
 
     @Override
-    public String convertToPython() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
+    public String convertToPython(int tabs) {
+        if(exprNode == null && paramsTNodes == null) {
+            return "";
+        } else {
+            StringBuilder pythonCode = new StringBuilder(exprNode.convertToPython(tabs));
+            for (ParamsTNode paramsTNode : paramsTNodes) {
+                pythonCode.append(paramsTNode.convertToPython(tabs));
+            }
+            return pythonCode.toString();
+        }
     }
 
     @Override

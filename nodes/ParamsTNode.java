@@ -56,16 +56,26 @@ public class ParamsTNode implements JottTree {
         return "," + exprNode.convertToJava(className);
     }
 
-    @Override
-    public String convertToC() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
+    public String getParamExprJava(String className) {
+        return exprNode.convertToJava(className);
+    }
+
+    public String getParamExprPython() {
+        return exprNode.convertToPython();
+    }
+
+    public String getParamExprC() {
+        return exprNode.convertToC();
     }
 
     @Override
-    public String convertToPython() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
+    public String convertToC() {
+        return "," + exprNode.convertToC();
+    }
+
+    @Override
+    public String convertToPython(int tabs) {
+        return "," + exprNode.convertToPython();
     }
 
     @Override

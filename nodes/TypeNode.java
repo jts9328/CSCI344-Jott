@@ -69,14 +69,18 @@ public class TypeNode implements JottTree {
 
     @Override
     public String convertToC() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
+        switch(token.getToken()) {
+            case "Double": return "double";
+            case "Integer": return "int";
+            case "String": return "char*";
+            case "Boolean": return "int"; // booleans become ints with 0/1 values
+            default: return "TypeNode convertToC error";
+        }
     }
 
     @Override
-    public String convertToPython() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
+    public String convertToPython(int tabs) {
+        return "";
     }
 
     @Override
