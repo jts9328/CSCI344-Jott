@@ -89,8 +89,15 @@ public class IfStmtNode implements BodyStmtNode{
 
     @Override
     public String convertToJava(String className) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJava'");
+        StringBuilder javaCode = new StringBuilder();
+        javaCode.append("if (");
+        javaCode.append(expr.convertToJava()).append(")\n{");
+        javaCode.append(body.convertToJava()).append("}\n");
+        for (ElseIfNode elseIfNode : elseIfList) {
+                javaCode.append(elseIfNode.convertToJava());
+            }
+        javaCode.append(elseStmt.convertToJava());
+        return javaCode.toString();
     }
 
     @Override
