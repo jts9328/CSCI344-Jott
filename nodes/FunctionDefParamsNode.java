@@ -92,27 +92,25 @@ public class FunctionDefParamsNode implements JottTree{
 
     @Override
     public String convertToJava(String className) {
-        if(idNode == null && typeNode == null && functionDefParamsTNodes == null && funcId == null) {
-            return "";
-        } else {
-            StringBuilder javaCode = new StringBuilder(typeNode.convertToJava(className) + idNode.convertToJava(className));
-            for (FunctionDefParamsTNode functionDefParamsTNode : functionDefParamsTNodes) {
-                javaCode.append(functionDefParamsTNode.convertToJava(className));
-            }
-            return javaCode.toString();
+        StringBuilder javaCode = new StringBuilder(typeNode.convertToJava(className) + idNode.convertToJava(className));
+        for (FunctionDefParamsTNode functionDefParamsTNode : functionDefParamsTNodes) {
+            javaCode.append(functionDefParamsTNode.convertToJava(className));
         }
+        return javaCode.toString();
     }
 
     @Override
     public String convertToC() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
+        StringBuilder cCode = new StringBuilder(typeNode.convertToC() + idNode.convertToC());
+        for (FunctionDefParamsTNode functionDefParamsTNode : functionDefParamsTNodes) {
+            cCode.append(functionDefParamsTNode.convertToC());
+        }
+        return cCode.toString();
     }
 
     @Override
     public String convertToPython() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
+        return this.idNode.toString();
     }
 
     @Override

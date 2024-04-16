@@ -50,18 +50,17 @@ public class FunctionDefParamsTNode implements JottTree{
 
     @Override
     public String convertToJott() {
-        return "," + idNode.convertToJott() + ": " + typeNode.convertToJott();
+        return ", " + idNode.convertToJott() + ": " + typeNode.convertToJott();
     }
 
     @Override
     public String convertToJava(String className) {
-        return "," + typeNode.convertToJava(className) + idNode.convertToJava(className);
+        return ", " + typeNode.convertToJava(className) + " " + idNode.convertToJava(className);
     }
 
     @Override
     public String convertToC() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
+        return ", " + typeNode.convertToC() + " " + idNode.convertToC();
     }
 
     @Override

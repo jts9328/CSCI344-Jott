@@ -87,68 +87,41 @@ public class FunctionDefNode implements JottTree {
     }
 
     @Override
-    public String convertToJava(String className) {
+    public String convertToJava(String className){
         String j_return;
 
-        switch (this.functionReturnNode.getReturnType()) {
-            case "Integer":
-                j_return = "int";
-                break;
-            case "Double":
-                j_return = "double";
-                break;
-            case "Boolean":
-                j_return = "boolean";
-                break;
-            case "String":
-                j_return = "String";
-                break;
-            case "Void":
-                j_return = "void";
-                break;
-            default:
-                System.out.println("Return Type not properly defined");
-                return "";
+        String main = "";
+        if ( this.idNode.getToken().getToken().equals("main")) {
+            main = "String[] args";
         }
-        String java = "public static " + j_return + " " + this.idNode.toString() + "("
-                + this.functionDefParamsNode.convertToJava(className);
-        java += ") { " + this.fBodyNode.convertToJava(className) + "}";
-        return java;
-
+        if(this.functionDefParamsNode == null){
+            j_return = "public static " + this.functionReturnNode.convertToJava(className) + " " + this.idNode.convertToJava(className)
+                    + "(" + main + "){\n" + this.fBodyNode.convertToJava(className) + "}\n";
+        }
+        else{
+            j_return = "public static " + this.functionReturnNode.convertToJava(className) + " " + this.idNode.convertToJava(className)
+                    + "(" + this.functionDefParamsNode.convertToJava(className) + "){\n" + this.fBodyNode.convertToJava(className) + "}\n";
+        }
+        return j_return;
     }
 
     @Override
     public String convertToC() {
-        String c_code;
-        if (this.idNode.convertToC("main")) {
-            c_code = "int main(void";
-        } else {
-            String c_return;
-
-            switch (this.functionReturnNode.getReturnType()) {
-                case "Integer":
-                    c_return = "int";
-                    break;
-                case "Double":
-                    c_return = "double";
-                    break;
-                case "Boolean":
-                    c_return = "bool";
-                    break;
-                case "String":
-                    c_return = "char";
-                    break;
-                case "Void":
-                    c_return = "void";
-                    break;
-                default:
-                    System.out.println("Return Type not properly defined");
-                    return "";
-            }
-            c_code = c_return + " " + this.idNode.convertToC() + "(";
+        String c_return;
+        if ( this.idNode.getToken().getToken().equals("main")) {
+            c_return = "int main(void){\n" + this.fBodyNode.convertToC();
+            c_return += "return 1;\n";
+            c_return += "}\n";
         }
-        // Deal with params later
-        return c_code;
+        else if(this.functionDefParamsNode == null){
+            c_return = this.functionReturnNode.convertToC() + " " + this.idNode.convertToC()
+                    + "(void){\n" + this.fBodyNode.convertToC() + "}\n";
+        }
+        else{
+            c_return = this.functionReturnNode.convertToC() + " " + this.idNode.convertToC()
+                    + "(" + this.functionDefParamsNode.convertToC() + "){\n" + this.fBodyNode.convertToC() + "}\n";
+        }
+        return c_return;
     }
 
     @Override
