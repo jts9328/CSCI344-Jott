@@ -59,7 +59,7 @@ public class VarDecNode implements JottTree{
 
     @Override
     public String convertToJava(String className) {
-        if(type.getToken().getToken().equals("String"))
+        if(type.toString().equals("String"))
             return type.convertToJava(className) + " " + id.convertToJava(className) + " =\"\";\n";
         else{
             return type.convertToJava(className) + " " + id.convertToJava(className) +";";
@@ -68,9 +68,13 @@ public class VarDecNode implements JottTree{
 
     @Override
     public String convertToC() {
-
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
+        if(type.toString().equals(("String"))){
+            return "char *" + id.convertToC() + ";\n";
+        }else if(type.toString().equals("Bool")){
+            return "int" + " " + id.convertToC() + ";\n";
+        } else {
+            return type.convertToC() + " " + id.convertToC() + ";\n";
+        }
     }
 
     @Override
