@@ -78,20 +78,29 @@ public class NumNode implements OperandNode {
 
     @Override
     public String convertToJava(String className) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToJava'");
+        if(sign != null) {
+            return sign.getToken() + number.getToken();
+        } else {
+            return number.getToken();
+        }
     }
 
     @Override
     public String convertToC() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
+        if(sign != null) {
+            return sign.getToken() + number.getToken();
+        } else {
+            return number.getToken();
+        }
     }
 
     @Override
-    public String convertToPython() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
+    public String convertToPython(int tabs) {
+        if(sign != null) {
+            return sign.getToken() + number.getToken();
+        } else {
+            return number.getToken();
+        }
     }
 
     @Override

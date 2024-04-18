@@ -83,7 +83,7 @@ public class FBodyNode implements JottTree{
         String python = "";
         // if no variable declarations, should break out for loop
         for(VarDecNode varDec: this.varDecs){
-            python = python + "\t" + varDec.convertToPython();
+            python = python + "\t" + varDec.convertToPython(tabs);
         }
         python = python + bodyNode.convertToPython(1);
         return python;

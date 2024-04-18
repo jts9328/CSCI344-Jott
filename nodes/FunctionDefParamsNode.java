@@ -110,9 +110,9 @@ public class FunctionDefParamsNode implements JottTree{
 
     @Override
     public String convertToPython(int tabs) {
-        StringBuilder pyCode = new StringBuilder(idNode.convertToPython(tabs));
+        StringBuilder pyCode = new StringBuilder(idNode.convertToPython(0));
         for (FunctionDefParamsTNode functionDefParamsTNode : functionDefParamsTNodes) {
-            pyCode.append(functionDefParamsTNode.convertToPython(tabs));
+            pyCode.append(functionDefParamsTNode.convertToPython(0));
         }
         return pyCode.toString();
     }
