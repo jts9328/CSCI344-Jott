@@ -91,6 +91,9 @@ public class ElseIfNode implements JottTree{
     @Override
     public String convertToPython(int tabs) {
         StringBuilder pythonCode = new StringBuilder();
+        for(int i = 0; i < tabs; i++){
+            pythonCode = pythonCode.append("\t");
+        }
         pythonCode.append("elif (");
         pythonCode.append(expr.convertToPython(0)).append("): \n");
         pythonCode.append(body.convertToPython(tabs + 1)).append("\n");

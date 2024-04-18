@@ -89,6 +89,9 @@ public class ElseNode implements JottTree{
     public String convertToPython(int tabs) {
         if (body != null) {
             StringBuilder pythonCode = new StringBuilder();
+            for(int i = 0; i < tabs; i++){
+                pythonCode = pythonCode.append("\t");
+            }
             pythonCode.append("else: \n");
             pythonCode.append(body.convertToPython(tabs + 1)).append("\n");
             return pythonCode.toString();
