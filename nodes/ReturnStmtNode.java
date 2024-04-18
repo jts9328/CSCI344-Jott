@@ -96,7 +96,7 @@ public class ReturnStmtNode implements JottTree{
             for(int i = 0; i < tabs; i++){
                 python = python + "\t";
             }
-            return python + "return " + this.expr.convertToPython(tabs) + "\n";
+            return python + "return " + this.expr.convertToPython(0) + "\n";
         }
     }
 
