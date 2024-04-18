@@ -88,11 +88,15 @@ public class ReturnStmtNode implements JottTree{
     @Override
     public String convertToPython(int tabs) {
         // No return check
+        String python = "";
         if(this.expr == null){
-            return "";
+            return python;
         // return check
         } else{
-            return "return " + this.expr.convertToPython(tabs) + "\n";
+            for(int i = 0; i < tabs; i++){
+                python = python + "\t";
+            }
+            return python + "return " + this.expr.convertToPython(tabs) + "\n";
         }
     }
 
