@@ -85,7 +85,7 @@ public class FBodyNode implements JottTree{
         for(VarDecNode varDec: this.varDecs){
             python = python + "\t" + varDec.convertToPython(tabs);
         }
-        python = python + bodyNode.convertToPython(1);
+        python = python + bodyNode.convertToPython(tabs+1);
         return python;
     }
 
