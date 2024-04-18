@@ -46,10 +46,11 @@ public class ProgramNode implements JottTree {
     @Override
     public String convertToJava(String className) {
         StringBuilder javaCode = new StringBuilder();
+        javaCode.append("public class " + className + "{");
         for (FunctionDefNode funcDef : functionDefs) {
             javaCode.append(funcDef.convertToJava(className));
         }
-        return javaCode.toString();
+        return javaCode.toString() + "\n}";
     }
 
     @Override
