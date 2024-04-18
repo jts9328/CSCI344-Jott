@@ -60,8 +60,8 @@ public class ParamsTNode implements JottTree {
         return exprNode.convertToJava(className);
     }
 
-    public String getParamExprPython() {
-        return exprNode.convertToPython();
+    public String getParamExprPython(int tabs) {
+        return exprNode.convertToPython(tabs);
     }
 
     public String getParamExprC() {
@@ -75,7 +75,7 @@ public class ParamsTNode implements JottTree {
 
     @Override
     public String convertToPython(int tabs) {
-        return "," + exprNode.convertToPython();
+        return "," + exprNode.convertToPython(tabs);
     }
 
     @Override
