@@ -43,12 +43,11 @@ public class ExprNodeHelper implements ExprNode{
 
     @Override
     public String convertToC() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
+        return first.convertToC() + op.convertToC() + second.convertToC();
     }
 
     @Override
-    public String convertToPython() {
+    public String convertToPython(int tabs) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
     }

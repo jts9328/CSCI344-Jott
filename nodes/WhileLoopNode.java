@@ -84,9 +84,12 @@ public class WhileLoopNode implements BodyStmtNode{
     }
 
     @Override
-    public String convertToPython() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
+    public String convertToPython(int tabs) {
+        StringBuilder pythonCode = new StringBuilder();
+        pythonCode.append("while (");
+        pythonCode.append(expr.convertToPython(0)).append("): \n");
+        pythonCode.append(body.convertToPython(tabs + 1)).append("\n");
+        return pythonCode.toString();
     }
 
     @Override

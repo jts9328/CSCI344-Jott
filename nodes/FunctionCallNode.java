@@ -107,17 +107,17 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
         switch(funcId) {
             case "print": return "print(" + paramsNode.convertToPython(tabs) + ")";
             case "concat":
-                String[] data = paramsNode.getFirstTwoParamsPython();
+                String[] data = paramsNode.getFirstTwoParamsPython(tabs);
                 return data[0] + " + " + data[1];
             case "length":
-                return "len(" + paramsNode.getFirstParamPython() + ")";
+                return "len(" + paramsNode.getFirstParamPython(tabs) + ")";
             default: return "FunctionCallNode convertToPython error";
         }
     }
 
     @Override
     public String convertToC() {
-        String funcId = idNode.convertToPython();
+        String funcId = idNode.convertToC();
 
         switch(funcId) {
             case "print":

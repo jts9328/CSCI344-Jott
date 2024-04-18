@@ -114,9 +114,16 @@ public class IfStmtNode implements BodyStmtNode{
     }
 
     @Override
-    public String convertToPython() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
+    public String convertToPython(int tabs) {
+        StringBuilder pythonCode = new StringBuilder();
+        pythonCode.append("if (");
+        pythonCode.append(expr.convertToPython(0)).append("):\n");
+        pythonCode.append(body.convertToPython(tabs + 1)).append("\n");
+        for (ElseIfNode elseIfNode : elseIfList) {
+                pythonCode.append(elseIfNode.convertToPython(tabs));
+            }
+        pythonCode.append(elseStmt.convertToPython(tabs));
+        return pythonCode.toString();
     }
 
     @Override

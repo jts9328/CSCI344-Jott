@@ -104,15 +104,15 @@ public class ParamsNode implements JottTree{
         return exprNode.convertToJava(className);
     }
 
-    public String[] getFirstTwoParamsPython() {
-        String val1 = exprNode.convertToPython();
-        String val2 = paramsTNodes.get(0).getParamExprPython();
+    public String[] getFirstTwoParamsPython(int tabs) {
+        String val1 = exprNode.convertToPython(tabs);
+        String val2 = paramsTNodes.get(0).getParamExprPython(tabs);
         String[] data = {val1, val2};
         return data;
     }
 
-    public String getFirstParamPython() {
-        return exprNode.convertToPython();
+    public String getFirstParamPython(int tabs) {
+        return exprNode.convertToPython(tabs);
     }
 
     public String[] getFirstTwoParamsC() {
