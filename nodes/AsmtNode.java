@@ -75,7 +75,7 @@ public class AsmtNode implements BodyStmtNode{
     public String convertToC() {
         if(expr instanceof StringNode){
             int size = expr.getToken().getToken().length()+1;
-            return (expr.getToken() + " = malloc(sizeof(char)*" + size + ");\n" + 
+            return (id.convertToC() + " = malloc(sizeof(char)*" + size + ");\n" + 
             id.convertToC() + " = " + expr.convertToC() + ";\n");
             
         } else{
