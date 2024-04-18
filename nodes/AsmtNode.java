@@ -74,11 +74,11 @@ public class AsmtNode implements BodyStmtNode{
     @Override
     public String convertToC() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
+        return id.convertToC() + " = " + expr.convertToC() + ";\n";
     }
 
     @Override
-    public String convertToPython() {
+    public String convertToPython(int tabs) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
     }
