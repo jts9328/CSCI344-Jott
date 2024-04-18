@@ -55,7 +55,7 @@ public class BoolNode implements ExprNode{
 
     @Override
     public String convertToJava(String className) {
-        return this.boolToken.getToken();
+        return this.boolToken.getToken().toLowerCase();
     }
 
     @Override
@@ -74,8 +74,7 @@ public class BoolNode implements ExprNode{
 
     @Override
     public boolean validateTree() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'validateTree'");
+        return true;
     }
     
 }

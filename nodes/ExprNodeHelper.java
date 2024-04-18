@@ -48,8 +48,7 @@ public class ExprNodeHelper implements ExprNode{
 
     @Override
     public String convertToPython(int tabs) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
+        return first.convertToPython(tabs) + op.convertToPython(tabs) + second.convertToPython(tabs);
     }
 
     @Override
