@@ -65,7 +65,7 @@ public class FunctionDefParamsTNode implements JottTree{
 
     @Override
     public String convertToPython(int tabs) {
-        return ", " + idNode.convertToPython();
+        return ", " + idNode.convertToPython(tabs);
     }
 
     @Override
