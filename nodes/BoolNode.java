@@ -69,8 +69,7 @@ public class BoolNode implements ExprNode{
 
     @Override
     public String convertToPython(int tabs) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
+        return this.boolToken.getToken();
     }
 
     @Override
