@@ -62,9 +62,14 @@ public class ProgramNode implements JottTree {
     }
 
     @Override
-    public String convertToPython() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
+    public String convertToPython(int tabs) {
+        // StringBuilder to accumulate the Jott code representation of each function definition
+        StringBuilder pythonCode = new StringBuilder();
+        for (FunctionDefNode funcDef : functionDefs) {
+            // Append each function definition's python code representation to the StringBuilder
+            pythonCode.append(funcDef.convertToPython(tabs));
+        }
+        return pythonCode.toString(); // Return the complete Python code for the program
     }
 
     @Override
