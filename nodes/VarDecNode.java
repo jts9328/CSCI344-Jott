@@ -79,8 +79,7 @@ public class VarDecNode implements JottTree{
 
     @Override
     public String convertToPython(int tabs) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
+        return id.convertToPython(tabs) + ";\n";
     }
 
     @Override

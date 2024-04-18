@@ -66,8 +66,7 @@ public class OpNode implements ExprNode {
 
     @Override
     public String convertToPython(int tabs) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
+        return this.token.getToken();
     }
 
     @Override
