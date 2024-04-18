@@ -63,7 +63,7 @@ public class FunctionReturnNode implements JottTree {
     @Override
     public String convertToJava(String className) {
         if(typeNode == null) {
-            return voidToken.getToken();
+            return voidToken.getToken().toLowerCase();
         } else {
             return typeNode.convertToJava(className);
         }

@@ -55,7 +55,7 @@ public class StringNode implements ExprNode {
 
     @Override
     public String convertToJava(String className) {
-        return token.toString();
+        return token.getToken();
     }
 
     @Override

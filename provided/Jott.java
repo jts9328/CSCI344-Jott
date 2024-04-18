@@ -3,6 +3,7 @@ package provided;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import exceptions.SemanticErrorException;
 
@@ -30,7 +31,7 @@ public class Jott {
             } else if(args[2].equals("Python")){
                 code = tree.convertToPython(0);
             } else if(args[2].equals("Java")){
-                code = tree.convertToJava(args[1]);
+                code = tree.convertToJava(args[1].replace(".", ",").split(",")[0]);
             } else if(args[2].equals("Jott")){
                 code = tree.convertToJott(); 
             } else{

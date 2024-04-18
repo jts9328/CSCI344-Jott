@@ -90,14 +90,15 @@ public class FunctionDefNode implements JottTree {
     public String convertToJava(String className){
         String j_return;
 
-        String main = "";
+        //String main = "";
         if ( this.idNode.getToken().getToken().equals("main")) {
-            main = "String[] args";
-        }
-        if(this.functionDefParamsNode == null){
             j_return = "public static " + this.functionReturnNode.convertToJava(className) + " " + this.idNode.convertToJava(className)
-                    + "(" + main + "){\n" + this.fBodyNode.convertToJava(className) + "}\n";
+                    + "(String[] args){\n" + this.fBodyNode.convertToJava(className) + "}\n";
         }
+        // if(this.functionDefParamsNode == null){
+        //     j_return = "public static " + this.functionReturnNode.convertToJava(className) + " " + this.idNode.convertToJava(className)
+        //             + "(" + main + "){\n" + this.fBodyNode.convertToJava(className) + "}\n";
+        // }
         else{
             j_return = "public static " + this.functionReturnNode.convertToJava(className) + " " + this.idNode.convertToJava(className)
                     + "(" + this.functionDefParamsNode.convertToJava(className) + "){\n" + this.fBodyNode.convertToJava(className) + "}\n";
