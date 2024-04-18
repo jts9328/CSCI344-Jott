@@ -86,8 +86,11 @@ public class AsmtNode implements BodyStmtNode{
 
     @Override
     public String convertToPython(int tabs) {
-        // TODO Auto-generated method stub
-        return id.convertToPython(tabs) + " = " + expr.convertToPython(tabs) + "\n";
+        String python = "";
+        for(int i = 0; i < tabs; i++){
+            python = python + "\t";
+        }
+        return python + id.convertToPython(tabs) + " = " + expr.convertToPython(tabs) + "\n";
     }
 
     @Override
