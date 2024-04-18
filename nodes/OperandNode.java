@@ -60,7 +60,7 @@ public interface OperandNode extends ExprNode{
     public String convertToC();
 
     @Override
-    public String convertToPython();
+    public String convertToPython(int tabs);
 
     @Override
     public boolean validateTree() throws SemanticErrorException;

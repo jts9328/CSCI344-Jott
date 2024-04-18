@@ -61,12 +61,11 @@ public class OpNode implements ExprNode {
 
     @Override
     public String convertToC() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'convertToC'");
+        return this.token.getToken();
     }
 
     @Override
-    public String convertToPython() {
+    public String convertToPython(int tabs) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'convertToPython'");
     }
@@ -75,5 +74,6 @@ public class OpNode implements ExprNode {
     public boolean validateTree() {
         return true;
     }
+
     
 }
