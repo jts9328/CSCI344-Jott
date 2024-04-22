@@ -46,7 +46,8 @@ public class ProgramNode implements JottTree {
     @Override
     public String convertToJava(String className) {
         StringBuilder javaCode = new StringBuilder();
-        javaCode.append("public class " + className + "{");
+        javaCode.append("package " + className.split("/")[0] + ";\n");
+        javaCode.append("public class " + className.split("/")[1] + "{");
         for (FunctionDefNode funcDef : functionDefs) {
             javaCode.append(funcDef.convertToJava(className));
         }

@@ -50,7 +50,7 @@ public class FunctionDefParamsNode implements JottTree{
         // If the next token is just a ], that means there are no params (ε)
         if(tokens.get(0).getTokenType() == TokenType.R_BRACKET) {
             //hasParams = false;
-            System.out.println("no params");
+            //System.out.println("no params");
             return new FunctionDefParamsNode();
         }
 
@@ -96,7 +96,7 @@ public class FunctionDefParamsNode implements JottTree{
         if(idNode == null) {
             return "";
         }
-        StringBuilder javaCode = new StringBuilder(typeNode.convertToJava(className) + idNode.convertToJava(className));
+        StringBuilder javaCode = new StringBuilder(typeNode.convertToJava(className) + " " + idNode.convertToJava(className));
         for (FunctionDefParamsTNode functionDefParamsTNode : functionDefParamsTNodes) {
             javaCode.append(functionDefParamsTNode.convertToJava(className));
         }

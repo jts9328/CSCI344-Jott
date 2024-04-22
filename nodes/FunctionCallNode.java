@@ -96,7 +96,13 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
                 return data[0] + " + " + data[1];
             case "length":
                 return paramsNode.getFirstParamJava(className) + ".length()";
-            default: return "FunctionCallNode convertToJava error";
+            default: 
+                StringBuilder functionCallStr = new StringBuilder();
+                functionCallStr.append(funcId);
+                functionCallStr.append("(");
+                functionCallStr.append(paramsNode.convertToJava(className));
+                functionCallStr.append(")");
+                return functionCallStr.toString();
         }
     }
 
