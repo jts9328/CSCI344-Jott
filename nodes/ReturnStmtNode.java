@@ -78,7 +78,7 @@ public class ReturnStmtNode implements JottTree{
     public String convertToC() {
         // No return check
         if(this.expr == null){
-            return "return 1;\n";
+            return "";
         // return check
         } else{
             return "return " + this.expr.convertToC() + ";\n";

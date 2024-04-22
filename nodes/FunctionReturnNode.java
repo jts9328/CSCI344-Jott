@@ -72,7 +72,7 @@ public class FunctionReturnNode implements JottTree {
     @Override
     public String convertToC() {
         if(typeNode == null) {
-            return voidToken.getToken();
+            return "void";
         } else {
             return typeNode.convertToC();
         }

@@ -105,7 +105,8 @@ public class FunctionDefParamsNode implements JottTree{
 
     @Override
     public String convertToC() {
-        StringBuilder cCode = new StringBuilder(typeNode.convertToC() + idNode.convertToC());
+        if (idNode == null) return "";
+        StringBuilder cCode = new StringBuilder(typeNode.convertToC() + " " + idNode.convertToC());
         for (FunctionDefParamsTNode functionDefParamsTNode : functionDefParamsTNodes) {
             cCode.append(functionDefParamsTNode.convertToC());
         }

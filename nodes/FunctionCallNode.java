@@ -141,10 +141,10 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
                 String result = "printf(\"";
                 String typeOfParam = paramsNode.getExpr().getReturnType();
                 switch(typeOfParam) {
-                    case "Double": result += "%f"; break;
-                    case "String": result += "%s"; break;
-                    case "Integer": result += "%d"; break;
-                    case "Boolean": result += "%d"; break;
+                    case "Double": result += "%f\\n"; break;
+                    case "String": result += "%s\\n"; break;
+                    case "Integer": result += "%d\\n"; break;
+                    case "Boolean": result += "%d\\n"; break;
                     default: return "FunctionCallNode convertToJava error";
                 }    
                 result += "\", " + paramsNode.getFirstParamC() + ")";
@@ -155,7 +155,13 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
                 return "strcat(" + data[0] + ", " + data[1] + ")";
             case "length":
                 return "strlen(" + paramsNode.getFirstParamC() + ")";
-            default: return "FunctionCallNode convertToJava error";
+            default: 
+                StringBuilder functionCallStr = new StringBuilder();
+                functionCallStr.append(funcId);
+                functionCallStr.append("(");
+                functionCallStr.append(paramsNode.convertToC());
+                functionCallStr.append(")");
+                return functionCallStr.toString();
         }
     }
 

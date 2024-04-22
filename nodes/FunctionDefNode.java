@@ -111,7 +111,6 @@ public class FunctionDefNode implements JottTree {
         String c_return;
         if ( this.idNode.getToken().getToken().equals("main")) {
             c_return = "int main(void){\n" + this.fBodyNode.convertToC();
-            c_return += "return 1;\n";
             c_return += "}\n";
         }
         else if(this.functionDefParamsNode == null){
