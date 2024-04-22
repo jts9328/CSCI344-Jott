@@ -121,7 +121,14 @@ public class FunctionCallNode implements BodyStmtNode, OperandNode {
                 return python + data[0] + " + " + data[1];
             case "length":
                 return python + "len(" + paramsNode.getFirstParamPython(tabs) + ")";
-            default: return "FunctionCallNode convertToPython error";
+            default: 
+                StringBuilder functionCallStr = new StringBuilder();
+                functionCallStr.append(python);
+                functionCallStr.append(funcId);
+                functionCallStr.append("(");
+                functionCallStr.append(paramsNode.convertToPython(tabs));
+                functionCallStr.append(")");
+                return functionCallStr.toString();
         }
     }
 

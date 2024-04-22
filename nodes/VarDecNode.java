@@ -83,7 +83,7 @@ public class VarDecNode implements JottTree{
         for(int i = 0; i < tabs; i++){
             python = python + "\t";
         }
-        return python + id.convertToPython(tabs) + "= 0";
+        return python + id.convertToPython(tabs) + "= 0\n";
     }
 
     @Override

@@ -60,12 +60,12 @@ public class StringNode implements ExprNode {
 
     @Override
     public String convertToC() {
-        return token.toString();
+        return token.getToken();
     }
 
     @Override
     public String convertToPython(int tabs) {
-        return token.toString();
+        return token.getToken();
     }
 
     @Override

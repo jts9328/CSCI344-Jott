@@ -71,6 +71,9 @@ public class ProgramNode implements JottTree {
             // Append each function definition's python code representation to the StringBuilder
             pythonCode.append(funcDef.convertToPython(tabs));
         }
+
+        pythonCode.append("\nmain()");
+
         return pythonCode.toString(); // Return the complete Python code for the program
     }
 
