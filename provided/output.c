@@ -1,6 +1,12 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 int main(void){
-printf("%d\n", 5);
-printf("%s\n", "foo bar");
+char *sewer;
+char *x;
+sewer = malloc(sizeof(char)*26);
+strcpy(sewer,"Underground Lizard Gang");
+x = strcat(sewer, ", Rats");
+printf("%s\n", x);
 }

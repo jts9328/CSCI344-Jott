@@ -76,7 +76,7 @@ public class AsmtNode implements BodyStmtNode{
         if(expr instanceof StringNode){
             int size = expr.getToken().getToken().length()+1;
             return (id.convertToC() + " = malloc(sizeof(char)*" + size + ");\n" + 
-            id.convertToC() + " = " + expr.convertToC() + ";\n");
+            "strcpy(" + id.convertToC() + "," + expr.convertToC() + ");\n");
             
         } else{
             return id.convertToC() + " = " + expr.convertToC() + ";\n";

@@ -3,6 +3,7 @@
 # Check if command-line arguments are provided
 if [ $# -eq 0 ]; then
     echo "No command-line arguments provided. Give java, c or python"
+    exit 1
 fi
 
 # Function to compile Java files in a directory
