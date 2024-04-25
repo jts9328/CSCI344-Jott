@@ -29,7 +29,7 @@ if [ "$1" == "java" ]; then
     for test_file in $(find phase3testcases -name "*.jott")
     do
         echo -e "\n---------$test_file--------"
-        java_output=$(java provided/Jott "$test_file" provided/output.java Java 2>&1)
+        java_output=$(java provided/Jott "$test_file" output.java Java 2>&1)
 
         echo -e "Jott.java output: "
         echo $java_output
@@ -40,7 +40,7 @@ if [ "$1" == "java" ]; then
             continue
         fi
 
-        javac provided/output.java
+        javac output.java
 
         if [ $? -ne 0 ]; then
             echo "Output.java failed to compile exiting."
@@ -48,14 +48,14 @@ if [ "$1" == "java" ]; then
         fi
 
         echo -e "Java output: "
-        java provided/output
+        java output
     done
 elif [ "$1" == "c" ]; then
     # Iterate over each Java file in phase3tests folder and run Jott.java with it
     for test_file in $(find phase3testcases -name "*.jott")
     do
         echo -e "\n---------$test_file--------"
-        java_output=$(java provided/Jott "$test_file" provided/output.c C 2>&1)
+        java_output=$(java provided/Jott "$test_file" output.c C 2>&1)
 
         echo -e "Jott.java output: "
         echo $java_output
@@ -66,7 +66,7 @@ elif [ "$1" == "c" ]; then
             continue
         fi
 
-        gcc -o provided/output provided/output.c
+        gcc -o output output.c
 
         if [ $? -ne 0 ]; then
             echo "Output.c failed to compile exiting."
@@ -74,14 +74,14 @@ elif [ "$1" == "c" ]; then
         fi
 
         echo -e "C output: "
-        ./provided/output
+        ./output
     done
 elif [ "$1" == "python" ]; then
     # Iterate over each Java file in phase3tests folder and run Jott.java with it
     for test_file in $(find phase3testcases -name "*.jott")
     do
         echo -e "\n---------$test_file--------"
-        java_output=$(java provided/Jott "$test_file" provided/output.py Python 2>&1)
+        java_output=$(java provided/Jott "$test_file" output.py Python 2>&1)
 
         echo -e "Jott.java output: "
         echo $java_output
@@ -93,7 +93,7 @@ elif [ "$1" == "python" ]; then
         fi
 
         echo -e "Python output: "
-        python provided/output.py
+        python output.py
         if [ $? -ne 0 ]; then
             echo "output.py failed"
             exit 1

@@ -1,4 +1,3 @@
-package provided;
 public class output{public static void main(String[] args){
 String sewer ="";
 String x ="";
