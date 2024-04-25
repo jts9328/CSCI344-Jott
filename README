@@ -14,3 +14,5 @@ In order to run the program, run "java provided/Jott [input.jott] [output.jott] 
 input.jott should be the path to the input file from the working directory. If running the
 phase3testcase helloWorld.jott, then you would put "phase3testcases/helloWorld.jott" as the 
 input.jott parameter.
+
+to convert to java output.java must be in the working directory and in no folder. 
