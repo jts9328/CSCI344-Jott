@@ -1,0 +1,6 @@
+#custome made test
+Def main[]:Void{
+    String sewer;
+    sewer = "Underground Lizard Gang";
+    ::print[sewer];
+}
